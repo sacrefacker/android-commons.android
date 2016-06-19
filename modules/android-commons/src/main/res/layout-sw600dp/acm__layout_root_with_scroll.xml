@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:ignore="UselessParent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        >
+
+        <!-- Empty view to represent the left margin -->
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            />
+
+        <!-- Content wrapper -->
+        <com.roxiemobile.androidcommons.ui.view.InterpolatingLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@drawable/acm__panel_background"
+            >
+
+            <FrameLayout
+                android:id="@+id/acm__layout_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                app:layout_wideParentWidth="800dip"
+                app:layout_wideMarginLeft="128dip"
+                app:layout_wideMarginRight="128dip"
+                app:layout_narrowParentWidth="600dip"
+                app:layout_narrowMarginLeft="50dip"
+                app:layout_narrowMarginRight="50dip"
+                >
+
+                <!-- Content -->
+                <FrameLayout
+                    android:id="@+id/acm__layout_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </FrameLayout>
+
+        </com.roxiemobile.androidcommons.ui.view.InterpolatingLayout>
+
+        <!-- Empty view to represent the right margin -->
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

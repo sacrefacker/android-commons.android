@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Action Bar -->
+    <declare-styleable name="ACM_AppBaseTheme">
+        <attr name="acm_actionBarTheme" format="reference" />
+        <attr name="acm_actionBarStyle" format="reference" />
+        <attr name="acm_actionBarContentOverlayStyle" format="reference" />
+        <attr name="acm_toolbarTheme" format="reference" />
+        <attr name="acm_toolbarStyle" format="reference" />
+        <attr name="acm_toolbarPopupTheme" format="reference" />
+    </declare-styleable>
+
+    <!-- Bounded Linear Layout -->
+    <declare-styleable name="ACM_BoundedLinearLayout">
+        <attr name="layout_maxWidth" format="dimension" />
+        <attr name="layout_maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <!-- Interpolating Layout -->
+    <declare-styleable name="ACM_InterpolatingLayout">
+        <attr name="layout_narrowParentWidth" format="dimension" />
+        <attr name="layout_narrowWidth" format="dimension" />
+        <attr name="layout_narrowMarginLeft" format="dimension" />
+        <attr name="layout_narrowMarginRight" format="dimension" />
+        <attr name="layout_narrowPaddingLeft" format="dimension" />
+        <attr name="layout_narrowPaddingRight" format="dimension" />
+        <attr name="layout_wideParentWidth" format="dimension" />
+        <attr name="layout_wideWidth" format="dimension" />
+        <attr name="layout_wideMarginLeft" format="dimension" />
+        <attr name="layout_wideMarginRight" format="dimension" />
+        <attr name="layout_widePaddingLeft" format="dimension" />
+        <attr name="layout_widePaddingRight" format="dimension" />
+    </declare-styleable>
+
+    <!-- Masked EditText -->
+    <declare-styleable name="ACM_MaskedEditText">
+        <attr name="inputMask" format="string" />
+        <attr name="regexMask" format="string" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="acm__library_name">Android Commons Library</string>
+
+<!-- Menu -->
+<eat-comment />
+
+    <string name="acm__menu_item_more">More</string>
+
+<!-- Drawer -->
+<eat-comment />
+
+    <string name="acm__drawer_open">Open navigation drawer</string>
+    <string name="acm__drawer_close">Close navigation drawer</string>
+
+<!-- Buttons -->
+<eat-comment />
+
+    <string name="acm__button_yes">Yes</string>
+    <string name="acm__button_no">No</string>
+
+    <string name="acm__button_back">Back</string>
+    <string name="acm__button_done">Done</string>
+    <string name="acm__button_save">Save</string>
+
+    <string name="acm__button_ok">OK</string>
+    <string name="acm__button_cancel">Cancel</string>
+    <string name="acm__button_cancel_short">Cancel</string>
+    <string name="acm__button_accept">Accept</string>
+    <string name="acm__button_close">Close</string>
+    <string name="acm__button_exit">Exit</string>
+    <string name="acm__button_add">Add</string>
+
+    <string name="acm__button_continue">Continue</string>
+    <string name="acm__button_edit">Edit</string>
+    <string name="acm__button_confirm">Confirm</string>
+
+    <string name="acm__button_further">Further</string>
+
+<!-- Alerts -->
+<eat-comment />
+
+    <string name="acm__title_alert_error">Error</string>
+    <string name="acm__title_alert_information">Information</string>
+    <string name="acm__title_alert_exit">Exit</string>
+
+    <string name="acm__label_alert_request_in_progress">Loading…</string>
+
+</resources>
