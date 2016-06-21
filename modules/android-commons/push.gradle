@@ -16,9 +16,9 @@ ext {
     mPackageType = 'aar'
 
     mCompanyUrl  = 'http://roxiemobile.com'
-    mWebsiteUrl  = 'https://github.com/roxiemobile/com.roxiemobile.android-commons.android'
-    mIssuesUrl   = 'https://github.com/roxiemobile/com.roxiemobile.android-commons.android/issues'
-    mGitRepoUrl  = 'https://github.com/roxiemobile/com.roxiemobile.android-commons.android.git'
+    mWebsiteUrl  = 'https://github.com/roxiemobile/android-commons.android'
+    mIssuesUrl   = 'https://github.com/roxiemobile/android-commons.android/issues'
+    mGitRepoUrl  = 'https://github.com/roxiemobile/android-commons.android.git'
 
     mAuthorId    = 'roxiemobile'
     mAuthorName  = 'Alexander Bragin'
