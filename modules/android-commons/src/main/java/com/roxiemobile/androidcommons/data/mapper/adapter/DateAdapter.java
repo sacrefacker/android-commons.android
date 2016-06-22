@@ -5,7 +5,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.roxiemobile.androidcommons.data.DateKeys.Format;
+import com.roxiemobile.androidcommons.data.mapper.DataMapper.DateFormat;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -48,7 +48,7 @@ public class DateAdapter extends TypeAdapter<Date>
     private static final ThreadLocal<SimpleDateFormat> FORMATTER = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat(Format.DATE, Locale.ENGLISH);
+            return new SimpleDateFormat(DateFormat.DATE, Locale.ENGLISH);
         }
     };
 

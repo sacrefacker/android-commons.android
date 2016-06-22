@@ -1,11 +1,1 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.roxiemobile.androidcommons"
-    >
-
-    <application>
-        <activity android:name=".ui.activity.RootDrawerFragmentActivity_" />
-        <activity android:name=".ui.activity.RootFragmentActivity_" />
-    </application>
-
-</manifest>
+<manifest package="com.roxiemobile.androidcommons" />

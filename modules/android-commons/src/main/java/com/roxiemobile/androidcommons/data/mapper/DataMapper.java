@@ -9,7 +9,6 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
-import com.roxiemobile.androidcommons.data.DateKeys.Format;
 import com.roxiemobile.androidcommons.data.mapper.adapter.DateAdapter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumStringConverter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumTypeAdapterFactory;
@@ -121,7 +120,7 @@ public final class DataMapper
 
             // Init Gson builder
             builder.enableComplexMapKeySerialization();
-            builder.setDateFormat(Format.TIMESTAMP_ISO8601);
+            builder.setDateFormat(DateFormat.TIMESTAMP_ISO8601);
             builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 
             // Register an adapters
@@ -139,6 +138,13 @@ public final class DataMapper
         }
 
         private static final Gson INSTANCE = newInstance();
+    }
+
+// MARK: - Inner Types
+
+    public interface DateFormat {
+        String DATE = "yyyy-MM-dd";
+        String TIMESTAMP_ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
     }
 
 // MARK: - Constants

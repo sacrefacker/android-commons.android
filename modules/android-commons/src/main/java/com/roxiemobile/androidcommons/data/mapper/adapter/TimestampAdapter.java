@@ -5,7 +5,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.roxiemobile.androidcommons.data.DateKeys.Format;
+import com.roxiemobile.androidcommons.data.mapper.DataMapper.DateFormat;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -52,7 +52,7 @@ public class TimestampAdapter extends TypeAdapter<Timestamp>
     private static final ThreadLocal<SimpleDateFormat> FORMATTER = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat(Format.TIMESTAMP_ISO8601, Locale.ENGLISH);
+            return new SimpleDateFormat(DateFormat.TIMESTAMP_ISO8601, Locale.ENGLISH);
         }
     };
 
