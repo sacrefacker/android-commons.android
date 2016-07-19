@@ -124,7 +124,7 @@ public final class DataMapper
             builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 
             // Register an adapters
-            for (TypeAdapterFactory factory : ServiceLoader.load(TypeAdapterFactory.class)) {
+            for (TypeAdapterFactory factory : ServiceLoader.load(TypeAdapterFactory.class, DataMapper.class.getClassLoader())) {
                 builder.registerTypeAdapterFactory(factory);
             }
 
