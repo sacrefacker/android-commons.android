@@ -1,1 +1,1 @@
-include ':examples', ':android-commons'
+include ':android-commons', ':examples'
