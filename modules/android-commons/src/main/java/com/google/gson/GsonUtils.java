@@ -4,7 +4,7 @@ import com.roxiemobile.androidcommons.util.ParseUtils;
 
 import java.util.NoSuchElementException;
 
-import static com.roxiemobile.androidcommons.util.AssertUtils.assertNotNull;
+import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
 
 public final class GsonUtils
 {
@@ -441,7 +441,7 @@ public final class GsonUtils
 
     @SuppressWarnings("unchecked")
     public static <T extends JsonElement> T deepCopy(T object) {
-        assertNotNull(object, "object == null");
+        expectNotNull(object, "object is null");
         return (T) object.deepCopy();
     }
 

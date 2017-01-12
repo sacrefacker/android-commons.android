@@ -15,8 +15,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
-import static com.roxiemobile.androidcommons.util.AssertUtils.assertNotEmpty;
-import static com.roxiemobile.androidcommons.util.AssertUtils.assertNotNull;
+import static com.roxiemobile.androidcommons.util.Expect.expectNotEmpty;
+import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
 
 public final class IOUtils
 {
@@ -32,8 +32,8 @@ public final class IOUtils
      * TODO
      */
     public static byte[] loadAsset(@NonNull Context context, @NonNull String path) {
-        assertNotNull(context, "context == null");
-        assertNotEmpty(path, "path is empty");
+        expectNotNull(context, "context is null");
+        expectNotEmpty(path, "path is empty");
 
         InputStream stream = null;
         byte[] content = null;
@@ -83,8 +83,8 @@ public final class IOUtils
      * Copy bytes from a {@code InputStream} to an {@code OutputStream}.
      */
     public static long copy(InputStream input, OutputStream output) throws IOException {
-        assertNotNull(input, "input == null");
-        assertNotNull(output, "output == null");
+        expectNotNull(input, "input is null");
+        expectNotNull(output, "output is null");
 
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         long totalCount = 0;
@@ -119,15 +119,15 @@ public final class IOUtils
     /**
      * Write the object to a Base64 string.
      */
-    public static String encodeObject(@NonNull Serializable obj, String defaultValue) {
-        assertNotNull(obj, "obj == null");
+    public static String encodeObject(@NonNull Serializable object, String defaultValue) {
+        expectNotNull(object, "object is null");
 
         ObjectOutputStream oos = null;
         String str = defaultValue;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(baos);
-            oos.writeObject(obj);
+            oos.writeObject(object);
             str = Base64.encodeToString(baos.toByteArray(), Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
         }
         catch (IOException ex) {
@@ -146,13 +146,13 @@ public final class IOUtils
     /**
      * Read the object from Base64 string.
      */
-    public static Object decodeObject(@NonNull String str, Object defaultObject) {
-        assertNotEmpty(str, "str is empty");
+    public static Object decodeObject(@NonNull String string, Object defaultObject) {
+        expectNotEmpty(string, "string is empty");
 
         ObjectInputStream ois = null;
         Object obj = defaultObject;
         try {
-            byte[] data = Base64.decode(str, Base64.URL_SAFE);
+            byte[] data = Base64.decode(string, Base64.URL_SAFE);
             ois = new ObjectInputStream(new ByteArrayInputStream(data));
             obj = ois.readObject();
         }

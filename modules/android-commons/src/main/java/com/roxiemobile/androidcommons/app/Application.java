@@ -8,14 +8,14 @@ import android.support.annotation.Nullable;
 
 import com.roxiemobile.androidcommons.util.LogUtils;
 
-import static com.roxiemobile.androidcommons.util.AssertUtils.assertNotNull;
+import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
 
 public class Application extends android.app.Application
 {
 // MARK: - Methods
 
     public static @Nullable PackageInfo getPackageInfo(@NonNull Context context) {
-        assertNotNull(context, "context == null");
+        expectNotNull(context, "context is null");
 
         PackageInfo packageInfo = null;
         try {
@@ -28,14 +28,14 @@ public class Application extends android.app.Application
     }
 
     public static @Nullable String getVersionName(@NonNull Context context) {
-        assertNotNull(context, "context == null");
+        expectNotNull(context, "context is null");
 
         PackageInfo packageInfo = getPackageInfo(context);
         return (packageInfo == null) ? null : packageInfo.versionName;
     }
 
     public static @Nullable Integer getVersionCode(@NonNull Context context) {
-        assertNotNull(context, "context == null");
+        expectNotNull(context, "context is null");
 
         PackageInfo packageInfo = getPackageInfo(context);
         return (packageInfo == null) ? null : packageInfo.versionCode;
