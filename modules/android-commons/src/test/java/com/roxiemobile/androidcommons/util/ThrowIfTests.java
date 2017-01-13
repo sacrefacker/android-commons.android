@@ -162,12 +162,12 @@ public final class ThrowIfTests
         expectThrowsException("throwIfNullOrEmpty_Array", () -> {
             throwIfNullOrEmpty(nilArray);
         });
+        expectThrowsException("throwIfNullOrEmpty_Array", () -> {
+            throwIfNullOrEmpty(emptyArray);
+        });
 
         expectNotThrowsException("throwIfNullOrEmpty_Array", () -> {
             throwIfNullOrEmpty(array);
-        });
-        expectNotThrowsException("throwIfNullOrEmpty_Array", () -> {
-            throwIfNullOrEmpty(emptyArray);
         });
     }
 
@@ -226,12 +226,12 @@ public final class ThrowIfTests
         expectThrowsException("throwIfNullOrWhiteSpace_Array", () -> {
             throwIfNullOrWhiteSpace(nilArray);
         });
+        expectThrowsException("throwIfNullOrWhiteSpace_Array", () -> {
+            throwIfNullOrWhiteSpace(emptyArray);
+        });
 
         expectNotThrowsException("throwIfNullOrWhiteSpace_Array", () -> {
             throwIfNullOrWhiteSpace(array);
-        });
-        expectNotThrowsException("throwIfNullOrWhiteSpace_Array", () -> {
-            throwIfNullOrWhiteSpace(emptyArray);
         });
     }
 
