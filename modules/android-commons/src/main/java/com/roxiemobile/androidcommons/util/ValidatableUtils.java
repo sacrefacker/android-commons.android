@@ -2,8 +2,6 @@ package com.roxiemobile.androidcommons.util;
 
 import android.support.annotation.NonNull;
 
-import com.roxiemobile.androidcommons.data.validator.Validatable;
-
 import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
 
 public final class ValidatableUtils

@@ -1,7 +1,5 @@
 package com.roxiemobile.androidcommons.util;
 
-import com.roxiemobile.androidcommons.data.validator.Validatable;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,7 +21,7 @@ import static com.roxiemobile.androidcommons.util.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.util.Expect.expectValid;
 
 @SuppressWarnings({"CodeBlock2Expr", "ConstantConditions"})
-public class ExpectTests
+public final class ExpectTests
 {
 // MARK: - Tests
 
@@ -349,7 +347,7 @@ public class ExpectTests
     }
 
     @Test
-    public void testExpectNotWhiteSpace_ArrayOfOptionals()
+    public void testExpectNotWhiteSpace_Array()
     {
         final String string = "value";
         final String nilString = null;

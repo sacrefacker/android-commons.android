@@ -1,4 +1,4 @@
-package com.roxiemobile.androidcommons.data.validator;
+package com.roxiemobile.androidcommons.util;
 
 public interface Validatable
 {

@@ -2,8 +2,6 @@ package com.roxiemobile.androidcommons.util;
 
 import android.support.annotation.NonNull;
 
-import com.roxiemobile.androidcommons.data.validator.Validatable;
-
 /**
  * A set of expectation methods useful for validating objects states. Only failed expectations are recorded.
  * These methods can be used directly: <code>Expect.expectTrue(...)</code>, however,
