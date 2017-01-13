@@ -1,7 +1,16 @@
 package com.roxiemobile.androidcommons.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.roxiemobile.androidcommons.data.mapper.DataMapper;
+import com.roxiemobile.androidcommons.data.model.ParkingModel;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfEqual;
 import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfFalse;
@@ -13,6 +22,9 @@ import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfNullOrEmpty;
 import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfNullOrNotValid;
 import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfNullOrWhiteSpace;
 import static com.roxiemobile.androidcommons.util.ThrowIf.throwIfTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings({"CodeBlock2Expr", "ConstantConditions"})
 public final class ThrowIfTests
@@ -341,49 +353,66 @@ public final class ThrowIfTests
 
 
 // MARK: - Tests
-//
-//     func testNotThrowIfValidModel()
-//     {
-//         if let validModelJson = loadJson("test_parking_model_with_valid_vehicles_in_array")
-//         {
-//             expectNotThrowsException("throwIfNonValidModel") {
-//                 let _ = try ParkingModel(params: validModelJson)
-//             }
-//         }
-//     }
-//
-//     func testThrowIfNonValidModel()
-//     {
-//         if let nonValidModelJson = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array")
-//         {
-//             expectThrowsException("throwIfNonValidModel", errorType: JsonSyntaxError.self) {
-//                 let _ = try ParkingModel(params: nonValidModelJson)
-//             }
-//         }
-//     }
+
+    @Test
+    public void testNotThrowIfValidModel() {
+        ParkingModel parking = null;
+
+        JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
+        assertNotNull(jsonObject);
+
+        try {
+            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        }
+        catch (JsonSyntaxException | ValidationException e) {
+            Assert.fail("notThrowIfValidModel: Method thrown an exception");
+        }
+        catch (Throwable t) {
+            Assert.fail("notThrowIfValidModel: Unknown exception is thrown");
+        }
+
+        assertNotNull(parking);
+        assertTrue(parking.isValid());
+    }
+
+    @Test
+    public void testThrowIfNotValidModel() {
+        ParkingModel parking = null;
+
+        JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");
+        assertNotNull(jsonObject);
+
+        try {
+            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        }
+        catch (JsonSyntaxException | ValidationException e) {
+            Assert.fail("throwIfNotValidModel: Method thrown an exception");
+        }
+        catch (Throwable t) {
+            Assert.fail("throwIfNotValidModel: Unknown exception is thrown");
+        }
+
+        assertNotNull(parking);
+        assertFalse(parking.isValid());
+    }
 
 // MARK: - Private Methods
 
-//     private func loadJson(string: String) -> [String : AnyObject]?
-//     {
-//         if let filePath = NSBundle(forClass: self.dynamicType).pathForResource(string, ofType: "json") {
-//             do {
-//                 if let data = NSData(contentsOfFile: filePath) {
-//                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-//                     return json as? [String: AnyObject]
-//                 }
-//                 else {
-//                     return null
-//                 }
-//             }
-//             catch let error as NSError {
-//                 print("error loading contentsOf url \(filePath)")
-//                 print(error.localizedDescription)
-//             }
-//         }
-//
-//         return null
-//     }
+     private JsonObject loadJson(String filename)
+     {
+         ClassLoader loader = this.getClass().getClassLoader();
+         JsonObject jsonObject = null;
+
+         try {
+             InputStream in = loader.getResourceAsStream(filename + ".json");
+             String jsonString = StringUtils.streamToString(in);
+             jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
+         }
+         catch (IOException e) {
+             Assert.fail("Could not load file: " + filename + ".json");
+         }
+         return jsonObject;
+     }
 
 // MARK: - Private Methods
 
