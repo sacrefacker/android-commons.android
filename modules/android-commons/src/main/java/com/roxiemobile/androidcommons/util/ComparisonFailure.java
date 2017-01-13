@@ -1,7 +1,5 @@
 package com.roxiemobile.androidcommons.util;
 
-import junit.framework.Assert;
-
 /**
  * Thrown when an {@link com.roxiemobile.androidcommons.util.Expect#expectEqual(Object, Object) expectEqual(String, String)} fails.
  * Create and throw a <code>ComparisonFailure</code> manually if you want to show users

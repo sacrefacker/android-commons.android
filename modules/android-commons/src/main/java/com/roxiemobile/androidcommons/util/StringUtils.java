@@ -36,7 +36,7 @@ public final class StringUtils
         expectNotNull(values, "values is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArrayUtils.isNullOrEmpty(values)) {
             return true;
         }
 
@@ -64,7 +64,7 @@ public final class StringUtils
         expectNotNull(values, "values is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArrayUtils.isNullOrEmpty(values)) {
             return false;
         }
 
@@ -90,7 +90,7 @@ public final class StringUtils
         expectNotNull(values, "values is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArrayUtils.isNullOrEmpty(values)) {
             return true;
         }
 
@@ -114,7 +114,7 @@ public final class StringUtils
         expectNotNull(values, "values is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArrayUtils.isNullOrEmpty(values)) {
             return false;
         }
 

@@ -30,7 +30,7 @@ public final class ValidatableUtils
         expectNotNull(objects, "objects is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(objects)) {
+        if (ArrayUtils.isNullOrEmpty(objects)) {
             return true;
         }
 
@@ -54,7 +54,7 @@ public final class ValidatableUtils
         expectNotNull(objects, "objects is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(objects)) {
+        if (ArrayUtils.isNullOrEmpty(objects)) {
             return false;
         }
 
@@ -78,7 +78,7 @@ public final class ValidatableUtils
         expectNotNull(objects, "objects is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(objects)) {
+        if (ArrayUtils.isNullOrEmpty(objects)) {
             return true;
         }
 
@@ -102,7 +102,7 @@ public final class ValidatableUtils
         expectNotNull(objects, "objects is null");
         boolean result = true;
 
-        if (ArrayUtils.isEmpty(objects)) {
+        if (ArrayUtils.isNullOrEmpty(objects)) {
             return false;
         }
 

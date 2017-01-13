@@ -16,12 +16,12 @@ public final class CollectionUtils
     /**
      * Checks if given collection is null or has zero elements.
      */
-    public static <T> boolean isEmpty(Collection<T> collection) {
-        return collection == null || collection.size() == 0;
+    public static <T> boolean isNullOrEmpty(Collection<T> collection) {
+        return (collection == null) || (collection.size() < 1);
     }
 
-    public static <K, V> boolean isEmpty(Map<K, V> map) {
-        return map == null || map.size() == 0;
+    public static <K, V> boolean isNullOrEmpty(Map<K, V> map) {
+        return (map == null) || (map.size() < 1);
     }
 
 }
