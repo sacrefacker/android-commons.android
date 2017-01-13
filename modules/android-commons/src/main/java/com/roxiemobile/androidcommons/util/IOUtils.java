@@ -45,7 +45,7 @@ public final class IOUtils
             }
         }
         catch (IOException ex) {
-            LogUtils.w(TAG, ex);
+            Logger.w(TAG, ex);
         }
         finally {
             IOUtils.closeQuietly(stream);
@@ -112,7 +112,7 @@ public final class IOUtils
             }
         }
         catch (IOException ex) {
-            LogUtils.w(TAG, ex);
+            Logger.w(TAG, ex);
         }
     }
 
@@ -131,7 +131,7 @@ public final class IOUtils
             str = Base64.encodeToString(baos.toByteArray(), Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
         }
         catch (IOException ex) {
-            LogUtils.w(TAG, ex);
+            Logger.w(TAG, ex);
         }
         finally {
             IOUtils.closeQuietly(oos);
@@ -157,7 +157,7 @@ public final class IOUtils
             obj = ois.readObject();
         }
         catch (IOException | ClassNotFoundException ex) {
-            LogUtils.w(TAG, ex);
+            Logger.w(TAG, ex);
         }
         finally {
             IOUtils.closeQuietly(ois);

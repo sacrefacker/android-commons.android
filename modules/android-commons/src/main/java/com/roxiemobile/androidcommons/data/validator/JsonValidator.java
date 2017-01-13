@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.roxiemobile.androidcommons.util.LogUtils;
+import com.roxiemobile.androidcommons.util.Logger;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -102,13 +102,13 @@ public class JsonValidator
                 }
 
                 // Unknown type.  Accept all.
-                LogUtils.w(TAG, "Schema: Unknown type at '" + path + "'");
+                Logger.w(TAG, "Schema: Unknown type at '" + path + "'");
                 return anyTypeSet();
             }
         }
 
         // Don't know what this is, assume any.
-        LogUtils.w(TAG, "Schema: Unknown type at '" + path + "'");
+        Logger.w(TAG, "Schema: Unknown type at '" + path + "'");
         return anyTypeSet();
     }
 
@@ -142,7 +142,7 @@ public class JsonValidator
         }
 
         // Don't know.  Punt and call it a string.
-        LogUtils.e(TAG, "Can't determine element type: " + element.toString());
+        Logger.e(TAG, "Can't determine element type: " + element.toString());
         return Type.STRING;
     }
 
@@ -201,9 +201,9 @@ public class JsonValidator
         }
 
         if (additionalSchema == null) {
-            LogUtils.d(TAG, "No additional schema for '" + path + "'");
+            Logger.d(TAG, "No additional schema for '" + path + "'");
         } else {
-            LogUtils.d(TAG, "Additional schema for '" + path + "': " + additionalSchema.toString());
+            Logger.d(TAG, "Additional schema for '" + path + "': " + additionalSchema.toString());
         }
 
         Set<Map.Entry<String, JsonElement>> objectProperties = obj.entrySet();
@@ -334,7 +334,7 @@ public class JsonValidator
         }
         else {
             // Bogus items parameter, assume everything is valid.
-            LogUtils.e(TAG, "Bad Schema: '" + path + "' items parameter is invalid.");
+            Logger.e(TAG, "Bad Schema: '" + path + "' items parameter is invalid.");
             itemsSchema = new JsonObject();
         }
 
@@ -355,7 +355,7 @@ public class JsonValidator
         }
 
         if (!enumElement.isJsonArray()) {
-            LogUtils.e(TAG, "Bad Schema: '" + path + "' enum parameter is invalid.");
+            Logger.e(TAG, "Bad Schema: '" + path + "' enum parameter is invalid.");
         }
 
         JsonArray enumArray = enumElement.getAsJsonArray();
@@ -433,7 +433,7 @@ public class JsonValidator
             default:
             {
                 // Unknown type
-                LogUtils.e(TAG, "Unknown type generated: " + type);
+                Logger.e(TAG, "Unknown type generated: " + type);
                 throw new JsonValidationException("Internal Error");
             }
         }

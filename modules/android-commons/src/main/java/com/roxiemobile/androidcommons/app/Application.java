@@ -6,7 +6,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.roxiemobile.androidcommons.util.LogUtils;
+import com.roxiemobile.androidcommons.util.Logger;
 
 import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
 
@@ -22,7 +22,7 @@ public class Application extends android.app.Application
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         }
         catch (NameNotFoundException e) {
-            LogUtils.e(TAG, e);
+            Logger.e(TAG, e);
         }
         return packageInfo;
     }

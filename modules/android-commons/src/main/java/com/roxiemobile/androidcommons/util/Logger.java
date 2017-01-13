@@ -4,18 +4,18 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 @SuppressLint("LogTagMismatch")
-public final class LogUtils
+public final class Logger
 {
 // MARK: - Construction
 
-    private LogUtils() {
+    private Logger() {
         // Do nothing
     }
 
 // MARK: - Properties
 
     public static void setLogLevel(int level) {
-        if (level >= LogUtils.SUPPRESS && level <= Log.ASSERT) {
+        if (level >= Logger.SUPPRESS && level <= Log.ASSERT) {
             sLogLevel = level;
         }
     }
