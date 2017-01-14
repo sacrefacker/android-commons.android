@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
-import com.roxiemobile.androidcommons.diagnostics.Logger;
+import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

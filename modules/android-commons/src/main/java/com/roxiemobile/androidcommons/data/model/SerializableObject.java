@@ -1,6 +1,6 @@
 package com.roxiemobile.androidcommons.data.model;
 
-import com.roxiemobile.androidcommons.diagnostics.Logger;
+import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.io.Serializable;
 
@@ -24,7 +24,7 @@ public abstract class SerializableObject
             result = false;
 
             // Log validation error
-            Logger.w(className, String.format("‘%s’ is invalid.", className), ex);
+            Logger.w(className, String.format("%s is invalid", className), ex);
         }
 
         // Done

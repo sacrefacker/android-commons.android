@@ -1,18 +1,10 @@
 package com.roxiemobile.androidcommons.util;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.roxiemobile.androidcommons.data.mapper.DataMapper;
-import com.roxiemobile.androidcommons.data.model.ParkingModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.diagnostics.RequirementError;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireFalse;
@@ -28,9 +20,6 @@ import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrVa
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrWhiteSpace;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireValid;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings({"CodeBlock2Expr", "ConstantConditions"})
 public final class RequireTests
@@ -565,68 +554,6 @@ public final class RequireTests
         requireNotThrowsError("requireNullOrNotValid_Array", () -> {
             requireNullOrNotValid(array);
         });
-    }
-
-// MARK: - Tests
-
-    @Test
-    public void testNotThrowIfValidModel() {
-        ParkingModel parking = null;
-
-        JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
-        assertNotNull(jsonObject);
-
-        try {
-            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
-        }
-        catch (JsonSyntaxException e) {
-            Assert.fail("notThrowIfValidModel: Method thrown an exception");
-        }
-        catch (Throwable t) {
-            Assert.fail("notThrowIfValidModel: Unknown exception is thrown");
-        }
-
-        assertNotNull(parking);
-        assertTrue(parking.isValid());
-    }
-
-    @Test
-    public void testThrowIfNotValidModel() {
-        ParkingModel parking = null;
-
-        JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");
-        assertNotNull(jsonObject);
-
-        try {
-            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
-        }
-        catch (JsonSyntaxException e) {
-            Assert.fail("throwIfNotValidModel: Method thrown an exception");
-        }
-        catch (Throwable t) {
-            Assert.fail("throwIfNotValidModel: Unknown exception is thrown");
-        }
-
-        assertNotNull(parking);
-        assertFalse(parking.isValid());
-    }
-
-// MARK: - Private Methods
-
-    private JsonObject loadJson(String filename)
-    {
-        ClassLoader loader = this.getClass().getClassLoader();
-        JsonObject jsonObject = null;
-
-        try {
-            InputStream in = loader.getResourceAsStream(filename + ".json");
-            String jsonString = StringUtils.streamToString(in);
-            jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
-        }
-        catch (IOException e) {
-            Assert.fail("Could not load file: " + filename + ".json");
-        }
-        return jsonObject;
     }
 
 // MARK: - Private Methods

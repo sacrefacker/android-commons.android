@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.roxiemobile.androidcommons.diagnostics.Logger;
+import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

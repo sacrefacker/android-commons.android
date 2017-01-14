@@ -1,10 +1,20 @@
 package com.roxiemobile.androidcommons.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.roxiemobile.androidcommons.data.mapper.DataMapper;
+import com.roxiemobile.androidcommons.data.model.ParkingModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
+import com.roxiemobile.androidcommons.logging.Logger;
+import com.roxiemobile.androidcommons.logging.Logger.LogLevel;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectFalse;
@@ -22,6 +32,9 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhit
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings({"CodeBlock2Expr", "ConstantConditions"})
 public final class ExpectTests
@@ -590,6 +603,52 @@ public final class ExpectTests
         });
     }
 
+// MARK: - Tests
+
+    @Test
+    public void testNotThrowIfValidModel() {
+        Logger.instance().logLevel(LogLevel.Suppress);
+        ParkingModel parking = null;
+
+        JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
+        assertNotNull(jsonObject);
+
+        try {
+            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        }
+        catch (JsonSyntaxException e) {
+            Assert.fail("notThrowIfValidModel: Method thrown an exception");
+        }
+        catch (Throwable t) {
+            Assert.fail("notThrowIfValidModel: Unknown exception is thrown");
+        }
+
+        assertNotNull(parking);
+        assertTrue(parking.isValid());
+    }
+
+    @Test
+    public void testThrowIfNotValidModel() {
+        Logger.instance().logLevel(LogLevel.Suppress);
+        ParkingModel parking = null;
+
+        JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");
+        assertNotNull(jsonObject);
+
+        try {
+            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        }
+        catch (JsonSyntaxException e) {
+            Assert.fail("throwIfNotValidModel: Method thrown an exception");
+        }
+        catch (Throwable t) {
+            Assert.fail("throwIfNotValidModel: Unknown exception is thrown");
+        }
+
+        assertNotNull(parking);
+        assertFalse(parking.isValid());
+    }
+
 // MARK: - Private Methods
 
     private void expectThrowsException(String method, Runnable task) {
@@ -627,6 +686,22 @@ public final class ExpectTests
         catch (Throwable t) {
             Assert.fail(method + ": Unknown exception is thrown");
         }
+    }
+
+    private JsonObject loadJson(String filename)
+    {
+        ClassLoader loader = this.getClass().getClassLoader();
+        JsonObject jsonObject = null;
+
+        try {
+            InputStream in = loader.getResourceAsStream(filename + ".json");
+            String jsonString = StringUtils.streamToString(in);
+            jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
+        }
+        catch (IOException e) {
+            Assert.fail("Could not load file: " + filename + ".json");
+        }
+        return jsonObject;
     }
 
 // MARK: - Inner Types
