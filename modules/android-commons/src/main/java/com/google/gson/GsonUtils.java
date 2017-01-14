@@ -4,7 +4,7 @@ import com.roxiemobile.androidcommons.util.ParseUtils;
 
 import java.util.NoSuchElementException;
 
-import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 
 public final class GsonUtils
 {

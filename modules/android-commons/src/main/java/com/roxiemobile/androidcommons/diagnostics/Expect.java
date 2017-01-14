@@ -1,6 +1,10 @@
-package com.roxiemobile.androidcommons.util;
+package com.roxiemobile.androidcommons.diagnostics;
 
 import android.support.annotation.NonNull;
+
+import com.roxiemobile.androidcommons.data.model.Validatable;
+import com.roxiemobile.androidcommons.util.StringUtils;
+import com.roxiemobile.androidcommons.util.ValidatableUtils;
 
 /**
  * A set of expectation methods useful for validating objects states. Only failed expectations are recorded.
@@ -24,19 +28,19 @@ public final class Expect
 // MARK: - Methods
 
     /**
-     * Expects that a condition is true. If it isn't it throws an {@link ExpectationError} with the given message.
+     * Expects that a condition is true. If it isn't it throws an {@link ExpectationException} with the given message.
      *
      * @param condition Condition to be checked
-     * @param message   The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message   The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectTrue(boolean condition, String message) {
         if (!condition) {
-            throwError(message);
+            throwException(message);
         }
     }
 
     /**
-     * Expects that a condition is true. If it isn't it throws an {@link ExpectationError} without a message.
+     * Expects that a condition is true. If it isn't it throws an {@link ExpectationException} without a message.
      *
      * @param condition Condition to be checked
      */
@@ -45,17 +49,17 @@ public final class Expect
     }
 
     /**
-     * Expects that a condition is false. If it isn't it throws an {@link ExpectationError} with the given message.
+     * Expects that a condition is false. If it isn't it throws an {@link ExpectationException} with the given message.
      *
      * @param condition Condition to be checked
-     * @param message   The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message   The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectFalse(boolean condition, String message) {
         expectTrue(!condition, message);
     }
 
     /**
-     * Expects that a condition is false. If it isn't it throws an {@link ExpectationError} without a message.
+     * Expects that a condition is false. If it isn't it throws an {@link ExpectationException} without a message.
      *
      * @param condition Condition to be checked
      */
@@ -66,13 +70,13 @@ public final class Expect
 // MARK: --
 
     /**
-     * Expects that two objects are equal. If they are not, an {@link ExpectationError} is thrown with
+     * Expects that two objects are equal. If they are not, an {@link ExpectationException} is thrown with
      * the given message. If <code>expected</code> and <code>actual</code> are <code>null</code>,
      * they are considered equal.
      *
      * @param expected Expected value
      * @param actual   Actual value
-     * @param message  The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message  The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     static public void expectEqual(Object expected, Object actual, String message)
     {
@@ -89,7 +93,7 @@ public final class Expect
     }
 
     /**
-     * Expects that two objects are equal. If they are not, an {@link ExpectationError} without
+     * Expects that two objects are equal. If they are not, an {@link ExpectationException} without
      * a message is thrown. If <code>expected</code> and <code>actual</code> are <code>null</code>,
      * they are considered equal.
      *
@@ -101,13 +105,13 @@ public final class Expect
     }
 
     /**
-     * Expects that two objects are <b>not</b> equals. If they are, an {@link ExpectationError}
+     * Expects that two objects are <b>not</b> equals. If they are, an {@link ExpectationException}
      * is thrown with the given message. If <code>unexpected</code> and <code>actual</code>
      * are <code>null</code>, they are considered equal.
      *
      * @param unexpected Unexpected value to check
      * @param actual     The value to check against <code>unexpected</code>
-     * @param message    The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message    The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectNotEqual(Object unexpected, Object actual, String message) {
         if (safeEqual(unexpected, actual)) {
@@ -116,7 +120,7 @@ public final class Expect
     }
 
     /**
-     * Expects that two objects are <b>not</b> equals. If they are, an {@link ExpectationError} without
+     * Expects that two objects are <b>not</b> equals. If they are, an {@link ExpectationException} without
      * a message is thrown. If <code>unexpected</code> and <code>actual</code> are <code>null</code>,
      * they are considered equal.
      *
@@ -131,11 +135,11 @@ public final class Expect
 
     /**
      * Expects that two objects refer to the same object. If they are not,
-     * an {@link ExpectationError} is thrown with the given message.
+     * an {@link ExpectationException} is thrown with the given message.
      *
      * @param expected The expected object
      * @param actual   The object to compare to <code>expected</code>
-     * @param message  The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message  The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectSame(Object expected, Object actual, String message) {
         if (expected == actual) {
@@ -146,7 +150,7 @@ public final class Expect
 
     /**
      * Expects that two objects refer to the same object. If they are not the same,
-     * an {@link ExpectationError} without a message is thrown.
+     * an {@link ExpectationException} without a message is thrown.
      *
      * @param expected The expected object
      * @param actual   The object to compare to <code>expected</code>
@@ -157,11 +161,11 @@ public final class Expect
 
     /**
      * Expects that two objects do not refer to the same object. If they do refer to the same object,
-     * an {@link ExpectationError} is thrown with the given message.
+     * an {@link ExpectationException} is thrown with the given message.
      *
      * @param unexpected The object you don't expect
      * @param actual     The object to compare to <code>unexpected</code>
-     * @param message    The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message    The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectNotSame(Object unexpected, Object actual, String message) {
         if (unexpected == actual) {
@@ -171,7 +175,7 @@ public final class Expect
 
     /**
      * Expects that two objects do not refer to the same object. If they do refer
-     * to the same object, an {@link ExpectationError} without a message is thrown.
+     * to the same object, an {@link ExpectationException} without a message is thrown.
      *
      * @param unexpected The object you don't expect
      * @param actual     The object to compare to <code>unexpected</code>
@@ -183,10 +187,10 @@ public final class Expect
 // MARK: --
 
     /**
-     * Expects that an object is null. If it is not, an {@link ExpectationError} is thrown with the given message.
+     * Expects that an object is null. If it is not, an {@link ExpectationException} is thrown with the given message.
      *
      * @param object  Object to check or <code>null</code>
-     * @param message The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectNull(Object object, String message) {
         if (object == null) {
@@ -196,7 +200,7 @@ public final class Expect
     }
 
     /**
-     * Expects that an object is null. If it isn't an {@link ExpectationError} is thrown.
+     * Expects that an object is null. If it isn't an {@link ExpectationException} is thrown.
      *
      * @param object Object to check or <code>null</code>
      */
@@ -205,17 +209,17 @@ public final class Expect
     }
 
     /**
-     * Expects that an object isn't null. If it is an {@link ExpectationError} is thrown with the given message.
+     * Expects that an object isn't null. If it is an {@link ExpectationException} is thrown with the given message.
      *
      * @param object  Object to check or <code>null</code>
-     * @param message The identifying message for the {@link ExpectationError} (<code>null</code> okay)
+     * @param message The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
     public static void expectNotNull(Object object, String message) {
         expectTrue(object != null, message);
     }
 
     /**
-     * Expects that an object isn't null. If it is an {@link ExpectationError} is thrown.
+     * Expects that an object isn't null. If it is an {@link ExpectationException} is thrown.
      *
      * @param object Object to check or <code>null</code>
      */
@@ -469,9 +473,9 @@ public final class Expect
     /**
      * Expects that {@code runnable} throws an exception of type {@code expectedThrowable} when
      * executed. If it does, the exception object is returned. If it does not throw an exception, an
-     * {@link ExpectationError} is thrown. If it throws the wrong type of exception, an {@code
-     * ExpectationError} is thrown describing the mismatch; the exception that was actually thrown can
-     * be obtained by calling {@link ExpectationError#getCause}.
+     * {@link ExpectationException} is thrown. If it throws the wrong type of exception, an {@code
+     * ExpectationException} is thrown describing the mismatch; the exception that was actually thrown can
+     * be obtained by calling {@link ExpectationException#getCause}.
      *
      * @param expectedThrowable The expected type of the exception
      * @param runnable          A function that is expected to throw an exception when executed
@@ -493,12 +497,12 @@ public final class Expect
             {
                 String mismatchMessage = format("Unexpected exception type thrown;",
                         expectedThrowable.getSimpleName(), actualThrown.getClass().getSimpleName());
-                throw new ExpectationError(mismatchMessage, actualThrown);
+                throw new ExpectationException(mismatchMessage, actualThrown);
             }
         }
 
         String message = String.format("Expected %s to be thrown, but nothing was thrown", expectedThrowable.getSimpleName());
-        throw new ExpectationError(message);
+        throw new ExpectationException(message);
     }
 
 // MARK: - Private Methods
@@ -508,7 +512,7 @@ public final class Expect
     }
 
     private static void failNotEqual(Object expected, Object actual, String message) {
-        throwError(format(message, expected, actual));
+        throwException(format(message, expected, actual));
     }
 
     private static void failEqual(String message, Object actual) {
@@ -518,7 +522,7 @@ public final class Expect
         }
 
         formatted += "Actual: " + actual;
-        throwError(formatted);
+        throwException(formatted);
     }
 
     private static void failSame(String message) {
@@ -527,7 +531,7 @@ public final class Expect
         if (message != null) {
             formatted = message + " ";
         }
-        throwError(formatted + "expected not same");
+        throwException(formatted + "expected not same");
     }
 
     private static void failNotSame(String message, Object expected, Object actual) {
@@ -536,7 +540,7 @@ public final class Expect
         if (message != null) {
             formatted = message + " ";
         }
-        throwError(formatted + "expected same:<" + expected + "> was not:<" + actual + ">");
+        throwException(formatted + "expected same:<" + expected + "> was not:<" + actual + ">");
     }
 
     private static void failNotNull(String message, Object actual) {
@@ -545,7 +549,7 @@ public final class Expect
         if (message != null) {
             formatted = message + " ";
         }
-        throwError(formatted + "expected null, but was:<" + actual + ">");
+        throwException(formatted + "expected null, but was:<" + actual + ">");
     }
 
     static String format(String message, Object expected, Object actual) {
@@ -572,11 +576,11 @@ public final class Expect
         return className + "<" + valueString + ">";
     }
 
-    private static void throwError(String message) {
+    private static void throwException(String message) {
         if (message == null) {
-            throw new ExpectationError();
+            throw new ExpectationException();
         }
-        throw new ExpectationError(message);
+        throw new ExpectationException(message);
     }
 
 }

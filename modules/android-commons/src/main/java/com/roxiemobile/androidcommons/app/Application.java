@@ -6,9 +6,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.roxiemobile.androidcommons.util.Logger;
+import com.roxiemobile.androidcommons.diagnostics.Logger;
 
-import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 
 public class Application extends android.app.Application
 {

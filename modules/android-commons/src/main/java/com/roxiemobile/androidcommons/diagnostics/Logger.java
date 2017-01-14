@@ -1,4 +1,4 @@
-package com.roxiemobile.androidcommons.util;
+package com.roxiemobile.androidcommons.diagnostics;
 
 import android.annotation.SuppressLint;
 import android.util.Log;

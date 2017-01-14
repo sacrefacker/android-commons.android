@@ -1,7 +1,6 @@
 package com.roxiemobile.androidcommons.data.model;
 
-import com.roxiemobile.androidcommons.util.Validatable;
-import com.roxiemobile.androidcommons.util.Logger;
+import com.roxiemobile.androidcommons.diagnostics.Logger;
 
 import java.io.Serializable;
 

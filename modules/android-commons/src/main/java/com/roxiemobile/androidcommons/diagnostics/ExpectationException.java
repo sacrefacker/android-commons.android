@@ -1,4 +1,4 @@
-package com.roxiemobile.androidcommons.util;
+package com.roxiemobile.androidcommons.diagnostics;
 
 /**
  * Thrown to indicate that an expectation has failed.
@@ -6,20 +6,20 @@ package com.roxiemobile.androidcommons.util;
  * <p>The seven one-argument public constructors provided by this
  * class ensure that the expectation error returned by the invocation:
  * <pre>
- *     new ExpectationError(<i>expression</i>)
+ *     new ExpectationException(<i>expression</i>)
  * </pre>
  * has as its detail message the <i>string conversion</i> of
  * <i>expression</i> (as defined in section 15.18.1.1 of
  * <cite>The Java&trade; Language Specification</cite>),
  * regardless of the type of <i>expression</i>.
  */
-public class ExpectationError extends Error {
+public class ExpectationException extends RuntimeException {
     private static final long serialVersionUID = 8404902409506727853L;
 
     /**
-     * Constructs an ExpectationError with no detail message.
+     * Constructs an ExpectationException with no detail message.
      */
-    public ExpectationError() {
+    public ExpectationException() {
         // Do nothing
     }
 
@@ -28,12 +28,12 @@ public class ExpectationError extends Error {
      * even if it is a null reference.  The public constructors will
      * never call this constructor with a null argument.
      */
-    private ExpectationError(String detailMessage) {
+    private ExpectationException(String detailMessage) {
         super(detailMessage);
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified object, which is converted to a string as
      * defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
@@ -44,7 +44,7 @@ public class ExpectationError extends Error {
      * @param detailMessage value to be used in constructing detail message
      * @see   Throwable#getCause()
      */
-    public ExpectationError(Object detailMessage) {
+    public ExpectationException(Object detailMessage) {
         this(String.valueOf(detailMessage));
 
         if (detailMessage instanceof Throwable) {
@@ -53,79 +53,79 @@ public class ExpectationError extends Error {
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>boolean</code>, which is converted to
      * a string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(boolean detailMessage) {
+    public ExpectationException(boolean detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>char</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(char detailMessage) {
+    public ExpectationException(char detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>int</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(int detailMessage) {
+    public ExpectationException(int detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>long</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(long detailMessage) {
+    public ExpectationException(long detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>float</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(float detailMessage) {
+    public ExpectationException(float detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationError with its detail message derived
+     * Constructs an ExpectationException with its detail message derived
      * from the specified <code>double</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage value to be used in constructing detail message
      */
-    public ExpectationError(double detailMessage) {
+    public ExpectationException(double detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs a new {@code ExpectationError} with the specified
+     * Constructs a new {@code ExpectationException} with the specified
      * detail message and cause.
      *
      * <p>Note that the detail message associated with
@@ -135,7 +135,7 @@ public class ExpectationError extends Error {
      * @param  message the detail message, may be {@code null}
      * @param  cause the cause, may be {@code null}
      */
-    public ExpectationError(String message, Throwable cause) {
+    public ExpectationException(String message, Throwable cause) {
         super(message, cause);
     }
 }

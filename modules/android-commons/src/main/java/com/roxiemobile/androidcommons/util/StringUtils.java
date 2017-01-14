@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 
 public final class StringUtils
 {

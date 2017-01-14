@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
+import com.roxiemobile.androidcommons.diagnostics.Logger;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -15,8 +17,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
-import static com.roxiemobile.androidcommons.util.Expect.expectNotEmpty;
-import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 
 public final class IOUtils
 {

@@ -2,7 +2,9 @@ package com.roxiemobile.androidcommons.util;
 
 import android.support.annotation.NonNull;
 
-import static com.roxiemobile.androidcommons.util.Expect.expectNotNull;
+import com.roxiemobile.androidcommons.data.model.Validatable;
+
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 
 public final class ValidatableUtils
 {
