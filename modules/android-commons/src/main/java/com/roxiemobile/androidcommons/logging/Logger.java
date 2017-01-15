@@ -121,9 +121,7 @@ public final class Logger
         }
     }
 
-// MARK: - Private Methods
-
-    private static boolean isLoggable(LogLevel level) {
+    public static boolean isLoggable(LogLevel level) {
         return level.ordinal() >= instance().logLevel().ordinal();
     }
 

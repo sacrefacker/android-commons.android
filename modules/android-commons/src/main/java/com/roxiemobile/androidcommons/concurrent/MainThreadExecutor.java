@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * Shutting down this executor is not supported.
  */
-public class MainThreadExecutor extends AbstractExecutorService
+public final class MainThreadExecutor extends AbstractExecutorService
 {
 // MARK: - Construction
 

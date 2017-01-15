@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>
  * Shutting down this executor is not supported.
  */
-public class ParallelWorkerThreadExecutor extends AbstractExecutorService
+public final class ParallelWorkerThreadExecutor extends AbstractExecutorService
 {
 // MARK: - Construction
 
