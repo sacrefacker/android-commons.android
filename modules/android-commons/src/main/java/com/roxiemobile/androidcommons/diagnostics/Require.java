@@ -10,12 +10,12 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhitespace;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
 
@@ -117,36 +117,36 @@ public final class Require
 
 // MARK: - Methods
 
-    public static void requireNullOrWhiteSpace(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNullOrWhiteSpace(str));
+    public static void requireNullOrWhitespace(CharSequence str, String message) {
+        rethrowOnFailure(message, () -> expectNullOrWhitespace(str));
     }
 
-    public static void requireNullOrWhiteSpace(CharSequence str) {
-        requireNullOrWhiteSpace(str, null);
+    public static void requireNullOrWhitespace(CharSequence str) {
+        requireNullOrWhitespace(str, null);
     }
 
-    public static void requireNullOrWhiteSpace(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNullOrWhiteSpace(values));
+    public static void requireNullOrWhitespace(@NonNull CharSequence[] values, String message) {
+        rethrowOnFailure(message, () -> expectNullOrWhitespace(values));
     }
 
-    public static void requireNullOrWhiteSpace(@NonNull CharSequence[] values) {
-        requireNullOrWhiteSpace(values, null);
+    public static void requireNullOrWhitespace(@NonNull CharSequence[] values) {
+        requireNullOrWhitespace(values, null);
     }
 
-    public static void requireNotWhiteSpace(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNotWhiteSpace(str));
+    public static void requireNotBlank(CharSequence str, String message) {
+        rethrowOnFailure(message, () -> expectNotBlank(str));
     }
 
-    public static void requireNotWhiteSpace(CharSequence str) {
-        requireNotWhiteSpace(str, null);
+    public static void requireNotBlank(CharSequence str) {
+        requireNotBlank(str, null);
     }
 
-    public static void requireNotWhiteSpace(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNotWhiteSpace(values));
+    public static void requireNotBlank(@NonNull CharSequence[] values, String message) {
+        rethrowOnFailure(message, () -> expectNotBlank(values));
     }
 
-    public static void requireNotWhiteSpace(@NonNull CharSequence[] values) {
-        requireNotWhiteSpace(values, null);
+    public static void requireNotBlank(@NonNull CharSequence[] values) {
+        requireNotBlank(values, null);
     }
 
 // MARK: - Methods

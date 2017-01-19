@@ -290,57 +290,57 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrWhiteSpace(CharSequence str, String message) {
-        expectTrue(StringUtils.isNullOrWhiteSpace(str), message);
+    public static void expectNullOrWhitespace(CharSequence str, String message) {
+        expectTrue(StringUtils.isNullOrWhitespace(str), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrWhiteSpace(CharSequence str) {
-        expectNullOrWhiteSpace(str, null);
+    public static void expectNullOrWhitespace(CharSequence str) {
+        expectNullOrWhitespace(str, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrWhiteSpace(@NonNull CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNullOrWhiteSpace(values), message);
+    public static void expectNullOrWhitespace(@NonNull CharSequence[] values, String message) {
+        expectTrue(StringUtils.isNullOrWhitespace(values), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrWhiteSpace(@NonNull CharSequence[] values) {
-        expectNullOrWhiteSpace(values, null);
+    public static void expectNullOrWhitespace(@NonNull CharSequence[] values) {
+        expectNullOrWhitespace(values, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotWhiteSpace(CharSequence str, String message) {
-        expectTrue(StringUtils.isNotWhiteSpace(str), message);
+    public static void expectNotBlank(CharSequence str, String message) {
+        expectTrue(StringUtils.isNotBlank(str), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotWhiteSpace(CharSequence str) {
-        expectNotWhiteSpace(str, null);
+    public static void expectNotBlank(CharSequence str) {
+        expectNotBlank(str, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotWhiteSpace(@NonNull CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNotWhiteSpace(values), message);
+    public static void expectNotBlank(@NonNull CharSequence[] values, String message) {
+        expectTrue(StringUtils.isNotBlank(values), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotWhiteSpace(@NonNull CharSequence[] values) {
-        expectNotWhiteSpace(values, null);
+    public static void expectNotBlank(@NonNull CharSequence[] values) {
+        expectNotBlank(values, null);
     }
 
 // MARK: --

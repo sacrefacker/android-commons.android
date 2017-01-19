@@ -23,12 +23,12 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhitespace;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
@@ -287,17 +287,17 @@ public final class ExpectTests
 
 
         expectThrowsException("expectNullOrWhiteSpace", () -> {
-            expectNullOrWhiteSpace(string);
+            expectNullOrWhitespace(string);
         });
 
         expectNotThrowsException("expectNullOrWhiteSpace", () -> {
-            expectNullOrWhiteSpace(nilString);
+            expectNullOrWhitespace(nilString);
         });
         expectNotThrowsException("expectNullOrWhiteSpace", () -> {
-            expectNullOrWhiteSpace(emptyString);
+            expectNullOrWhitespace(emptyString);
         });
         expectNotThrowsException("expectNullOrWhiteSpace", () -> {
-            expectNullOrWhiteSpace(whitespaceString);
+            expectNullOrWhitespace(whitespaceString);
         });
     }
 
@@ -315,26 +315,26 @@ public final class ExpectTests
 
 
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(new String[]{string});
+            expectNullOrWhitespace(new String[]{string});
         });
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(new String[]{nilString, string});
+            expectNullOrWhitespace(new String[]{nilString, string});
         });
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(new String[]{emptyString, string});
+            expectNullOrWhitespace(new String[]{emptyString, string});
         });
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(new String[]{whitespaceString, string});
+            expectNullOrWhitespace(new String[]{whitespaceString, string});
         });
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(nilArray);
+            expectNullOrWhitespace(nilArray);
         });
 
         expectNotThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(array);
+            expectNullOrWhitespace(array);
         });
         expectNotThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhiteSpace(emptyArray);
+            expectNullOrWhitespace(emptyArray);
         });
     }
 
@@ -348,17 +348,17 @@ public final class ExpectTests
 
 
         expectThrowsException("expectNotWhiteSpace", () -> {
-            expectNotWhiteSpace(nilString);
+            expectNotBlank(nilString);
         });
         expectThrowsException("expectNotWhiteSpace", () -> {
-            expectNotWhiteSpace(emptyString);
+            expectNotBlank(emptyString);
         });
         expectThrowsException("expectNotWhiteSpace", () -> {
-            expectNotWhiteSpace(whitespaceString);
+            expectNotBlank(whitespaceString);
         });
 
         expectNotThrowsException("expectNotWhiteSpace", () -> {
-            expectNotWhiteSpace(string);
+            expectNotBlank(string);
         });
     }
 
@@ -377,26 +377,26 @@ public final class ExpectTests
 
 
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(new String[]{nilString});
+            expectNotBlank(new String[]{nilString});
         });
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(new String[]{emptyString});
+            expectNotBlank(new String[]{emptyString});
         });
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(new String[]{whitespaceString});
+            expectNotBlank(new String[]{whitespaceString});
         });
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(new String[]{string, whitespaceString});
+            expectNotBlank(new String[]{string, whitespaceString});
         });
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(nilArray);
+            expectNotBlank(nilArray);
         });
         expectThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(emptyArray);
+            expectNotBlank(emptyArray);
         });
 
         expectNotThrowsException("expectNotWhiteSpace_Array", () -> {
-            expectNotWhiteSpace(array);
+            expectNotBlank(array);
         });
     }
 

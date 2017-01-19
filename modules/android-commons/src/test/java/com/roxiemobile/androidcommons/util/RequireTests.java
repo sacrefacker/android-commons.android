@@ -8,16 +8,16 @@ import org.junit.Test;
 
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireFalse;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotWhiteSpace;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNull;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrWhitespace;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireValid;
 
@@ -240,17 +240,17 @@ public final class RequireTests
 
 
         requireThrowsError("requireNullOrWhiteSpace", () -> {
-            requireNullOrWhiteSpace(string);
+            requireNullOrWhitespace(string);
         });
 
         requireNotThrowsError("requireNullOrWhiteSpace", () -> {
-            requireNullOrWhiteSpace(nilString);
+            requireNullOrWhitespace(nilString);
         });
         requireNotThrowsError("requireNullOrWhiteSpace", () -> {
-            requireNullOrWhiteSpace(emptyString);
+            requireNullOrWhitespace(emptyString);
         });
         requireNotThrowsError("requireNullOrWhiteSpace", () -> {
-            requireNullOrWhiteSpace(whitespaceString);
+            requireNullOrWhitespace(whitespaceString);
         });
     }
 
@@ -268,26 +268,26 @@ public final class RequireTests
 
 
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(new String[]{string});
+            requireNullOrWhitespace(new String[]{string});
         });
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(new String[]{nilString, string});
+            requireNullOrWhitespace(new String[]{nilString, string});
         });
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(new String[]{emptyString, string});
+            requireNullOrWhitespace(new String[]{emptyString, string});
         });
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(new String[]{whitespaceString, string});
+            requireNullOrWhitespace(new String[]{whitespaceString, string});
         });
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(nilArray);
+            requireNullOrWhitespace(nilArray);
         });
 
         requireNotThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(array);
+            requireNullOrWhitespace(array);
         });
         requireNotThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhiteSpace(emptyArray);
+            requireNullOrWhitespace(emptyArray);
         });
     }
 
@@ -301,17 +301,17 @@ public final class RequireTests
 
 
         requireThrowsError("requireNotWhiteSpace", () -> {
-            requireNotWhiteSpace(nilString);
+            requireNotBlank(nilString);
         });
         requireThrowsError("requireNotWhiteSpace", () -> {
-            requireNotWhiteSpace(emptyString);
+            requireNotBlank(emptyString);
         });
         requireThrowsError("requireNotWhiteSpace", () -> {
-            requireNotWhiteSpace(whitespaceString);
+            requireNotBlank(whitespaceString);
         });
 
         requireNotThrowsError("requireNotWhiteSpace", () -> {
-            requireNotWhiteSpace(string);
+            requireNotBlank(string);
         });
     }
 
@@ -330,26 +330,26 @@ public final class RequireTests
 
 
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(new String[]{nilString});
+            requireNotBlank(new String[]{nilString});
         });
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(new String[]{emptyString});
+            requireNotBlank(new String[]{emptyString});
         });
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(new String[]{whitespaceString});
+            requireNotBlank(new String[]{whitespaceString});
         });
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(new String[]{string, whitespaceString});
+            requireNotBlank(new String[]{string, whitespaceString});
         });
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(nilArray);
+            requireNotBlank(nilArray);
         });
         requireThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(emptyArray);
+            requireNotBlank(emptyArray);
         });
 
         requireNotThrowsError("requireNotWhiteSpace_Array", () -> {
-            requireNotWhiteSpace(array);
+            requireNotBlank(array);
         });
     }
 

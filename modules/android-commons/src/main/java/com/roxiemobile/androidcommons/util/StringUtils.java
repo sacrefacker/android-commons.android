@@ -19,18 +19,14 @@ public final class StringUtils
 // MARK: - Methods
 
     /**
-     * Returns true if the string is null or 0-length.
-     *
-     * @return {@code true} if str is {@code null} or zero length.
+     * Checks if a CharSequence is empty ("") or {@code null}.
      */
     public static boolean isNullOrEmpty(CharSequence str) {
         return str == null || str.length() < 1;
     }
 
     /**
-     * Returns true if the all strings is null or 0-length.
-     *
-     * @return {@code true} if str is {@code null} or zero length.
+     * Checks if all CharSequences is empty ("") or {@code null}.
      */
     public static boolean isNullOrEmpty(@NonNull CharSequence... values) {
         expectNotNull(values, "values is null");
@@ -47,18 +43,14 @@ public final class StringUtils
     }
 
     /**
-     * Returns true if the string is non-null and non-empty.
-     *
-     * @return {@code true} if string are non-null and non-empty, {@code false} otherwise
+     * Checks if a CharSequence is not empty ("") and not {@code null}.
      */
     public static boolean isNotEmpty(CharSequence str) {
         return !isNullOrEmpty(str);
     }
 
     /**
-     * Returns true if the all strings is non-null and non-empty.
-     *
-     * @return {@code true} if all strings are non-null and non-empty, {@code false} otherwise
+     * Checks if none of the CharSequences are not empty ("") and not {@code null}.
      */
     public static boolean isNotEmpty(@NonNull CharSequence... values) {
         expectNotNull(values, "values is null");
@@ -77,16 +69,16 @@ public final class StringUtils
 // MARK: - Methods
 
     /**
-     * TODO
+     * Checks if a CharSequence is whitespace, empty ("") or {@code null}.
      */
-    public static boolean isNullOrWhiteSpace(CharSequence str) {
+    public static boolean isNullOrWhitespace(CharSequence str) {
         return str == null || trimSequence(str).length() < 1;
     }
 
     /**
-     * TODO
+     * Checks if all CharSequences is whitespace, empty ("") or {@code null}.
      */
-    public static boolean isNullOrWhiteSpace(@NonNull CharSequence... values) {
+    public static boolean isNullOrWhitespace(@NonNull CharSequence... values) {
         expectNotNull(values, "values is null");
         boolean result = true;
 
@@ -95,22 +87,22 @@ public final class StringUtils
         }
 
         for (int idx = 0, count = values.length; result && (idx < count); ++idx) {
-            result = isNullOrWhiteSpace(values[idx]);
+            result = isNullOrWhitespace(values[idx]);
         }
         return result;
     }
 
     /**
-     * TODO
+     * Checks if a CharSequence is not empty (""), not {@code null} and not whitespace only.
      */
-    public static boolean isNotWhiteSpace(CharSequence str) {
-        return !isNullOrWhiteSpace(str);
+    public static boolean isNotBlank(CharSequence str) {
+        return !isNullOrWhitespace(str);
     }
 
     /**
-     * TODO
+     * Checks if none of the CharSequences are not empty (""), not {@code null} and not whitespace only.
      */
-    public static boolean isNotWhiteSpace(@NonNull CharSequence... values) {
+    public static boolean isNotBlank(@NonNull CharSequence... values) {
         expectNotNull(values, "values is null");
         boolean result = true;
 
@@ -119,7 +111,7 @@ public final class StringUtils
         }
 
         for (int idx = 0, count = values.length; result && (idx < count); ++idx) {
-            result = isNotWhiteSpace(values[idx]);
+            result = isNotBlank(values[idx]);
         }
         return result;
     }
@@ -134,7 +126,7 @@ public final class StringUtils
     }
 
     /**
-     * Returns the given string if it is non-null; the empty string otherwise.
+     * Returns the given string if it is non {@code null}; the empty string otherwise.
      */
     public static String nullToEmpty(String str) {
         return (str == null) ? "" : str;

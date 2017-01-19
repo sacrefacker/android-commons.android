@@ -2,7 +2,7 @@ package com.roxiemobile.androidcommons.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotWhiteSpace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 
 public class VehicleModel extends SerializableObject
 {
@@ -17,6 +17,6 @@ public class VehicleModel extends SerializableObject
         super.validate();
 
         // Validate instance variables
-        expectNotWhiteSpace(new String[]{mModel, mColor});
+        expectNotBlank(new String[]{mModel, mColor});
     }
 }
