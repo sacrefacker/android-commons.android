@@ -439,12 +439,12 @@ public final class ExpectTests
         expectThrowsException("expectValid_Array", () -> {
             expectValid(new Validatable[]{validObject, notValidObject});
         });
-        expectThrowsException("expectValid_Array", () -> {
-            expectValid(nilArray);
-        });
 
         expectNotThrowsException("expectValid_Array", () -> {
             expectValid(array);
+        });
+        expectNotThrowsException("expectValid_Array", () -> {
+            expectValid(nilArray);
         });
         expectNotThrowsException("expectValid_Array", () -> {
             expectValid(emptyArray);
@@ -539,15 +539,15 @@ public final class ExpectTests
         expectThrowsException("expectNullOrValid_Array", () -> {
             expectNullOrValid(new Validatable[]{validObject, notValidObject});
         });
-        expectThrowsException("expectNullOrValid_Array", () -> {
-            expectNullOrValid(nilArray);
-        });
 
         expectNotThrowsException("expectNullOrValid_Array", () -> {
             expectNullOrValid(new Validatable[]{validObject, nilObject});
         });
         expectNotThrowsException("expectNullOrValid_Array", () -> {
             expectNullOrValid(array);
+        });
+        expectNotThrowsException("expectNullOrValid_Array", () -> {
+            expectNullOrValid(nilArray);
         });
         expectNotThrowsException("expectNullOrValid_Array", () -> {
             expectNullOrValid(emptyArray);

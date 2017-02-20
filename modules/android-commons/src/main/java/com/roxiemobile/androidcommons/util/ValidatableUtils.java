@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.roxiemobile.androidcommons.data.model.Validatable;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class ValidatableUtils
 {
@@ -27,7 +27,7 @@ public final class ValidatableUtils
      * TODO
      */
     public static boolean isValid(@NonNull Validatable... objects) {
-        expectNotNull(objects, "objects is null");
+        requireNotNull(objects, "objects is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(objects)) {
@@ -51,7 +51,7 @@ public final class ValidatableUtils
      * TODO
      */
     public static boolean isNotValid(@NonNull Validatable... objects) {
-        expectNotNull(objects, "objects is null");
+        requireNotNull(objects, "objects is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(objects)) {
@@ -75,7 +75,7 @@ public final class ValidatableUtils
      * TODO
      */
     public static boolean isNullOrValid(@NonNull Validatable... objects) {
-        expectNotNull(objects, "objects is null");
+        requireNotNull(objects, "objects is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(objects)) {
@@ -99,7 +99,7 @@ public final class ValidatableUtils
      * TODO
      */
     public static boolean isNullOrNotValid(@NonNull Validatable... objects) {
-        expectNotNull(objects, "objects is null");
+        requireNotNull(objects, "objects is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(objects)) {

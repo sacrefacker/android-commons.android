@@ -17,8 +17,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEmpty;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class IOUtils
 {
@@ -34,8 +34,8 @@ public final class IOUtils
      * TODO
      */
     public static byte[] loadAsset(@NonNull Context context, @NonNull String path) {
-        expectNotNull(context, "context is null");
-        expectNotEmpty(path, "path is empty");
+        requireNotNull(context, "context is null");
+        requireNotEmpty(path, "path is empty");
 
         InputStream stream = null;
         byte[] content = null;
@@ -85,8 +85,8 @@ public final class IOUtils
      * Copy bytes from a {@code InputStream} to an {@code OutputStream}.
      */
     public static long copy(InputStream input, OutputStream output) throws IOException {
-        expectNotNull(input, "input is null");
-        expectNotNull(output, "output is null");
+        requireNotNull(input, "input is null");
+        requireNotNull(output, "output is null");
 
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         long totalCount = 0;
@@ -122,7 +122,7 @@ public final class IOUtils
      * Write the object to a Base64 string.
      */
     public static String encodeObject(@NonNull Serializable object, String defaultValue) {
-        expectNotNull(object, "object is null");
+        requireNotNull(object, "object is null");
 
         ObjectOutputStream oos = null;
         String str = defaultValue;
@@ -149,7 +149,7 @@ public final class IOUtils
      * Read the object from Base64 string.
      */
     public static Object decodeObject(@NonNull String string, Object defaultObject) {
-        expectNotEmpty(string, "string is empty");
+        requireNotEmpty(string, "string is empty");
 
         ObjectInputStream ois = null;
         Object obj = defaultObject;

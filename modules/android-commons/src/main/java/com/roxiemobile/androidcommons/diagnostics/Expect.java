@@ -1,7 +1,5 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
-import android.support.annotation.NonNull;
-
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.util.StringUtils;
 import com.roxiemobile.androidcommons.util.ValidatableUtils;
@@ -247,7 +245,7 @@ public final class Expect
      * TODO
      */
     public static void expectNullOrEmpty(CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNullOrEmpty(values), message);
+        expectTrue(StringUtils.isNullOrEmpty(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
     }
 
     /**
@@ -274,14 +272,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNotEmpty(@NonNull CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNotEmpty(values), message);
+    public static void expectNotEmpty(CharSequence[] values, String message) {
+        expectTrue(StringUtils.isNotEmpty(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotEmpty(@NonNull CharSequence[] values) {
+    public static void expectNotEmpty(CharSequence[] values) {
         expectNotEmpty(values, null);
     }
 
@@ -304,14 +302,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrWhitespace(@NonNull CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNullOrWhitespace(values), message);
+    public static void expectNullOrWhitespace(CharSequence[] values, String message) {
+        expectTrue(StringUtils.isNullOrWhitespace(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrWhitespace(@NonNull CharSequence[] values) {
+    public static void expectNullOrWhitespace(CharSequence[] values) {
         expectNullOrWhitespace(values, null);
     }
 
@@ -332,14 +330,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNotBlank(@NonNull CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNotBlank(values), message);
+    public static void expectNotBlank(CharSequence[] values, String message) {
+        expectTrue(StringUtils.isNotBlank(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotBlank(@NonNull CharSequence[] values) {
+    public static void expectNotBlank(CharSequence[] values) {
         expectNotBlank(values, null);
     }
 
@@ -362,14 +360,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectValid(@NonNull Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isValid(objects), message);
+    public static void expectValid(Validatable[] objects, String message) {
+        expectTrue(ValidatableUtils.isValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectValid(@NonNull Validatable[] objects) {
+    public static void expectValid(Validatable[] objects) {
         expectValid(objects, null);
     }
 
@@ -390,14 +388,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNotValid(@NonNull Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNotValid(objects), message);
+    public static void expectNotValid(Validatable[] objects, String message) {
+        expectTrue(ValidatableUtils.isNotValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotValid(@NonNull Validatable[] objects) {
+    public static void expectNotValid(Validatable[] objects) {
         expectNotValid(objects, null);
     }
 
@@ -420,14 +418,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrValid(@NonNull Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNullOrValid(objects), message);
+    public static void expectNullOrValid(Validatable[] objects, String message) {
+        expectTrue(ValidatableUtils.isNullOrValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrValid(@NonNull Validatable[] objects) {
+    public static void expectNullOrValid(Validatable[] objects) {
         expectNullOrValid(objects, null);
     }
 
@@ -448,14 +446,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(@NonNull Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNullOrNotValid(objects), message);
+    public static void expectNullOrNotValid(Validatable[] objects, String message) {
+        expectTrue(ValidatableUtils.isNullOrNotValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(@NonNull Validatable[] objects) {
+    public static void expectNullOrNotValid(Validatable[] objects) {
         expectNullOrNotValid(objects, null);
     }
 
@@ -582,4 +580,21 @@ public final class Expect
         }
         throw new ExpectationException(message);
     }
+
+// MARK: - Private Methods
+
+    public static <T> T[] nullToDefault(T[] array, T[] defaultArray) {
+        return (array != null) ? array : defaultArray;
+    }
+
+// MARK: - Constants
+
+    /**
+     * An empty immutable {@code CharSequence} array.
+     */
+    private static final CharSequence[] EMPTY_CHAR_SEQUENCE_ARRAY = new CharSequence[]{};
+    /**
+     * An empty immutable {@code Validatable} array.
+     */
+    private static final Validatable[] EMPTY_VALIDATABLE_ARRAY = new Validatable[]{};
 }

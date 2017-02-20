@@ -199,12 +199,12 @@ public final class RequireTests
         requireThrowsError("requireNullOrEmpty_Array", () -> {
             requireNullOrEmpty(new String[]{emptyString, string});
         });
-        requireThrowsError("requireNullOrEmpty_Array", () -> {
-            requireNullOrEmpty(nilArray);
-        });
 
         requireNotThrowsError("requireNullOrEmpty_Array", () -> {
             requireNullOrEmpty(array);
+        });
+        requireNotThrowsError("requireNullOrEmpty_Array", () -> {
+            requireNullOrEmpty(nilArray);
         });
         requireNotThrowsError("requireNullOrEmpty_Array", () -> {
             requireNullOrEmpty(emptyArray);
@@ -315,12 +315,12 @@ public final class RequireTests
         requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
             requireNullOrWhitespace(new String[]{whitespaceString, string});
         });
-        requireThrowsError("requireNullOrWhiteSpace_Array", () -> {
-            requireNullOrWhitespace(nilArray);
-        });
 
         requireNotThrowsError("requireNullOrWhiteSpace_Array", () -> {
             requireNullOrWhitespace(array);
+        });
+        requireNotThrowsError("requireNullOrWhiteSpace_Array", () -> {
+            requireNullOrWhitespace(nilArray);
         });
         requireNotThrowsError("requireNullOrWhiteSpace_Array", () -> {
             requireNullOrWhitespace(emptyArray);
@@ -430,12 +430,12 @@ public final class RequireTests
         requireThrowsError("requireValid_Array", () -> {
             requireValid(new Validatable[]{validObject, notValidObject});
         });
-        requireThrowsError("requireValid_Array", () -> {
-            requireValid(nilArray);
-        });
 
         requireNotThrowsError("requireValid_Array", () -> {
             requireValid(array);
+        });
+        requireNotThrowsError("requireValid_Array", () -> {
+            requireValid(nilArray);
         });
         requireNotThrowsError("requireValid_Array", () -> {
             requireValid(emptyArray);
@@ -530,15 +530,15 @@ public final class RequireTests
         requireThrowsError("requireNullOrValid_Array", () -> {
             requireNullOrValid(new Validatable[]{validObject, notValidObject});
         });
-        requireThrowsError("requireNullOrValid_Array", () -> {
-            requireNullOrValid(nilArray);
-        });
 
         requireNotThrowsError("requireNullOrValid_Array", () -> {
             requireNullOrValid(new Validatable[]{validObject, nilObject});
         });
         requireNotThrowsError("requireNullOrValid_Array", () -> {
             requireNullOrValid(array);
+        });
+        requireNotThrowsError("requireNullOrValid_Array", () -> {
+            requireNullOrValid(nilArray);
         });
         requireNotThrowsError("requireNullOrValid_Array", () -> {
             requireNullOrValid(emptyArray);
