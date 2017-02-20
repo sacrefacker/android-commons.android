@@ -1,14 +1,18 @@
 package com.roxiemobile.androidcommons.logging;
 
-import com.roxiemobile.androidcommons.util.ArrayUtils;
+import com.roxiemobile.androidcommons.logging.Logger.Contract;
 
-public class ChainedLogger implements Logger.Contract
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public final class ChainedLogger implements Logger.Contract
 {
 // MARK: - Construction
 
     public ChainedLogger(Logger.Contract... loggers) {
         // Init instance variables
-        mLoggers = ArrayUtils.isNullOrEmpty(loggers) ? new Logger.Contract[]{} : loggers;
+        mLoggers = (loggers == null) ? Collections.EMPTY_LIST : Arrays.asList(loggers);
     }
 
 // MARK: - Methods
@@ -78,6 +82,5 @@ public class ChainedLogger implements Logger.Contract
 
 // MARK: - Variables
 
-    private final Logger.Contract[] mLoggers;
-
+    private final List<Contract> mLoggers;
 }

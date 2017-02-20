@@ -212,12 +212,12 @@ public final class ExpectTests
         expectThrowsException("expectNullOrEmpty_Array", () -> {
             expectNullOrEmpty(new String[]{emptyString, string});
         });
-        expectThrowsException("expectNullOrEmpty_Array", () -> {
-            expectNullOrEmpty(nilArray);
-        });
 
         expectNotThrowsException("expectNullOrEmpty_Array", () -> {
             expectNullOrEmpty(array);
+        });
+        expectNotThrowsException("expectNullOrEmpty_Array", () -> {
+            expectNullOrEmpty(nilArray);
         });
         expectNotThrowsException("expectNullOrEmpty_Array", () -> {
             expectNullOrEmpty(emptyArray);
@@ -326,12 +326,12 @@ public final class ExpectTests
         expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
             expectNullOrWhitespace(new String[]{whitespaceString, string});
         });
-        expectThrowsException("expectNullOrWhiteSpace_Array", () -> {
-            expectNullOrWhitespace(nilArray);
-        });
 
         expectNotThrowsException("expectNullOrWhiteSpace_Array", () -> {
             expectNullOrWhitespace(array);
+        });
+        expectNotThrowsException("expectNullOrWhiteSpace_Array", () -> {
+            expectNullOrWhitespace(nilArray);
         });
         expectNotThrowsException("expectNullOrWhiteSpace_Array", () -> {
             expectNullOrWhitespace(emptyArray);
@@ -339,7 +339,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNotWhiteSpace()
+    public void testExpectNotBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -347,23 +347,23 @@ public final class ExpectTests
         final String whitespaceString = " \t\r\n";
 
 
-        expectThrowsException("expectNotWhiteSpace", () -> {
+        expectThrowsException("expectNotBlank", () -> {
             expectNotBlank(nilString);
         });
-        expectThrowsException("expectNotWhiteSpace", () -> {
+        expectThrowsException("expectNotBlank", () -> {
             expectNotBlank(emptyString);
         });
-        expectThrowsException("expectNotWhiteSpace", () -> {
+        expectThrowsException("expectNotBlank", () -> {
             expectNotBlank(whitespaceString);
         });
 
-        expectNotThrowsException("expectNotWhiteSpace", () -> {
+        expectNotThrowsException("expectNotBlank", () -> {
             expectNotBlank(string);
         });
     }
 
     @Test
-    public void testExpectNotWhiteSpace_Array()
+    public void testExpectNotBlank_Array()
     {
         final String string = "value";
         final String nilString = null;
@@ -376,26 +376,26 @@ public final class ExpectTests
         final String[] emptyArray = new String[]{};
 
 
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(new String[]{nilString});
         });
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(new String[]{emptyString});
         });
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(new String[]{whitespaceString});
         });
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(new String[]{string, whitespaceString});
         });
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(nilArray);
         });
-        expectThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(emptyArray);
         });
 
-        expectNotThrowsException("expectNotWhiteSpace_Array", () -> {
+        expectNotThrowsException("expectNotBlank_Array", () -> {
             expectNotBlank(array);
         });
     }
@@ -607,7 +607,7 @@ public final class ExpectTests
 
     @Test
     public void testNotThrowIfValidModel() {
-        Logger.instance().logLevel(LogLevel.Suppress);
+        Logger.shared().logLevel(LogLevel.Suppress);
         ParkingModel parking = null;
 
         JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
@@ -629,7 +629,7 @@ public final class ExpectTests
 
     @Test
     public void testThrowIfNotValidModel() {
-        Logger.instance().logLevel(LogLevel.Suppress);
+        Logger.shared().logLevel(LogLevel.Suppress);
         ParkingModel parking = null;
 
         JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");

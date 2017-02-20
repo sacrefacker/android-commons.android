@@ -246,14 +246,14 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(@NonNull CharSequence[] values, String message) {
+    public static void expectNullOrEmpty(CharSequence[] values, String message) {
         expectTrue(StringUtils.isNullOrEmpty(values), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(@NonNull CharSequence[] values) {
+    public static void expectNullOrEmpty(CharSequence[] values) {
         expectNullOrEmpty(values, null);
     }
 
@@ -582,5 +582,4 @@ public final class Expect
         }
         throw new ExpectationException(message);
     }
-
 }

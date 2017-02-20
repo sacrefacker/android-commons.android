@@ -6,19 +6,32 @@ import com.roxiemobile.androidcommons.data.model.Validatable;
 
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectFalse;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhitespace;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
 
+/**
+ * A set of requirement methods useful for validating objects states. Only failed requirements are recorded.
+ * These methods can be used directly: <code>Require.requireTrue(...)</code>, however,
+ * they read better if they are referenced through static import:
+ * <p>
+ * <pre>
+ * import static Require.*;
+ *    ...
+ *    requireEqual(...);
+ * </pre>
+ */
 public final class Require
 {
 // MARK: - Construction
@@ -61,6 +74,24 @@ public final class Require
 
     public static void requireNotEqual(Object unexpected, Object actual) {
         requireNotEqual(unexpected, actual, null);
+    }
+
+// MARK: --
+
+    public static void requireSame(Object expected, Object actual, String message) {
+        rethrowOnFailure(message, () -> expectSame(expected, actual));
+    }
+
+    public static void requireSame(Object expected, Object actual) {
+        requireSame(expected, actual, null);
+    }
+
+    public static void requireNotSame(Object unexpected, Object actual, String message) {
+        rethrowOnFailure(message, () -> expectNotSame(unexpected, actual));
+    }
+
+    public static void requireNotSame(Object unexpected, Object actual) {
+        requireNotSame(unexpected, actual, null);
     }
 
 // MARK: - Methods

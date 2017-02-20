@@ -1,8 +1,5 @@
 package com.roxiemobile.androidcommons.logging;
 
-import android.annotation.SuppressLint;
-
-@SuppressLint("LogTagMismatch")
 public final class Logger
 {
 // MARK: - Construction
@@ -11,7 +8,7 @@ public final class Logger
         public static final Logger SHARED_INSTANCE = new Logger();
     }
 
-    public static Logger instance() {
+    public static Logger shared() {
         return Logger.SingletonHolder.SHARED_INSTANCE;
     }
 
@@ -50,7 +47,7 @@ public final class Logger
 // MARK: - Methods
 
     public static void v(String tag, String msg) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Verbose)) {
             logger.v(tag, msg);
@@ -58,7 +55,7 @@ public final class Logger
     }
 
     public static void d(String tag, String msg) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Debug)) {
             logger.d(tag, msg);
@@ -66,7 +63,7 @@ public final class Logger
     }
 
     public static void i(String tag, String msg) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Info)) {
             logger.i(tag, msg);
@@ -74,7 +71,7 @@ public final class Logger
     }
 
     public static void w(String tag, String msg) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Warning)) {
             logger.w(tag, msg);
@@ -82,7 +79,7 @@ public final class Logger
     }
 
     public static void w(String tag, String msg, Throwable err) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Warning)) {
             logger.w(tag, msg, err);
@@ -90,7 +87,7 @@ public final class Logger
     }
 
     public static void w(String tag, Throwable err) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Warning)) {
             logger.w(tag, err);
@@ -98,7 +95,7 @@ public final class Logger
     }
 
     public static void e(String tag, String msg) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Error)) {
             logger.e(tag, msg);
@@ -106,7 +103,7 @@ public final class Logger
     }
 
     public static void e(String tag, String msg, Throwable err) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Error)) {
             logger.e(tag, msg, err);
@@ -114,15 +111,17 @@ public final class Logger
     }
 
     public static void e(String tag, Throwable err) {
-        Logger.Contract logger = instance().logger();
+        Logger.Contract logger = shared().logger();
 
         if (logger != null && isLoggable(LogLevel.Error)) {
             logger.e(tag, err);
         }
     }
 
+// MARK: - Methods
+
     public static boolean isLoggable(LogLevel level) {
-        return level.ordinal() >= instance().logLevel().ordinal();
+        return level.ordinal() >= shared().logLevel().ordinal();
     }
 
 // MARK: - Inner Types
@@ -163,5 +162,4 @@ public final class Logger
     private LogLevel mLogLevel = LogLevel.Info;
 
     private final Object mInnerLock = new Object();
-
 }

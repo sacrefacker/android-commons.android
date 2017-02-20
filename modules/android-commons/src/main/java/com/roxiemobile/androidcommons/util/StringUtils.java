@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class StringUtils
 {
@@ -29,7 +29,7 @@ public final class StringUtils
      * Checks if all CharSequences is empty ("") or {@code null}.
      */
     public static boolean isNullOrEmpty(@NonNull CharSequence... values) {
-        expectNotNull(values, "values is null");
+        requireNotNull(values, "values is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(values)) {
@@ -53,7 +53,7 @@ public final class StringUtils
      * Checks if none of the CharSequences are not empty ("") and not {@code null}.
      */
     public static boolean isNotEmpty(@NonNull CharSequence... values) {
-        expectNotNull(values, "values is null");
+        requireNotNull(values, "values is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(values)) {
@@ -79,7 +79,7 @@ public final class StringUtils
      * Checks if all CharSequences is whitespace, empty ("") or {@code null}.
      */
     public static boolean isNullOrWhitespace(@NonNull CharSequence... values) {
-        expectNotNull(values, "values is null");
+        requireNotNull(values, "values is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(values)) {
@@ -103,7 +103,7 @@ public final class StringUtils
      * Checks if none of the CharSequences are not empty (""), not {@code null} and not whitespace only.
      */
     public static boolean isNotBlank(@NonNull CharSequence... values) {
-        expectNotNull(values, "values is null");
+        requireNotNull(values, "values is null");
         boolean result = true;
 
         if (ArrayUtils.isNullOrEmpty(values)) {
@@ -175,5 +175,4 @@ public final class StringUtils
         }
         return ((st > 0) || (len < str.length())) ? str.subSequence(st, len) : str;
     }
-
 }

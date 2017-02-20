@@ -12,12 +12,14 @@ import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotBlank
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotSame;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNull;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrValid;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireNullOrWhitespace;
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireSame;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireValid;
 
@@ -93,6 +95,38 @@ public final class RequireTests
         });
         requireNotThrowsError("requireNotEqual", () -> {
             requireNotEqual(string, nilString);
+        });
+    }
+
+// MARK: - Tests
+
+    @Test
+    public void testExpectSame()
+    {
+        String string = "value";
+        String otherString = "otherValue";
+
+        requireThrowsError("expectSame", () -> {
+            requireSame(string, otherString);
+        });
+
+        requireNotThrowsError("expectSame", () -> {
+            requireSame(string, string);
+        });
+    }
+
+    @Test
+    public void testExpectNotSame()
+    {
+        String string = "value";
+        String otherString = "otherValue";
+
+        requireThrowsError("expectNotSame", () -> {
+            requireNotSame(string, string);
+        });
+
+        requireNotThrowsError("expectNotSame", () -> {
+            requireNotSame(string, otherString);
         });
     }
 
@@ -176,6 +210,8 @@ public final class RequireTests
             requireNullOrEmpty(emptyArray);
         });
     }
+
+// MARK: - Tests
 
     @Test
     public void testRequireNotEmpty()
@@ -291,8 +327,10 @@ public final class RequireTests
         });
     }
 
+// MARK: - Tests
+
     @Test
-    public void testRequireNotWhiteSpace()
+    public void testRequireNotBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -300,23 +338,23 @@ public final class RequireTests
         final String whitespaceString = " \t\r\n";
 
 
-        requireThrowsError("requireNotWhiteSpace", () -> {
+        requireThrowsError("requireNotBlank", () -> {
             requireNotBlank(nilString);
         });
-        requireThrowsError("requireNotWhiteSpace", () -> {
+        requireThrowsError("requireNotBlank", () -> {
             requireNotBlank(emptyString);
         });
-        requireThrowsError("requireNotWhiteSpace", () -> {
+        requireThrowsError("requireNotBlank", () -> {
             requireNotBlank(whitespaceString);
         });
 
-        requireNotThrowsError("requireNotWhiteSpace", () -> {
+        requireNotThrowsError("requireNotBlank", () -> {
             requireNotBlank(string);
         });
     }
 
     @Test
-    public void testRequireNotWhiteSpace_Array()
+    public void testRequireNotBlank_Array()
     {
         final String string = "value";
         final String nilString = null;
@@ -329,26 +367,26 @@ public final class RequireTests
         final String[] emptyArray = new String[]{};
 
 
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(new String[]{nilString});
         });
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(new String[]{emptyString});
         });
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(new String[]{whitespaceString});
         });
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(new String[]{string, whitespaceString});
         });
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(nilArray);
         });
-        requireThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(emptyArray);
         });
 
-        requireNotThrowsError("requireNotWhiteSpace_Array", () -> {
+        requireNotThrowsError("requireNotBlank_Array", () -> {
             requireNotBlank(array);
         });
     }

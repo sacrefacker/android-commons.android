@@ -2,7 +2,7 @@ package com.roxiemobile.androidcommons.logging;
 
 import android.util.Log;
 
-public class LogcatLogger implements Logger.Contract
+public final class LogcatLogger implements Logger.Contract
 {
 // MARK: - Methods
 
@@ -73,10 +73,9 @@ public class LogcatLogger implements Logger.Contract
 
     /**
      * This is an Android side limitation:
-     *   IllegalArgumentException is thrown if the tag.length() > 23
+     * IllegalArgumentException is thrown if the tag.length() > 23
      */
     private static String cropTag(String tag) {
         return (tag.length() > 23) ? tag.substring(0, 23) : tag;
     }
-
 }
