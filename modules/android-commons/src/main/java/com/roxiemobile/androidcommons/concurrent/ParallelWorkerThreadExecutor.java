@@ -25,7 +25,7 @@ public final class ParallelWorkerThreadExecutor extends AbstractExecutorService
         public static final ParallelWorkerThreadExecutor SHARED_INSTANCE = new ParallelWorkerThreadExecutor();
     }
 
-    public static ParallelWorkerThreadExecutor instance() {
+    public static ParallelWorkerThreadExecutor shared() {
         return SingletonHolder.SHARED_INSTANCE;
     }
 

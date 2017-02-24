@@ -19,7 +19,7 @@ public final class MainThreadExecutor extends AbstractExecutorService
         public static final MainThreadExecutor SHARED_INSTANCE = new MainThreadExecutor();
     }
 
-    public static MainThreadExecutor instance() {
+    public static MainThreadExecutor shared() {
         return SingletonHolder.SHARED_INSTANCE;
     }
 
