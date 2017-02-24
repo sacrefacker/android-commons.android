@@ -431,12 +431,12 @@ public final class GsonUtils
         return result;
     }
 
-    public static boolean isNullOrEmpty(JsonObject object) {
-        return (object == null) || (object.entrySet().size() < 1);
+    public static boolean isEmpty(JsonObject object) {
+        return (object == null) || object.entrySet().size() < 1;
     }
 
-    public static boolean isNullOrEmpty(JsonArray array) {
-        return (array == null) || (array.size() < 1);
+    public static boolean isEmpty(JsonArray array) {
+        return (array == null) || array.size() < 1;
     }
 
     @SuppressWarnings("unchecked")

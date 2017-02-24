@@ -23,5 +23,4 @@ public class JsonValidationException extends Exception
 // MARK: - Variables
 
     private static final long serialVersionUID = 8039716172237443408L;
-
 }

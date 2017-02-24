@@ -20,5 +20,4 @@ public class URIAdapter extends TypeAdapter<URI>
     public URI read(JsonReader r) throws IOException {
         return URI.create(r.nextString());
     }
-
 }

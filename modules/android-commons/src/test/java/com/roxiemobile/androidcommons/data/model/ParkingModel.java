@@ -2,8 +2,8 @@ package com.roxiemobile.androidcommons.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
 
 public class ParkingModel extends SerializableObject
 {
@@ -19,6 +19,6 @@ public class ParkingModel extends SerializableObject
 
         // Validate instance variables
         expectNotBlank(mWatcher);
-        expectValid(mVehicles);
+        expectAllValid(mVehicles);
     }
 }

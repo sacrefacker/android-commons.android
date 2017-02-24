@@ -103,7 +103,7 @@ public final class IOUtils
 
     /**
      * Unconditionally close a {@code Closeable}.
-     * <p>
+     *
      * Equivalent to {@link Closeable#close()}, except any exceptions will be ignored.
      * This is typically used in finally blocks.
      */
@@ -184,5 +184,4 @@ public final class IOUtils
      * The default buffer size ({@value}) to use for {@link #copy(InputStream, OutputStream)}.
      */
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
-
 }

@@ -22,5 +22,4 @@ public final class ParcelUtils
     public static boolean readBooleanFromParcel(Parcel parcel) {
         return (parcel.readInt() != 0);
     }
-
 }

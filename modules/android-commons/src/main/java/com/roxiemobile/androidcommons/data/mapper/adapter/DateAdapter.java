@@ -51,5 +51,4 @@ public class DateAdapter extends TypeAdapter<Date>
             return new SimpleDateFormat(DateFormat.DATE, Locale.ENGLISH);
         }
     };
-
 }

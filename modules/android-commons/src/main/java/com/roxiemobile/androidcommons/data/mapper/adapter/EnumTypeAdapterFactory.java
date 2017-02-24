@@ -130,5 +130,4 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory
         private final Map<T, String> mConstantToName = new HashMap<>();
         private final T mUnknownTypeValue;
     }
-
 }

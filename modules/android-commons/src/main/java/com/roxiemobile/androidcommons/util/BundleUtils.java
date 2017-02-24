@@ -26,7 +26,7 @@ public final class BundleUtils
     /**
      * Checks if given Bundle is {@code null} or has zero elements.
      */
-    public static boolean isNullOrEmpty(Bundle bundle) {
+    public static boolean isEmpty(Bundle bundle) {
         return (bundle == null) || bundle.isEmpty();
     }
 
@@ -34,7 +34,7 @@ public final class BundleUtils
      * Checks if given Bundle is non {@code null} and has elements.
      */
     public static boolean isNotEmpty(Bundle bundle) {
-        return !isNullOrEmpty(bundle);
+        return !isEmpty(bundle);
     }
 
     /**
@@ -50,7 +50,7 @@ public final class BundleUtils
      * Returns the given Bundle if it is non-empty; {@code null} otherwise.
      */
     public static Bundle emptyToNull(Bundle bundle) {
-        return isNullOrEmpty(bundle) ? null : bundle;
+        return isEmpty(bundle) ? null : bundle;
     }
 
     /**
@@ -96,7 +96,7 @@ public final class BundleUtils
 
     /**
      * Inserts a Object array value into the mapping of this Bundle, replacing
-     * any existing value for the given key.  Value may be null.
+     * any existing value for the given key.  Value may be {@code null}.
      */
     public static <T extends Serializable> void putSerializableList(@NonNull Bundle bundle, String key, T[] value) {
         requireNotNull(bundle, "bundle is null");
@@ -213,5 +213,4 @@ public final class BundleUtils
 // MARK: - Constants
 
     private static final String TAG = BundleUtils.class.getSimpleName();
-
 }

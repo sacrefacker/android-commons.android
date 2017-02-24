@@ -23,15 +23,12 @@ public final class IntegerUtils
      * collection.toArray()}.  Calling this method is as thread-safe as calling
      * that method.
      *
-     * @param collection a collection of {@code Number} instances
-     * @return an array containing the same values as {@code collection}, in the
-     *     same order, converted to primitives
-     * @throws NullPointerException if {@code collection} or any of its elements
-     *     is null
-     * @since 1.0 (parameter was {@code Collection<Integer>} before 12.0)
+     * @param collection A collection of {@code Number} instances
+     * @return an array containing the same values as {@code collection}, in the same order,
+     * converted to primitives.
+     * @throws NullPointerException if {@code collection} or any of its elements is null
      */
-    public static int[] toArray(Collection<? extends Number> collection)
-    {
+    public static int[] toArray(final Collection<? extends Number> collection) {
         Object[] boxedArray = collection.toArray();
         int count = boxedArray.length;
 
@@ -50,22 +47,25 @@ public final class IntegerUtils
      *
      * <p>The returned list maintains the values, but not the identities, of
      * {@code Integer} objects written to or read from it.  For example, whether
-     * {@code list.get(0) == list.get(0)} is true for the returned list is
-     * unspecified.
+     * {@code list.get(0) == list.get(0)} is true for the returned list is unspecified.
      *
      * @param backingArray the array to back the list
      * @return a list view of the array
      */
-    public static List<Integer> asList(final int... backingArray)
-    {
+    public static List<Integer> asList(final int... backingArray) {
         if (backingArray.length == 0) {
             return Collections.emptyList();
         }
 
-        return new AbstractList<Integer>() {
-            public Integer get(int i) { return backingArray[i]; }
-            public int size() { return backingArray.length; }
+        return new AbstractList<Integer>()
+        {
+            public Integer get(int i) {
+                return backingArray[i];
+            }
+
+            public int size() {
+                return backingArray.length;
+            }
         };
     }
-
 }

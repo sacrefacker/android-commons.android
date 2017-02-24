@@ -521,5 +521,4 @@ public class JsonValidator
 // MARK: - Variables
 
     private JsonObject mSchema;
-
 }

@@ -85,7 +85,8 @@ public class ComparisonFailure extends ExpectationException
         public String compact(String message) {
             if (mExpected == null || mActual == null || mExpected.equals(mActual)) {
                 return Expect.format(message, mExpected, mActual);
-            } else {
+            }
+            else {
                 DiffExtractor extractor = new DiffExtractor();
                 String compactedPrefix = extractor.compactPrefix();
                 String compactedSuffix = extractor.compactSuffix();
@@ -169,12 +170,11 @@ public class ComparisonFailure extends ExpectationException
 
 // MARK: - Variables
 
-    /*
+    /**
      * We have to use the m prefix until the next major release to ensure
      * serialization compatibility.
      * See https://github.com/junit-team/junit/issues/976
      */
     private String mExpected;
     private String mActual;
-
 }

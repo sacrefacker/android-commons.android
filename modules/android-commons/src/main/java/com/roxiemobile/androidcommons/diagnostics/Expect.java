@@ -1,6 +1,7 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
 import com.roxiemobile.androidcommons.data.model.Validatable;
+import com.roxiemobile.androidcommons.util.ArrayUtils;
 import com.roxiemobile.androidcommons.util.StringUtils;
 import com.roxiemobile.androidcommons.util.ValidatableUtils;
 
@@ -29,9 +30,9 @@ public final class Expect
      * Expects that a condition is true. If it isn't it throws an {@link ExpectationException} with the given message.
      *
      * @param condition Condition to be checked
-     * @param message   The identifying message for the {@link ExpectationException} (<code>null</code> okay)
+     * @param message   The identifying message for the {@link ExpectationException} ({@code null} okay)
      */
-    public static void expectTrue(boolean condition, String message) {
+    public static void expectTrue(final boolean condition, final String message) {
         if (!condition) {
             throwException(message);
         }
@@ -42,7 +43,7 @@ public final class Expect
      *
      * @param condition Condition to be checked
      */
-    public static void expectTrue(boolean condition) {
+    public static void expectTrue(final boolean condition) {
         expectTrue(condition, null);
     }
 
@@ -52,7 +53,7 @@ public final class Expect
      * @param condition Condition to be checked
      * @param message   The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectFalse(boolean condition, String message) {
+    public static void expectFalse(final boolean condition, final String message) {
         expectTrue(!condition, message);
     }
 
@@ -61,7 +62,7 @@ public final class Expect
      *
      * @param condition Condition to be checked
      */
-    public static void expectFalse(boolean condition) {
+    public static void expectFalse(final boolean condition) {
         expectFalse(condition, null);
     }
 
@@ -76,8 +77,7 @@ public final class Expect
      * @param actual   Actual value
      * @param message  The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    static public void expectEqual(Object expected, Object actual, String message)
-    {
+    static public void expectEqual(final Object expected, final Object actual, final String message) {
         if (safeEqual(expected, actual)) {
             // Do nothing
         }
@@ -98,7 +98,7 @@ public final class Expect
      * @param expected Expected value
      * @param actual   The value to check against <code>expected</code>
      */
-    public static void expectEqual(Object expected, Object actual) {
+    public static void expectEqual(final Object expected, final Object actual) {
         expectEqual(expected, actual, null);
     }
 
@@ -111,7 +111,7 @@ public final class Expect
      * @param actual     The value to check against <code>unexpected</code>
      * @param message    The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectNotEqual(Object unexpected, Object actual, String message) {
+    public static void expectNotEqual(final Object unexpected, final Object actual, final String message) {
         if (safeEqual(unexpected, actual)) {
             failEqual(message, actual);
         }
@@ -125,7 +125,7 @@ public final class Expect
      * @param unexpected Unexpected value to check
      * @param actual     The value to check against <code>unexpected</code>
      */
-    public static void expectNotEqual(Object unexpected, Object actual) {
+    public static void expectNotEqual(final Object unexpected, final Object actual) {
         expectNotEqual(unexpected, actual, null);
     }
 
@@ -139,7 +139,7 @@ public final class Expect
      * @param actual   The object to compare to <code>expected</code>
      * @param message  The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectSame(Object expected, Object actual, String message) {
+    public static void expectSame(final Object expected, final Object actual, final String message) {
         if (expected == actual) {
             return;
         }
@@ -153,7 +153,7 @@ public final class Expect
      * @param expected The expected object
      * @param actual   The object to compare to <code>expected</code>
      */
-    public static void expectSame(Object expected, Object actual) {
+    public static void expectSame(final Object expected, final Object actual) {
         expectSame(expected, actual, null);
     }
 
@@ -165,7 +165,7 @@ public final class Expect
      * @param actual     The object to compare to <code>unexpected</code>
      * @param message    The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectNotSame(Object unexpected, Object actual, String message) {
+    public static void expectNotSame(final Object unexpected, final Object actual, final String message) {
         if (unexpected == actual) {
             failSame(message);
         }
@@ -178,7 +178,7 @@ public final class Expect
      * @param unexpected The object you don't expect
      * @param actual     The object to compare to <code>unexpected</code>
      */
-    public static void expectNotSame(Object unexpected, Object actual) {
+    public static void expectNotSame(final Object unexpected, final Object actual) {
         expectNotSame(unexpected, actual, null);
     }
 
@@ -190,11 +190,10 @@ public final class Expect
      * @param object  Object to check or <code>null</code>
      * @param message The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectNull(Object object, String message) {
-        if (object == null) {
-            return;
+    public static void expectNull(final Object object, final String message) {
+        if (object != null) {
+            failNotNull(message, object);
         }
-        failNotNull(message, object);
     }
 
     /**
@@ -202,7 +201,7 @@ public final class Expect
      *
      * @param object Object to check or <code>null</code>
      */
-    public static void expectNull(Object object) {
+    public static void expectNull(final Object object) {
         expectNull(object, null);
     }
 
@@ -212,7 +211,7 @@ public final class Expect
      * @param object  Object to check or <code>null</code>
      * @param message The identifying message for the {@link ExpectationException} (<code>null</code> okay)
      */
-    public static void expectNotNull(Object object, String message) {
+    public static void expectNotNull(final Object object, final String message) {
         expectTrue(object != null, message);
     }
 
@@ -221,7 +220,7 @@ public final class Expect
      *
      * @param object Object to check or <code>null</code>
      */
-    public static void expectNotNull(Object object) {
+    public static void expectNotNull(final Object object) {
         expectNotNull(object, null);
     }
 
@@ -230,115 +229,61 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(CharSequence str, String message) {
-        expectTrue(StringUtils.isNullOrEmpty(str), message);
+    public static void expectEmpty(final CharSequence value, final String message) {
+        expectTrue(StringUtils.isEmpty(value), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(CharSequence str) {
-        expectNullOrEmpty(str, null);
+    public static void expectEmpty(final CharSequence value) {
+        expectEmpty(value, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNullOrEmpty(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
+    public static void expectAllEmpty(final CharSequence[] values, final String message) {
+        if (ArrayUtils.isNotEmpty(values)) {
+            expectTrue(StringUtils.isAllEmpty(values), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrEmpty(CharSequence[] values) {
-        expectNullOrEmpty(values, null);
+    public static void expectAllEmpty(final CharSequence[] values) {
+        expectAllEmpty(values, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotEmpty(CharSequence str, String message) {
-        expectTrue(StringUtils.isNotEmpty(str), message);
+    public static void expectNotEmpty(final CharSequence value, final String message) {
+        expectTrue(StringUtils.isNotEmpty(value), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotEmpty(CharSequence str) {
-        expectNotEmpty(str, null);
+    public static void expectNotEmpty(final CharSequence value) {
+        expectNotEmpty(value, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotEmpty(CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNotEmpty(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
+    public static void expectAllNotEmpty(final CharSequence[] values, final String message) {
+        if (ArrayUtils.isNotEmpty(values)) {
+            expectTrue(StringUtils.isAllNotEmpty(values), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectNotEmpty(CharSequence[] values) {
-        expectNotEmpty(values, null);
-    }
-
-// MARK: --
-
-    /**
-     * TODO
-     */
-    public static void expectNullOrWhitespace(CharSequence str, String message) {
-        expectTrue(StringUtils.isNullOrWhitespace(str), message);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNullOrWhitespace(CharSequence str) {
-        expectNullOrWhitespace(str, null);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNullOrWhitespace(CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNullOrWhitespace(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNullOrWhitespace(CharSequence[] values) {
-        expectNullOrWhitespace(values, null);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNotBlank(CharSequence str, String message) {
-        expectTrue(StringUtils.isNotBlank(str), message);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNotBlank(CharSequence str) {
-        expectNotBlank(str, null);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNotBlank(CharSequence[] values, String message) {
-        expectTrue(StringUtils.isNotBlank(nullToDefault(values, EMPTY_CHAR_SEQUENCE_ARRAY)), message);
-    }
-
-    /**
-     * TODO
-     */
-    public static void expectNotBlank(CharSequence[] values) {
-        expectNotBlank(values, null);
+    public static void expectAllNotEmpty(final CharSequence[] values) {
+        expectAllNotEmpty(values, null);
     }
 
 // MARK: --
@@ -346,57 +291,61 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectValid(Validatable obj, String message) {
-        expectTrue(ValidatableUtils.isValid(obj), message);
+    public static void expectBlank(final CharSequence value, final String message) {
+        expectTrue(StringUtils.isBlank(value), message);
     }
 
     /**
      * TODO
      */
-    public static void expectValid(Validatable obj) {
-        expectValid(obj, null);
+    public static void expectBlank(final CharSequence value) {
+        expectBlank(value, null);
     }
 
     /**
      * TODO
      */
-    public static void expectValid(Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
+    public static void expectAllBlank(final CharSequence[] values, final String message) {
+        if (ArrayUtils.isNotEmpty(values)) {
+            expectTrue(StringUtils.isAllBlank(values), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectValid(Validatable[] objects) {
-        expectValid(objects, null);
+    public static void expectAllBlank(final CharSequence[] values) {
+        expectAllBlank(values, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotValid(Validatable obj, String message) {
-        expectTrue(ValidatableUtils.isNotValid(obj), message);
+    public static void expectNotBlank(final CharSequence value, final String message) {
+        expectTrue(StringUtils.isNotBlank(value), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNotValid(Validatable obj) {
-        expectNotValid(obj, null);
+    public static void expectNotBlank(final CharSequence value) {
+        expectNotBlank(value, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNotValid(Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNotValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
+    public static void expectAllNotBlank(final CharSequence[] values, final String message) {
+        if (ArrayUtils.isNotEmpty(values)) {
+            expectTrue(StringUtils.isAllNotBlank(values), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectNotValid(Validatable[] objects) {
-        expectNotValid(objects, null);
+    public static void expectAllNotBlank(final CharSequence[] values) {
+        expectAllNotBlank(values, null);
     }
 
 // MARK: --
@@ -404,57 +353,123 @@ public final class Expect
     /**
      * TODO
      */
-    public static void expectNullOrValid(Validatable obj, String message) {
-        expectTrue(ValidatableUtils.isNullOrValid(obj), message);
+    public static void expectValid(final Validatable object, final String message) {
+        expectTrue(ValidatableUtils.isValid(object), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrValid(Validatable obj) {
-        expectNullOrValid(obj, null);
+    public static void expectValid(final Validatable object) {
+        expectValid(object, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrValid(Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNullOrValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
+    public static void expectAllValid(final Validatable[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(ValidatableUtils.isAllValid(objects), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrValid(Validatable[] objects) {
-        expectNullOrValid(objects, null);
+    public static void expectAllValid(final Validatable[] objects) {
+        expectAllValid(objects, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(Validatable obj, String message) {
-        expectTrue(ValidatableUtils.isNullOrNotValid(obj), message);
+    public static void expectNotValid(final Validatable object, final String message) {
+        expectTrue(ValidatableUtils.isNotValid(object), message);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(Validatable obj) {
-        expectNullOrNotValid(obj, null);
+    public static void expectNotValid(final Validatable object) {
+        expectNotValid(object, null);
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(Validatable[] objects, String message) {
-        expectTrue(ValidatableUtils.isNullOrNotValid(nullToDefault(objects, EMPTY_VALIDATABLE_ARRAY)), message);
+    public static void expectAllNotValid(final Validatable[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(ValidatableUtils.isAllNotValid(objects), message);
+        }
     }
 
     /**
      * TODO
      */
-    public static void expectNullOrNotValid(Validatable[] objects) {
-        expectNullOrNotValid(objects, null);
+    public static void expectAllNotValid(final Validatable[] objects) {
+        expectAllNotValid(objects, null);
+    }
+
+// MARK: --
+
+    /**
+     * TODO
+     */
+    public static void expectNullOrValid(final Validatable object, final String message) {
+        expectTrue(ValidatableUtils.isNullOrValid(object), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectNullOrValid(final Validatable object) {
+        expectNullOrValid(object, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectAllNullOrValid(final Validatable[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(ValidatableUtils.isAllNullOrValid(objects), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectAllNullOrValid(final Validatable[] objects) {
+        expectAllNullOrValid(objects, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectNullOrNotValid(final Validatable object, final String message) {
+        expectTrue(ValidatableUtils.isNullOrNotValid(object), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectNullOrNotValid(final Validatable object) {
+        expectNullOrNotValid(object, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectAllNullOrNotValid(final Validatable[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(ValidatableUtils.isAllNullOrNotValid(objects), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static void expectAllNullOrNotValid(final Validatable[] objects) {
+        expectAllNullOrNotValid(objects, null);
     }
 
 // MARK: --
@@ -479,8 +494,7 @@ public final class Expect
      * @param runnable          A function that is expected to throw an exception when executed
      * @return The exception thrown by {@code runnable}
      */
-    public static <T extends Throwable> T expectThrows(Class<T> expectedThrowable, ThrowingRunnable runnable)
-    {
+    public static <T extends Throwable> T expectThrows(final Class<T> expectedThrowable, final ThrowingRunnable runnable) {
         try {
             runnable.run();
         }
@@ -505,15 +519,15 @@ public final class Expect
 
 // MARK: - Private Methods
 
-    private static boolean safeEqual(Object expected, Object actual) {
+    private static boolean safeEqual(final Object expected, final Object actual) {
         return (expected == null && actual == null) || (expected != null && actual != null && expected.equals(actual));
     }
 
-    private static void failNotEqual(Object expected, Object actual, String message) {
+    private static void failNotEqual(final Object expected, final Object actual, final String message) {
         throwException(format(message, expected, actual));
     }
 
-    private static void failEqual(String message, Object actual) {
+    private static void failEqual(final String message, final Object actual) {
         String formatted = "Values should be different. ";
         if (message != null) {
             formatted = message + ". ";
@@ -523,7 +537,7 @@ public final class Expect
         throwException(formatted);
     }
 
-    private static void failSame(String message) {
+    private static void failSame(final String message) {
         String formatted = "";
 
         if (message != null) {
@@ -532,7 +546,7 @@ public final class Expect
         throwException(formatted + "expected not same");
     }
 
-    private static void failNotSame(String message, Object expected, Object actual) {
+    private static void failNotSame(final String message, final Object expected, final Object actual) {
         String formatted = "";
 
         if (message != null) {
@@ -541,7 +555,7 @@ public final class Expect
         throwException(formatted + "expected same:<" + expected + "> was not:<" + actual + ">");
     }
 
-    private static void failNotNull(String message, Object actual) {
+    private static void failNotNull(final String message, final Object actual) {
         String formatted = "";
 
         if (message != null) {
@@ -550,7 +564,7 @@ public final class Expect
         throwException(formatted + "expected null, but was:<" + actual + ">");
     }
 
-    static String format(String message, Object expected, Object actual) {
+    static String format(final String message, final Object expected, final Object actual) {
         String formatted = "";
 
         if (message != null && !message.equals("")) {
@@ -569,32 +583,15 @@ public final class Expect
         }
     }
 
-    private static String formatClassAndValue(Object value, String valueString) {
+    private static String formatClassAndValue(final Object value, final String valueString) {
         String className = (value == null) ? "null" : value.getClass().getName();
         return className + "<" + valueString + ">";
     }
 
-    private static void throwException(String message) {
+    private static void throwException(final String message) {
         if (message == null) {
             throw new ExpectationException();
         }
         throw new ExpectationException(message);
     }
-
-// MARK: - Private Methods
-
-    public static <T> T[] nullToDefault(T[] array, T[] defaultArray) {
-        return (array != null) ? array : defaultArray;
-    }
-
-// MARK: - Constants
-
-    /**
-     * An empty immutable {@code CharSequence} array.
-     */
-    private static final CharSequence[] EMPTY_CHAR_SEQUENCE_ARRAY = new CharSequence[]{};
-    /**
-     * An empty immutable {@code Validatable} array.
-     */
-    private static final Validatable[] EMPTY_VALIDATABLE_ARRAY = new Validatable[]{};
 }

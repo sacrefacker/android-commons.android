@@ -49,5 +49,4 @@ public final class CharacterUtils
     public static boolean isAsciiLetterOrDigit(int codePoint) {
         return ('A' <= codePoint && codePoint <= 'Z') || ('a' <= codePoint && codePoint <= 'z') || ('0' <= codePoint && codePoint <= '9');
     }
-
 }

@@ -25,5 +25,4 @@ public abstract class ParcelableObject
     protected boolean readBooleanFromParcel(Parcel parcel) {
         return ParcelUtils.readBooleanFromParcel(parcel);
     }
-
 }

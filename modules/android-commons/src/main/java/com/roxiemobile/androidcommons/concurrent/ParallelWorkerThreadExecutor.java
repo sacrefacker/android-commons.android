@@ -104,5 +104,4 @@ public final class ParallelWorkerThreadExecutor extends AbstractExecutorService
     // An {@link Executor} that can be used to execute tasks in parallel.
     private final Executor sThreadPoolExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
             KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
-
 }

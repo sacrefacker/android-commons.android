@@ -1144,12 +1144,11 @@ public class DomainValidator implements Serializable {
         if (input == null) {
             return true;
         }
-        for(int i=0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) > 0x7F) {
                 return false;
             }
         }
         return true;
     }
-
 }

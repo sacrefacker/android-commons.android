@@ -41,8 +41,8 @@ public class ExpectationException extends RuntimeException {
      * If the specified object is an instance of {@code Throwable}, it
      * becomes the <i>cause</i> of the newly constructed expectation error.
      *
-     * @param detailMessage value to be used in constructing detail message
-     * @see   Throwable#getCause()
+     * @param detailMessage Value to be used in constructing detail message
+     * @see Throwable#getCause()
      */
     public ExpectationException(Object detailMessage) {
         this(String.valueOf(detailMessage));
@@ -58,7 +58,7 @@ public class ExpectationException extends RuntimeException {
      * a string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(boolean detailMessage) {
         this(String.valueOf(detailMessage));
@@ -70,7 +70,7 @@ public class ExpectationException extends RuntimeException {
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(char detailMessage) {
         this(String.valueOf(detailMessage));
@@ -82,7 +82,7 @@ public class ExpectationException extends RuntimeException {
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(int detailMessage) {
         this(String.valueOf(detailMessage));
@@ -94,7 +94,7 @@ public class ExpectationException extends RuntimeException {
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(long detailMessage) {
         this(String.valueOf(detailMessage));
@@ -106,7 +106,7 @@ public class ExpectationException extends RuntimeException {
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(float detailMessage) {
         this(String.valueOf(detailMessage));
@@ -118,7 +118,7 @@ public class ExpectationException extends RuntimeException {
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
-     * @param detailMessage value to be used in constructing detail message
+     * @param detailMessage Value to be used in constructing detail message
      */
     public ExpectationException(double detailMessage) {
         this(String.valueOf(detailMessage));
@@ -132,8 +132,8 @@ public class ExpectationException extends RuntimeException {
      * {@code cause} is <i>not</i> automatically incorporated in
      * this error's detail message.
      *
-     * @param  message the detail message, may be {@code null}
-     * @param  cause the cause, may be {@code null}
+     * @param message The detail message, may be {@code null}
+     * @param cause   The cause, may be {@code null}
      */
     public ExpectationException(String message, Throwable cause) {
         super(message, cause);

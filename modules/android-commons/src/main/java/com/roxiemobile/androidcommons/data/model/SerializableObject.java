@@ -37,5 +37,4 @@ public abstract class SerializableObject
     protected void validate() {
         // Do nothing
     }
-
 }

@@ -20,5 +20,4 @@ public interface CommonKeys
     interface State {
         String UNDEFINED = Prefix.STATE + "UNDEFINED";
     }
-
 }

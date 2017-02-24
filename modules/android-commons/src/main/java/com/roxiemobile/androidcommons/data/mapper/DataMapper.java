@@ -142,7 +142,8 @@ public final class DataMapper
 
 // MARK: - Inner Types
 
-    public interface DateFormat {
+    public interface DateFormat
+    {
         String DATE = "yyyy-MM-dd";
         String TIMESTAMP_ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
     }
@@ -151,5 +152,4 @@ public final class DataMapper
 
     @Deprecated
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
-
 }

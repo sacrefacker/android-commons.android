@@ -70,5 +70,4 @@ public final class MainThreadExecutor extends AbstractExecutorService
     public boolean awaitTermination(long l, @NonNull TimeUnit timeUnit) throws InterruptedException {
         throw new UnsupportedOperationException();
     }
-
 }

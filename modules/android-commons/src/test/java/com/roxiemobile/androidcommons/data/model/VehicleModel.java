@@ -2,7 +2,8 @@ package com.roxiemobile.androidcommons.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
+import static com.roxiemobile.androidcommons.util.ArrayUtils.toArray;
 
 public class VehicleModel extends SerializableObject
 {
@@ -17,6 +18,6 @@ public class VehicleModel extends SerializableObject
         super.validate();
 
         // Validate instance variables
-        expectNotBlank(new String[]{mModel, mColor});
+        expectAllNotBlank(toArray(mModel, mColor));
     }
 }

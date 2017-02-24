@@ -1,9 +1,17 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
-import android.support.annotation.NonNull;
-
 import com.roxiemobile.androidcommons.data.model.Validatable;
 
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllBlank;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllEmpty;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotEmpty;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotValid;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrNotValid;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrValid;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectBlank;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEqual;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectFalse;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
@@ -13,10 +21,8 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNull;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrWhitespace;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
@@ -42,215 +48,215 @@ public final class Require
 
 // MARK: - Methods
 
-    public static void requireTrue(boolean condition, String message) {
+    public static void requireTrue(final boolean condition, final String message) {
         rethrowOnFailure(message, () -> expectTrue(condition));
     }
 
-    public static void requireTrue(boolean condition) {
+    public static void requireTrue(final boolean condition) {
         requireTrue(condition, null);
     }
 
-    public static void requireFalse(boolean condition, String message) {
+    public static void requireFalse(final boolean condition, final String message) {
         rethrowOnFailure(message, () -> expectFalse(condition));
     }
 
-    public static void requireFalse(boolean condition) {
+    public static void requireFalse(final boolean condition) {
         requireFalse(condition, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireEqual(Object expected, Object actual, String message) {
+    public static void requireEqual(final Object expected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectEqual(expected, actual));
     }
 
-    public static void requireEqual(Object expected, Object actual) {
+    public static void requireEqual(final Object expected, final Object actual) {
         requireEqual(expected, actual, null);
     }
 
-    public static void requireNotEqual(Object unexpected, Object actual, String message) {
+    public static void requireNotEqual(final Object unexpected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectNotEqual(unexpected, actual));
     }
 
-    public static void requireNotEqual(Object unexpected, Object actual) {
+    public static void requireNotEqual(final Object unexpected, final Object actual) {
         requireNotEqual(unexpected, actual, null);
     }
 
 // MARK: --
 
-    public static void requireSame(Object expected, Object actual, String message) {
+    public static void requireSame(final Object expected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectSame(expected, actual));
     }
 
-    public static void requireSame(Object expected, Object actual) {
+    public static void requireSame(final Object expected, final Object actual) {
         requireSame(expected, actual, null);
     }
 
-    public static void requireNotSame(Object unexpected, Object actual, String message) {
+    public static void requireNotSame(final Object unexpected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectNotSame(unexpected, actual));
     }
 
-    public static void requireNotSame(Object unexpected, Object actual) {
+    public static void requireNotSame(final Object unexpected, final Object actual) {
         requireNotSame(unexpected, actual, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireNull(Object object, String message) {
+    public static void requireNull(final Object object, final String message) {
         rethrowOnFailure(message, () -> expectNull(object));
     }
 
-    public static void requireNull(Object object) {
+    public static void requireNull(final Object object) {
         requireNull(object, null);
     }
 
-    public static void requireNotNull(Object object, String message) {
+    public static void requireNotNull(final Object object, final String message) {
         rethrowOnFailure(message, () -> expectNotNull(object));
     }
 
-    public static void requireNotNull(Object object) {
+    public static void requireNotNull(final Object object) {
         requireNotNull(object, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireNullOrEmpty(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNullOrEmpty(str));
+    public static void requireEmpty(final CharSequence value, final String message) {
+        rethrowOnFailure(message, () -> expectEmpty(value));
     }
 
-    public static void requireNullOrEmpty(CharSequence str) {
-        requireNullOrEmpty(str, null);
+    public static void requireEmpty(final CharSequence value) {
+        requireEmpty(value, null);
     }
 
-    public static void requireNullOrEmpty(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNullOrEmpty(values));
+    public static void requireAllEmpty(final CharSequence[] values, final String message) {
+        rethrowOnFailure(message, () -> expectAllEmpty(values));
     }
 
-    public static void requireNullOrEmpty(@NonNull CharSequence[] values) {
-        requireNullOrEmpty(values, null);
+    public static void requireAllEmpty(final CharSequence[] values) {
+        requireAllEmpty(values, null);
     }
 
-    public static void requireNotEmpty(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(str));
+    public static void requireNotEmpty(final CharSequence value, final String message) {
+        rethrowOnFailure(message, () -> expectNotEmpty(value));
     }
 
-    public static void requireNotEmpty(CharSequence str) {
-        requireNotEmpty(str, null);
+    public static void requireNotEmpty(final CharSequence value) {
+        requireNotEmpty(value, null);
     }
 
-    public static void requireNotEmpty(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(values));
+    public static void requireAllNotEmpty(final CharSequence[] values, final String message) {
+        rethrowOnFailure(message, () -> expectAllNotEmpty(values));
     }
 
-    public static void requireNotEmpty(@NonNull CharSequence[] values) {
-        requireNotEmpty(values, null);
+    public static void requireAllNotEmpty(final CharSequence[] values) {
+        requireAllNotEmpty(values, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireNullOrWhitespace(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNullOrWhitespace(str));
+    public static void requireBlank(final CharSequence value, final String message) {
+        rethrowOnFailure(message, () -> expectBlank(value));
     }
 
-    public static void requireNullOrWhitespace(CharSequence str) {
-        requireNullOrWhitespace(str, null);
+    public static void requireBlank(final CharSequence value) {
+        requireBlank(value, null);
     }
 
-    public static void requireNullOrWhitespace(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNullOrWhitespace(values));
+    public static void requireAllBlank(final CharSequence[] values, final String message) {
+        rethrowOnFailure(message, () -> expectAllBlank(values));
     }
 
-    public static void requireNullOrWhitespace(@NonNull CharSequence[] values) {
-        requireNullOrWhitespace(values, null);
+    public static void requireAllBlank(final CharSequence[] values) {
+        requireAllBlank(values, null);
     }
 
-    public static void requireNotBlank(CharSequence str, String message) {
-        rethrowOnFailure(message, () -> expectNotBlank(str));
+    public static void requireNotBlank(final CharSequence value, final String message) {
+        rethrowOnFailure(message, () -> expectNotBlank(value));
     }
 
-    public static void requireNotBlank(CharSequence str) {
-        requireNotBlank(str, null);
+    public static void requireNotBlank(final CharSequence value) {
+        requireNotBlank(value, null);
     }
 
-    public static void requireNotBlank(@NonNull CharSequence[] values, String message) {
-        rethrowOnFailure(message, () -> expectNotBlank(values));
+    public static void requireAllNotBlank(final CharSequence[] values, final String message) {
+        rethrowOnFailure(message, () -> expectAllNotBlank(values));
     }
 
-    public static void requireNotBlank(@NonNull CharSequence[] values) {
-        requireNotBlank(values, null);
+    public static void requireAllNotBlank(final CharSequence[] values) {
+        requireAllNotBlank(values, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireValid(Validatable obj, String message) {
-        rethrowOnFailure(message, () -> expectValid(obj));
+    public static void requireValid(final Validatable object, final String message) {
+        rethrowOnFailure(message, () -> expectValid(object));
     }
 
-    public static void requireValid(Validatable obj) {
-        requireValid(obj, null);
+    public static void requireValid(final Validatable object) {
+        requireValid(object, null);
     }
 
-    public static void requireValid(@NonNull Validatable[] objects, String message) {
-        rethrowOnFailure(message, () -> expectValid(objects));
+    public static void requireAllValid(final Validatable[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllValid(objects));
     }
 
-    public static void requireValid(@NonNull Validatable[] objects) {
-        requireValid(objects, null);
+    public static void requireAllValid(final Validatable[] objects) {
+        requireAllValid(objects, null);
     }
 
-    public static void requireNotValid(Validatable obj, String message) {
-        rethrowOnFailure(message, () -> expectNotValid(obj));
+    public static void requireNotValid(final Validatable object, final String message) {
+        rethrowOnFailure(message, () -> expectNotValid(object));
     }
 
-    public static void requireNotValid(Validatable obj) {
-        requireNotValid(obj, null);
+    public static void requireNotValid(final Validatable object) {
+        requireNotValid(object, null);
     }
 
-    public static void requireNotValid(@NonNull Validatable[] objects, String message) {
-        rethrowOnFailure(message, () -> expectNotValid(objects));
+    public static void requireAllNotValid(final Validatable[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllNotValid(objects));
     }
 
-    public static void requireNotValid(@NonNull Validatable[] objects) {
-        requireNotValid(objects, null);
+    public static void requireAllNotValid(final Validatable[] objects) {
+        requireAllNotValid(objects, null);
     }
 
-// MARK: - Methods
+// MARK: --
 
-    public static void requireNullOrValid(Validatable obj, String message) {
-        rethrowOnFailure(message, () -> expectNullOrValid(obj));
+    public static void requireNullOrValid(final Validatable object, final String message) {
+        rethrowOnFailure(message, () -> expectNullOrValid(object));
     }
 
-    public static void requireNullOrValid(Validatable obj) {
-        requireNullOrValid(obj, null);
+    public static void requireNullOrValid(final Validatable object) {
+        requireNullOrValid(object, null);
     }
 
-    public static void requireNullOrValid(@NonNull Validatable[] objects, String message) {
-        rethrowOnFailure(message, () -> expectNullOrValid(objects));
+    public static void requireAllNullOrValid(final Validatable[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllNullOrValid(objects));
     }
 
-    public static void requireNullOrValid(@NonNull Validatable[] objects) {
-        requireNullOrValid(objects, null);
+    public static void requireAllNullOrValid(final Validatable[] objects) {
+        requireAllNullOrValid(objects, null);
     }
 
-    public static void requireNullOrNotValid(Validatable obj, String message) {
-        rethrowOnFailure(message, () -> expectNullOrNotValid(obj));
+    public static void requireNullOrNotValid(final Validatable object, final String message) {
+        rethrowOnFailure(message, () -> expectNullOrNotValid(object));
     }
 
-    public static void requireNullOrNotValid(Validatable obj) {
-        requireNullOrNotValid(obj, null);
+    public static void requireNullOrNotValid(final Validatable object) {
+        requireNullOrNotValid(object, null);
     }
 
-    public static void requireNullOrNotValid(@NonNull Validatable[] objects, String message) {
-        rethrowOnFailure(message, () -> expectNullOrNotValid(objects));
+    public static void requireAllNullOrNotValid(final Validatable[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllNullOrNotValid(objects));
     }
 
-    public static void requireNullOrNotValid(@NonNull Validatable[] objects) {
-        requireNullOrNotValid(objects, null);
+    public static void requireAllNullOrNotValid(final Validatable[] objects) {
+        requireAllNullOrNotValid(objects, null);
     }
 
 // MARK: - Private Methods
 
-    private static void rethrowOnFailure(String message, Runnable task) {
+    private static void rethrowOnFailure(final String message, final Runnable task) {
         if (task == null) {
             throw new NullPointerException();
         }
@@ -263,11 +269,10 @@ public final class Require
         }
     }
 
-    private static void throwError(String message, Throwable cause) {
+    private static void throwError(final String message, final Throwable cause) {
         if (message == null) {
             throw new RequirementError(cause);
         }
         throw new RequirementError(message, cause);
     }
-
 }

@@ -1,10 +1,7 @@
 package com.roxiemobile.androidcommons.util;
 
-import android.support.annotation.NonNull;
-
+import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.model.Validatable;
-
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class ValidatableUtils
 {
@@ -19,97 +16,58 @@ public final class ValidatableUtils
     /**
      * TODO
      */
-    public static boolean isValid(Validatable obj) {
-        return obj != null && obj.isValid();
+    public static boolean isValid(Validatable object) {
+        return (object != null) && object.isValid();
     }
 
     /**
      * TODO
      */
-    public static boolean isValid(@NonNull Validatable... objects) {
-        requireNotNull(objects, "objects is null");
-        boolean result = true;
-
-        if (ArrayUtils.isNullOrEmpty(objects)) {
-            return true;
-        }
-
-        for (int idx = 0, count = objects.length; result && (idx < count); ++idx) {
-            result = isValid(objects[idx]);
-        }
-        return result;
+    public static boolean isAllValid(Validatable... objects) {
+        return ArrayUtils.isNotEmpty(objects) && Stream.of(objects).allMatch(ValidatableUtils::isValid);
     }
 
     /**
      * TODO
      */
-    public static boolean isNotValid(Validatable obj) {
-        return obj != null && !obj.isValid();
+    public static boolean isNotValid(Validatable object) {
+        return (object != null) && !object.isValid();
     }
 
     /**
      * TODO
      */
-    public static boolean isNotValid(@NonNull Validatable... objects) {
-        requireNotNull(objects, "objects is null");
-        boolean result = true;
+    public static boolean isAllNotValid(Validatable... objects) {
+        return ArrayUtils.isNotEmpty(objects) && Stream.of(objects).allMatch(ValidatableUtils::isNotValid);
+    }
 
-        if (ArrayUtils.isNullOrEmpty(objects)) {
-            return false;
-        }
+// MARK: - Methods
 
-        for (int idx = 0, count = objects.length; result && (idx < count); ++idx) {
-            result = isNotValid(objects[idx]);
-        }
-        return result;
+    /**
+     * TODO
+     */
+    public static boolean isNullOrValid(Validatable object) {
+        return (object == null) || object.isValid();
     }
 
     /**
      * TODO
      */
-    public static boolean isNullOrValid(Validatable obj) {
-        return obj == null || obj.isValid();
+    public static boolean isAllNullOrValid(Validatable... objects) {
+        return ArrayUtils.isNotEmpty(objects) && Stream.of(objects).allMatch(ValidatableUtils::isNullOrValid);
     }
 
     /**
      * TODO
      */
-    public static boolean isNullOrValid(@NonNull Validatable... objects) {
-        requireNotNull(objects, "objects is null");
-        boolean result = true;
-
-        if (ArrayUtils.isNullOrEmpty(objects)) {
-            return true;
-        }
-
-        for (int idx = 0, count = objects.length; result && (idx < count); ++idx) {
-            result = isNullOrValid(objects[idx]);
-        }
-        return result;
+    public static boolean isNullOrNotValid(Validatable object) {
+        return (object == null) || !object.isValid();
     }
 
     /**
      * TODO
      */
-    public static boolean isNullOrNotValid(Validatable obj) {
-        return obj == null || !obj.isValid();
+    public static boolean isAllNullOrNotValid(Validatable... objects) {
+        return ArrayUtils.isNotEmpty(objects) && Stream.of(objects).allMatch(ValidatableUtils::isNullOrNotValid);
     }
-
-    /**
-     * TODO
-     */
-    public static boolean isNullOrNotValid(@NonNull Validatable... objects) {
-        requireNotNull(objects, "objects is null");
-        boolean result = true;
-
-        if (ArrayUtils.isNullOrEmpty(objects)) {
-            return false;
-        }
-
-        for (int idx = 0, count = objects.length; result && (idx < count); ++idx) {
-            result = isNullOrNotValid(objects[idx]);
-        }
-        return result;
-    }
-
 }

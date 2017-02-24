@@ -55,5 +55,4 @@ public class TimestampAdapter extends TypeAdapter<Timestamp>
             return new SimpleDateFormat(DateFormat.TIMESTAMP_ISO8601, Locale.ENGLISH);
         }
     };
-
 }

@@ -36,8 +36,13 @@ dependencies {
     final ANDROID_SUPPORT_VERSION = rootProject.ext.ANDROID_SUPPORT_VERSION
     compile "com.android.support:support-annotations:$ANDROID_SUPPORT_VERSION"
 
-    // External dependencies
-    compile 'com.google.code.gson:gson:2.8.0'
+    // Gson
+    final GSON_VERSION = rootProject.ext.GSON_VERSION
+    compile "com.google.code.gson:gson:$GSON_VERSION"
+
+    // Stream
+    final STREAM_VERSION = rootProject.ext.STREAM_VERSION
+    compile "com.annimon:stream:$STREAM_VERSION"
 
     // Test dependencies
     testCompile 'junit:junit:4.12'

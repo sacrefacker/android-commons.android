@@ -26,5 +26,4 @@ public interface EnumStringConverter<T>
      * TODO
      */
     List<String> getKeysForValues(Collection<T> values);
-
 }

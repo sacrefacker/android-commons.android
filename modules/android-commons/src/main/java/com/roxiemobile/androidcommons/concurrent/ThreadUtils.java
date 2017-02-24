@@ -4,8 +4,7 @@
  * found in the LICENSE file.
  *
  * @link http://src.chromium.org/svn/trunk/src/base/android/java/src/org/chromium/base/ThreadUtils.java
- *
-**/
+ */
 package com.roxiemobile.androidcommons.concurrent;
 
 import android.os.Handler;
@@ -41,7 +40,8 @@ public final class ThreadUtils
                 throw new RuntimeException("UI thread looper is already set to " +
                         sUiThreadHandler.getLooper() + " (Main thread looper is " +
                         Looper.getMainLooper() + "), cannot set to new looper " + looper);
-            } else {
+            }
+            else {
                 sUiThreadHandler = new Handler(looper);
             }
         }
@@ -68,12 +68,14 @@ public final class ThreadUtils
     public static void runOnUiThreadBlocking(final Runnable r) {
         if (runningOnUiThread()) {
             r.run();
-        } else {
+        }
+        else {
             FutureTask<Void> task = new FutureTask<>(r, null);
             postOnUiThread(task);
             try {
                 task.get();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new RuntimeException("Exception occured while waiting for runnable", e);
             }
         }
@@ -89,7 +91,8 @@ public final class ThreadUtils
     public static <T> T runOnUiThreadBlockingNoException(Callable<T> c) {
         try {
             return runOnUiThreadBlocking(c);
-        } catch (ExecutionException e) {
+        }
+        catch (ExecutionException e) {
             throw new RuntimeException("Error occured waiting for callable", e);
         }
     }
@@ -107,7 +110,8 @@ public final class ThreadUtils
         runOnUiThread(task);
         try {
             return task.get();
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             throw new RuntimeException("Interrupted waiting for callable", e);
         }
     }
@@ -122,7 +126,8 @@ public final class ThreadUtils
     public static <T> FutureTask<T> runOnUiThread(FutureTask<T> task) {
         if (runningOnUiThread()) {
             task.run();
-        } else {
+        }
+        else {
             postOnUiThread(task);
         }
         return task;
@@ -148,7 +153,8 @@ public final class ThreadUtils
     public static void runOnUiThread(Runnable r) {
         if (runningOnUiThread()) {
             r.run();
-        } else {
+        }
+        else {
             getUiThreadHandler().post(r);
         }
     }
@@ -211,5 +217,4 @@ public final class ThreadUtils
     private static boolean sWillOverride = false;
 
     private static Handler sUiThreadHandler;
-
 }

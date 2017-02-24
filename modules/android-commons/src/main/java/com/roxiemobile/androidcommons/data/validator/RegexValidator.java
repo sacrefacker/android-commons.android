@@ -223,5 +223,4 @@ public class RegexValidator implements Serializable {
         buffer.append("}");
         return buffer.toString();
     }
-
 }

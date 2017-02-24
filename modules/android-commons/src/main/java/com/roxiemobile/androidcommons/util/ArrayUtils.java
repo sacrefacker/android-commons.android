@@ -17,83 +17,89 @@ public final class ArrayUtils
 // MARK: - Methods
 
     /**
-     * Checks if given array is {@code null} or has zero elements.
+     * <p>Checks if given array is {@code null} or has zero elements.</p>
+     *
+     * @param array The array to test
+     * @return {@code true} if the array is empty or {@code null}
      */
-    public static <T> boolean isNullOrEmpty(T[] array) {
+    public static <T> boolean isEmpty(T[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(byte[] array) {
+    public static boolean isEmpty(byte[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(char[] array) {
+    public static boolean isEmpty(char[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(short[] array) {
+    public static boolean isEmpty(short[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(int[] array) {
+    public static boolean isEmpty(int[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(long[] array) {
+    public static boolean isEmpty(long[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(float[] array) {
+    public static boolean isEmpty(float[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(double[] array) {
+    public static boolean isEmpty(double[] array) {
         return (array == null) || (array.length < 1);
     }
 
-    public static boolean isNullOrEmpty(boolean[] array) {
+    public static boolean isEmpty(boolean[] array) {
         return (array == null) || (array.length < 1);
     }
 
 // MARK: - Methods
 
     /**
-     * Checks if given array is non {@code null} and has elements.
+     * <p>Checks if given array is non {@code null} and has elements.</p>
+     *
+     * @param array The array to test
+     * @return {@code true} if the array is not empty and not {@code null}
      */
     public static <T> boolean isNotEmpty(T[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(byte[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(char[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(short[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(int[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(long[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(float[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(double[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
     public static boolean isNotEmpty(boolean[] array) {
-        return !isNullOrEmpty(array);
+        return !isEmpty(array);
     }
 
 // MARK: - Methods
@@ -102,39 +108,39 @@ public final class ArrayUtils
      * Returns the given array if it is non-empty; {@code null} otherwise.
      */
     public static <T> T[] emptyToNull(T[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static byte[] emptyToNull(byte[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static char[] emptyToNull(char[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static short[] emptyToNull(short[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static int[] emptyToNull(int[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static long[] emptyToNull(long[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static float[] emptyToNull(float[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static double[] emptyToNull(double[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
     public static boolean[] emptyToNull(boolean[] array) {
-        return isNullOrEmpty(array) ? null : array;
+        return isEmpty(array) ? null : array;
     }
 
 // MARK: - Methods
@@ -142,10 +148,9 @@ public final class ArrayUtils
     /**
      * Returns the given array if it is non {@code null}; the empty array otherwise.
      */
-    public static <T> T[] nullToEmpty(T[] array, @NonNull Class<T> classOfT) {
+    public static <T> T[] nullToEmpty(T[] array, @NonNull Class<T[]> classOfT) {
         requireNotNull(classOfT, "classOfT is null");
-        //noinspection unchecked
-        return (array != null) ? array : (T[]) Array.newInstance(classOfT, 0);
+        return (array != null) ? array : classOfT.cast(Array.newInstance(classOfT.getComponentType(), 0));
     }
 
     public static byte[] nullToEmpty(byte[] array) {
@@ -190,6 +195,10 @@ public final class ArrayUtils
      * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new Integer(42), new Double(Math.PI))</code>,
      * there is no real advantage when compared to
      * <code>new Number[] {new Integer(42), new Double(Math.PI)}</code>.</p>
+     *
+     * @param <T>   The array's element type
+     * @param items The varargs array items, null allowed
+     * @return The array, not null unless a null array is passed in
      */
     @SuppressWarnings("unchecked")
     public static <T> T[] toArray(final T... items) {

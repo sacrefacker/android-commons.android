@@ -13,6 +13,9 @@ public final class IntentUtils
 
 // MARK: - Methods
 
+    /**
+     * TODO
+     */
     public static Bundle getExtras(Intent intent, Bundle defaultValue) {
         Bundle result = defaultValue;
 
@@ -27,6 +30,9 @@ public final class IntentUtils
         return result;
     }
 
+    /**
+     * TODO
+     */
     public static Object getExtra(Intent intent, String key, Object defaultValue) {
         Object result = defaultValue;
 
@@ -37,8 +43,10 @@ public final class IntentUtils
         return result;
     }
 
+    /**
+     * TODO
+     */
     public static Object getExtra(Intent intent, String key) {
         return getExtra(intent, key, null);
     }
-
 }
