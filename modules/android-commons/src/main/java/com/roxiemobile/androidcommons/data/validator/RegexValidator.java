@@ -16,6 +16,8 @@
  */
 package com.roxiemobile.androidcommons.data.validator;
 
+import com.annimon.stream.Stream;
+
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -133,19 +135,10 @@ public class RegexValidator implements Serializable {
      * Validate a value against the set of regular expressions.
      *
      * @param value The value to validate.
-     * @return <code>true</code> if the value is valid
-     * otherwise <code>false</code>.
+     * @return {@code true} if the value is valid otherwise {@code false}.
      */
-    public boolean isValid(String value) {
-        if (value == null) {
-            return false;
-        }
-        for (int i = 0; i < patterns.length; i++) {
-            if (patterns[i].matcher(value).matches()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isValid(CharSequence value) {
+        return (value != null) && Stream.of(this.patterns).anyMatch(pattern -> pattern.matcher(value).matches());
     }
 
     /**
@@ -156,17 +149,17 @@ public class RegexValidator implements Serializable {
      * @return String array of the <i>groups</i> matched if
      * valid or <code>null</code> if invalid
      */
-    public String[] match(String value) {
+    public String[] match(CharSequence value) {
         if (value == null) {
             return null;
         }
-        for (int i = 0; i < patterns.length; i++) {
-            Matcher matcher = patterns[i].matcher(value);
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(value);
             if (matcher.matches()) {
                 int count = matcher.groupCount();
                 String[] groups = new String[count];
                 for (int j = 0; j < count; j++) {
-                    groups[j] = matcher.group(j+1);
+                    groups[j] = matcher.group(j + 1);
                 }
                 return groups;
             }
@@ -183,20 +176,20 @@ public class RegexValidator implements Serializable {
      * @return Aggregated String value comprised of the
      * <i>groups</i> matched if valid or <code>null</code> if invalid
      */
-    public String validate(String value) {
+    public String validate(CharSequence value) {
         if (value == null) {
             return null;
         }
-        for (int i = 0; i < patterns.length; i++) {
-            Matcher matcher = patterns[i].matcher(value);
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(value);
             if (matcher.matches()) {
                 int count = matcher.groupCount();
                 if (count == 1) {
                     return matcher.group(1);
                 }
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 for (int j = 0; j < count; j++) {
-                    String component = matcher.group(j+1);
+                    String component = matcher.group(j + 1);
                     if (component != null) {
                         buffer.append(component);
                     }
@@ -212,7 +205,7 @@ public class RegexValidator implements Serializable {
      * @return A String representation of this validator
      */
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("RegexValidator{");
         for (int i = 0; i < patterns.length; i++) {
             if (i > 0) {

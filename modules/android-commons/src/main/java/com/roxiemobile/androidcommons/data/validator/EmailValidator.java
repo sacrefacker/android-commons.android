@@ -21,7 +21,7 @@ public class EmailValidator
 
 // MARK: - Methods
 
-    public boolean isValid(String value) {
+    public boolean isValid(CharSequence value) {
         return EMAIL_REGEX_VALIDATOR.isValid(value);
     }
 
