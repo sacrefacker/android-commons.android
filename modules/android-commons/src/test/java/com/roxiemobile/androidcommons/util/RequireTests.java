@@ -1,10 +1,17 @@
 package com.roxiemobile.androidcommons.util;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.diagnostics.RequirementError;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireAllBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Require.requireAllEmpty;
@@ -110,31 +117,31 @@ public final class RequireTests
 // MARK: - Tests
 
     @Test
-    public void testExpectSame()
+    public void testRequireSame()
     {
         String string = "value";
         String otherString = "otherValue";
 
-        requireThrowsError("expectSame", () -> {
+        requireThrowsError("requireSame", () -> {
             requireSame(string, otherString);
         });
 
-        requireNotThrowsError("expectSame", () -> {
+        requireNotThrowsError("requireSame", () -> {
             requireSame(string, string);
         });
     }
 
     @Test
-    public void testExpectNotSame()
+    public void testRequireNotSame()
     {
         String string = "value";
         String otherString = "otherValue";
 
-        requireThrowsError("expectNotSame", () -> {
+        requireThrowsError("requireNotSame", () -> {
             requireNotSame(string, string);
         });
 
-        requireNotThrowsError("expectNotSame", () -> {
+        requireNotThrowsError("requireNotSame", () -> {
             requireNotSame(string, otherString);
         });
     }
@@ -168,7 +175,7 @@ public final class RequireTests
 // MARK: - Tests
 
     @Test
-    public void testRequireNullOrEmpty()
+    public void testRequireEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -185,10 +192,61 @@ public final class RequireTests
         requireNotThrowsError("requireEmpty", () -> {
             requireEmpty(emptyString);
         });
+
+        // --
+
+        final String[] array = toArray("value", "otherValue");
+        final String[] nilArray = null;
+        final String[] emptyArray = new String[]{};
+
+        requireThrowsError("requireEmpty_Array", () -> {
+            requireEmpty(array);
+        });
+
+        requireNotThrowsError("requireEmpty_Array", () -> {
+            requireEmpty(nilArray);
+        });
+        requireNotThrowsError("requireEmpty_Array", () -> {
+            requireEmpty(emptyArray);
+        });
+
+        // --
+
+        final List<String> list = Arrays.asList("value", "otherValue");
+        final List<String> nilList = null;
+        final List<String> emptyList = Collections.emptyList();
+
+        requireThrowsError("requireEmpty_Collection", () -> {
+            requireEmpty(list);
+        });
+
+        requireNotThrowsError("requireEmpty_Collection", () -> {
+            requireEmpty(nilList);
+        });
+        requireNotThrowsError("requireEmpty_Collection", () -> {
+            requireEmpty(emptyList);
+        });
+
+        // --
+
+        final Map<String, String> map = Stream.of(list).collect(Collectors.toMap(item -> item, item -> item));
+        final Map<String, String> nilMap = null;
+        final Map<String, String> emptyMap = Collections.emptyMap();
+
+        requireThrowsError("requireEmpty_Map", () -> {
+            requireEmpty(map);
+        });
+
+        requireNotThrowsError("requireEmpty_Map", () -> {
+            requireEmpty(nilMap);
+        });
+        requireNotThrowsError("requireEmpty_Map", () -> {
+            requireEmpty(emptyMap);
+        });
     }
 
     @Test
-    public void testRequireNullOrEmpty_Array()
+    public void testRequireAllEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -199,23 +257,23 @@ public final class RequireTests
         final String[] emptyArray = new String[]{};
 
 
-        requireThrowsError("requireAllEmpty_Array", () -> {
+        requireThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(toArray(string));
         });
-        requireThrowsError("requireAllEmpty_Array", () -> {
+        requireThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(toArray(nilString, string));
         });
-        requireThrowsError("requireAllEmpty_Array", () -> {
+        requireThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(toArray(emptyString, string));
         });
 
-        requireNotThrowsError("requireAllEmpty_Array", () -> {
+        requireNotThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(array);
         });
-        requireNotThrowsError("requireAllEmpty_Array", () -> {
+        requireNotThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(nilArray);
         });
-        requireNotThrowsError("requireAllEmpty_Array", () -> {
+        requireNotThrowsError("requireAllEmpty", () -> {
             requireAllEmpty(emptyArray);
         });
     }
@@ -240,10 +298,61 @@ public final class RequireTests
         requireNotThrowsError("requireNotEmpty", () -> {
             requireNotEmpty(string);
         });
+
+        // --
+
+        final String[] array = toArray("value", "otherValue");
+        final String[] nilArray = null;
+        final String[] emptyArray = new String[]{};
+
+        requireThrowsError("requireNotEmpty_Array", () -> {
+            requireNotEmpty(nilArray);
+        });
+        requireThrowsError("requireNotEmpty_Array", () -> {
+            requireNotEmpty(emptyArray);
+        });
+
+        requireNotThrowsError("requireNotEmpty_Array", () -> {
+            requireNotEmpty(array);
+        });
+
+        // --
+
+        final List<String> list = Arrays.asList("value", "otherValue");
+        final List<String> nilList = null;
+        final List<String> emptyList = Collections.emptyList();
+
+        requireThrowsError("requireNotEmpty_Collection", () -> {
+            requireNotEmpty(nilList);
+        });
+        requireThrowsError("requireNotEmpty_Collection", () -> {
+            requireNotEmpty(emptyList);
+        });
+
+        requireNotThrowsError("requireNotEmpty_Collection", () -> {
+            requireNotEmpty(list);
+        });
+
+        // --
+
+        final Map<String, String> map = Stream.of(list).collect(Collectors.toMap(item -> item, item -> item));
+        final Map<String, String> nilMap = null;
+        final Map<String, String> emptyMap = Collections.emptyMap();
+
+        requireThrowsError("requireNotEmpty_Map", () -> {
+            requireNotEmpty(nilMap);
+        });
+        requireThrowsError("requireNotEmpty_Map", () -> {
+            requireNotEmpty(emptyMap);
+        });
+
+        requireNotThrowsError("requireNotEmpty_Map", () -> {
+            requireNotEmpty(map);
+        });
     }
 
     @Test
-    public void testRequireNotEmpty_Array()
+    public void testRequireAllNotEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -255,28 +364,28 @@ public final class RequireTests
         final String[] emptyArray = new String[]{};
 
 
-        requireThrowsError("requireAllNotEmpty_Array", () -> {
+        requireThrowsError("requireAllNotEmpty", () -> {
             requireAllNotEmpty(toArray(nilString));
         });
-        requireThrowsError("requireAllNotEmpty_Array", () -> {
+        requireThrowsError("requireAllNotEmpty", () -> {
             requireAllNotEmpty(toArray(string, emptyString));
         });
-        requireThrowsError("requireAllNotEmpty_Array", () -> {
+
+        requireNotThrowsError("requireAllNotEmpty", () -> {
+            requireAllNotEmpty(array);
+        });
+        requireNotThrowsError("requireAllNotEmpty", () -> {
             requireAllNotEmpty(nilArray);
         });
-        requireThrowsError("requireAllNotEmpty_Array", () -> {
+        requireNotThrowsError("requireAllNotEmpty", () -> {
             requireAllNotEmpty(emptyArray);
-        });
-
-        requireNotThrowsError("requireAllNotEmpty_Array", () -> {
-            requireAllNotEmpty(array);
         });
     }
 
 // MARK: - Tests
 
     @Test
-    public void testRequireNullOrWhiteSpace()
+    public void testRequireBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -300,7 +409,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireNullOrWhiteSpace_Array()
+    public void testRequireAllBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -312,26 +421,26 @@ public final class RequireTests
         final String[] emptyArray = new String[]{};
 
 
-        requireThrowsError("requireAllBlank_Array", () -> {
+        requireThrowsError("requireAllBlank", () -> {
             requireAllBlank(toArray(string));
         });
-        requireThrowsError("requireAllBlank_Array", () -> {
+        requireThrowsError("requireAllBlank", () -> {
             requireAllBlank(toArray(nilString, string));
         });
-        requireThrowsError("requireAllBlank_Array", () -> {
+        requireThrowsError("requireAllBlank", () -> {
             requireAllBlank(toArray(emptyString, string));
         });
-        requireThrowsError("requireAllBlank_Array", () -> {
+        requireThrowsError("requireAllBlank", () -> {
             requireAllBlank(toArray(whitespaceString, string));
         });
 
-        requireNotThrowsError("requireAllBlank_Array", () -> {
+        requireNotThrowsError("requireAllBlank", () -> {
             requireAllBlank(array);
         });
-        requireNotThrowsError("requireAllBlank_Array", () -> {
+        requireNotThrowsError("requireAllBlank", () -> {
             requireAllBlank(nilArray);
         });
-        requireNotThrowsError("requireAllBlank_Array", () -> {
+        requireNotThrowsError("requireAllBlank", () -> {
             requireAllBlank(emptyArray);
         });
     }
@@ -363,7 +472,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireNotBlank_Array()
+    public void testRequireAllNotBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -376,27 +485,27 @@ public final class RequireTests
         final String[] emptyArray = new String[]{};
 
 
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+        requireThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(toArray(nilString));
         });
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+        requireThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(toArray(emptyString));
         });
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+        requireThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(toArray(whitespaceString));
         });
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+        requireThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(toArray(string, whitespaceString));
         });
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+
+        requireNotThrowsError("requireAllNotBlank", () -> {
+            requireAllNotBlank(array);
+        });
+        requireNotThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(nilArray);
         });
-        requireThrowsError("requireAllNotBlank_Array", () -> {
+        requireNotThrowsError("requireAllNotBlank", () -> {
             requireAllNotBlank(emptyArray);
-        });
-
-        requireNotThrowsError("requireAllNotBlank_Array", () -> {
-            requireAllNotBlank(array);
         });
     }
 
@@ -419,7 +528,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireValid_Array()
+    public void testRequireAllValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -430,23 +539,23 @@ public final class RequireTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        requireThrowsError("requireAllValid_Array", () -> {
+        requireThrowsError("requireAllValid", () -> {
             requireAllValid(toArray(notValidObject));
         });
-        requireThrowsError("requireAllValid_Array", () -> {
+        requireThrowsError("requireAllValid", () -> {
             requireAllValid(toArray(validObject, nilObject));
         });
-        requireThrowsError("requireAllValid_Array", () -> {
+        requireThrowsError("requireAllValid", () -> {
             requireAllValid(toArray(validObject, notValidObject));
         });
 
-        requireNotThrowsError("requireAllValid_Array", () -> {
+        requireNotThrowsError("requireAllValid", () -> {
             requireAllValid(array);
         });
-        requireNotThrowsError("requireAllValid_Array", () -> {
+        requireNotThrowsError("requireAllValid", () -> {
             requireAllValid(nilArray);
         });
-        requireNotThrowsError("requireAllValid_Array", () -> {
+        requireNotThrowsError("requireAllValid", () -> {
             requireAllValid(emptyArray);
         });
     }
@@ -470,7 +579,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireNotValid_Array()
+    public void testRequireAllNotValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -481,21 +590,21 @@ public final class RequireTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        requireThrowsError("requireAllNotValid_Array", () -> {
+        requireThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(toArray(validObject));
         });
-        requireThrowsError("requireAllNotValid_Array", () -> {
+        requireThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(toArray(nilObject));
         });
-        requireThrowsError("requireAllNotValid_Array", () -> {
+
+        requireNotThrowsError("requireAllNotValid", () -> {
+            requireAllNotValid(array);
+        });
+        requireNotThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(nilArray);
         });
-        requireThrowsError("requireAllNotValid_Array", () -> {
+        requireNotThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(emptyArray);
-        });
-
-        requireNotThrowsError("requireAllNotValid_Array", () -> {
-            requireAllNotValid(array);
         });
     }
 
@@ -522,7 +631,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireNullOrValid_Array()
+    public void testRequireAllNullOrValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -533,23 +642,23 @@ public final class RequireTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        requireThrowsError("requireAllNullOrValid_Array", () -> {
+        requireThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(toArray(notValidObject));
         });
-        requireThrowsError("requireAllNullOrValid_Array", () -> {
+        requireThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(toArray(validObject, notValidObject));
         });
 
-        requireNotThrowsError("requireAllNullOrValid_Array", () -> {
+        requireNotThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(toArray(validObject, nilObject));
         });
-        requireNotThrowsError("requireAllNullOrValid_Array", () -> {
+        requireNotThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(array);
         });
-        requireNotThrowsError("requireAllNullOrValid_Array", () -> {
+        requireNotThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(nilArray);
         });
-        requireNotThrowsError("requireAllNullOrValid_Array", () -> {
+        requireNotThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(emptyArray);
         });
     }
@@ -577,7 +686,7 @@ public final class RequireTests
     }
 
     @Test
-    public void testRequireNullOrNotValid_Array()
+    public void testRequireAllNullOrNotValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -588,18 +697,18 @@ public final class RequireTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        requireThrowsError("requireAllNullOrNotValid_Array", () -> {
+        requireThrowsError("requireAllNullOrNotValid", () -> {
             requireAllNullOrNotValid(toArray(validObject));
         });
-        requireThrowsError("requireAllNullOrNotValid_Array", () -> {
+
+        requireNotThrowsError("requireAllNullOrNotValid", () -> {
+            requireAllNullOrNotValid(array);
+        });
+        requireNotThrowsError("requireAllNullOrNotValid", () -> {
             requireAllNullOrNotValid(nilArray);
         });
-        requireThrowsError("requireAllNullOrNotValid_Array", () -> {
+        requireNotThrowsError("requireAllNullOrNotValid", () -> {
             requireAllNullOrNotValid(emptyArray);
-        });
-
-        requireNotThrowsError("requireAllNullOrNotValid_Array", () -> {
-            requireAllNullOrNotValid(array);
         });
     }
 

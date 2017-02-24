@@ -1,5 +1,7 @@
 package com.roxiemobile.androidcommons.util;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -15,6 +17,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllEmpty;
@@ -181,7 +187,7 @@ public final class ExpectTests
 // MARK: - Tests
 
     @Test
-    public void testExpectNullOrEmpty()
+    public void testExpectEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -198,10 +204,61 @@ public final class ExpectTests
         expectNotThrowsException("expectEmpty", () -> {
             expectEmpty(emptyString);
         });
+
+        // --
+
+        final String[] array = toArray("value", "otherValue");
+        final String[] nilArray = null;
+        final String[] emptyArray = new String[]{};
+
+        expectThrowsException("expectEmpty_Array", () -> {
+            expectEmpty(array);
+        });
+
+        expectNotThrowsException("expectEmpty_Array", () -> {
+            expectEmpty(nilArray);
+        });
+        expectNotThrowsException("expectEmpty_Array", () -> {
+            expectEmpty(emptyArray);
+        });
+
+        // --
+
+        final List<String> list = Arrays.asList("value", "otherValue");
+        final List<String> nilList = null;
+        final List<String> emptyList = Collections.emptyList();
+
+        expectThrowsException("expectEmpty_Collection", () -> {
+            expectEmpty(list);
+        });
+
+        expectNotThrowsException("expectEmpty_Collection", () -> {
+            expectEmpty(nilList);
+        });
+        expectNotThrowsException("expectEmpty_Collection", () -> {
+            expectEmpty(emptyList);
+        });
+
+        // --
+
+        final Map<String, String> map = Stream.of(list).collect(Collectors.toMap(item -> item, item -> item));
+        final Map<String, String> nilMap = null;
+        final Map<String, String> emptyMap = Collections.emptyMap();
+
+        expectThrowsException("expectEmpty_Map", () -> {
+            expectEmpty(map);
+        });
+
+        expectNotThrowsException("expectEmpty_Map", () -> {
+            expectEmpty(nilMap);
+        });
+        expectNotThrowsException("expectEmpty_Map", () -> {
+            expectEmpty(emptyMap);
+        });
     }
 
     @Test
-    public void testExpectNullOrEmpty_Array()
+    public void testExpectAllEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -212,23 +269,23 @@ public final class ExpectTests
         final String[] emptyArray = new String[]{};
 
 
-        expectThrowsException("expectAllEmpty_Array", () -> {
+        expectThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(toArray(string));
         });
-        expectThrowsException("expectAllEmpty_Array", () -> {
+        expectThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(toArray(nilString, string));
         });
-        expectThrowsException("expectAllEmpty_Array", () -> {
+        expectThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(toArray(emptyString, string));
         });
 
-        expectNotThrowsException("expectAllEmpty_Array", () -> {
+        expectNotThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(array);
         });
-        expectNotThrowsException("expectAllEmpty_Array", () -> {
+        expectNotThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(nilArray);
         });
-        expectNotThrowsException("expectAllEmpty_Array", () -> {
+        expectNotThrowsException("expectAllEmpty", () -> {
             expectAllEmpty(emptyArray);
         });
     }
@@ -251,10 +308,61 @@ public final class ExpectTests
         expectNotThrowsException("expectNotEmpty", () -> {
             expectNotEmpty(string);
         });
+
+        // --
+
+        final String[] array = toArray("value", "otherValue");
+        final String[] nilArray = null;
+        final String[] emptyArray = new String[]{};
+
+        expectThrowsException("expectNotEmpty_Array", () -> {
+            expectNotEmpty(nilArray);
+        });
+        expectThrowsException("expectNotEmpty_Array", () -> {
+            expectNotEmpty(emptyArray);
+        });
+
+        expectNotThrowsException("expectNotEmpty_Array", () -> {
+            expectNotEmpty(array);
+        });
+
+        // --
+
+        final List<String> list = Arrays.asList("value", "otherValue");
+        final List<String> nilList = null;
+        final List<String> emptyList = Collections.emptyList();
+
+        expectThrowsException("expectNotEmpty_Collection", () -> {
+            expectNotEmpty(nilList);
+        });
+        expectThrowsException("expectNotEmpty_Collection", () -> {
+            expectNotEmpty(emptyList);
+        });
+
+        expectNotThrowsException("expectNotEmpty_Collection", () -> {
+            expectNotEmpty(list);
+        });
+
+        // --
+
+        final Map<String, String> map = Stream.of(list).collect(Collectors.toMap(item -> item, item -> item));
+        final Map<String, String> nilMap = null;
+        final Map<String, String> emptyMap = Collections.emptyMap();
+
+        expectThrowsException("expectNotEmpty_Map", () -> {
+            expectNotEmpty(nilMap);
+        });
+        expectThrowsException("expectNotEmpty_Map", () -> {
+            expectNotEmpty(emptyMap);
+        });
+
+        expectNotThrowsException("expectNotEmpty_Map", () -> {
+            expectNotEmpty(map);
+        });
     }
 
     @Test
-    public void testExpectNotEmpty_Array()
+    public void testExpectAllNotEmpty()
     {
         final String string = "value";
         final String nilString = null;
@@ -266,28 +374,28 @@ public final class ExpectTests
         final String[] emptyArray = new String[]{};
 
 
-        expectThrowsException("expectAllNotEmpty_Array", () -> {
+        expectThrowsException("expectAllNotEmpty", () -> {
             expectAllNotEmpty(toArray(nilString));
         });
-        expectThrowsException("expectAllNotEmpty_Array", () -> {
+        expectThrowsException("expectAllNotEmpty", () -> {
             expectAllNotEmpty(toArray(string, emptyString));
         });
-        expectThrowsException("expectAllNotEmpty_Array", () -> {
+
+        expectNotThrowsException("expectAllNotEmpty", () -> {
+            expectAllNotEmpty(array);
+        });
+        expectNotThrowsException("expectAllNotEmpty", () -> {
             expectAllNotEmpty(nilArray);
         });
-        expectThrowsException("expectAllNotEmpty_Array", () -> {
+        expectNotThrowsException("expectAllNotEmpty", () -> {
             expectAllNotEmpty(emptyArray);
-        });
-
-        expectNotThrowsException("expectAllNotEmpty_Array", () -> {
-            expectAllNotEmpty(array);
         });
     }
 
 // MARK: - Tests
 
     @Test
-    public void testExpectNullOrWhiteSpace()
+    public void testExpectBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -311,7 +419,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNullOrWhiteSpace_Array()
+    public void testExpectAllBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -323,26 +431,26 @@ public final class ExpectTests
         final String[] emptyArray = new String[]{};
 
 
-        expectThrowsException("expectAllBlank_Array", () -> {
+        expectThrowsException("expectAllBlank", () -> {
             expectAllBlank(toArray(string));
         });
-        expectThrowsException("expectAllBlank_Array", () -> {
+        expectThrowsException("expectAllBlank", () -> {
             expectAllBlank(toArray(nilString, string));
         });
-        expectThrowsException("expectAllBlank_Array", () -> {
+        expectThrowsException("expectAllBlank", () -> {
             expectAllBlank(toArray(emptyString, string));
         });
-        expectThrowsException("expectAllBlank_Array", () -> {
+        expectThrowsException("expectAllBlank", () -> {
             expectAllBlank(toArray(whitespaceString, string));
         });
 
-        expectNotThrowsException("expectAllBlank_Array", () -> {
+        expectNotThrowsException("expectAllBlank", () -> {
             expectAllBlank(array);
         });
-        expectNotThrowsException("expectAllBlank_Array", () -> {
+        expectNotThrowsException("expectAllBlank", () -> {
             expectAllBlank(nilArray);
         });
-        expectNotThrowsException("expectAllBlank_Array", () -> {
+        expectNotThrowsException("expectAllBlank", () -> {
             expectAllBlank(emptyArray);
         });
     }
@@ -372,7 +480,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNotBlank_Array()
+    public void testExpectAllNotBlank()
     {
         final String string = "value";
         final String nilString = null;
@@ -385,27 +493,27 @@ public final class ExpectTests
         final String[] emptyArray = new String[]{};
 
 
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+        expectThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(toArray(nilString));
         });
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+        expectThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(toArray(emptyString));
         });
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+        expectThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(toArray(whitespaceString));
         });
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+        expectThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(toArray(string, whitespaceString));
         });
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+
+        expectNotThrowsException("expectAllNotBlank", () -> {
+            expectAllNotBlank(array);
+        });
+        expectNotThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(nilArray);
         });
-        expectThrowsException("expectAllNotBlank_Array", () -> {
+        expectNotThrowsException("expectAllNotBlank", () -> {
             expectAllNotBlank(emptyArray);
-        });
-
-        expectNotThrowsException("expectAllNotBlank_Array", () -> {
-            expectAllNotBlank(array);
         });
     }
 
@@ -428,7 +536,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectValid_Array()
+    public void testExpectAllValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -439,23 +547,23 @@ public final class ExpectTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        expectThrowsException("expectAllValid_Array", () -> {
+        expectThrowsException("expectAllValid", () -> {
             expectAllValid(toArray(notValidObject));
         });
-        expectThrowsException("expectAllValid_Array", () -> {
+        expectThrowsException("expectAllValid", () -> {
             expectAllValid(toArray(validObject, nilObject));
         });
-        expectThrowsException("expectAllValid_Array", () -> {
+        expectThrowsException("expectAllValid", () -> {
             expectAllValid(toArray(validObject, notValidObject));
         });
 
-        expectNotThrowsException("expectAllValid_Array", () -> {
+        expectNotThrowsException("expectAllValid", () -> {
             expectAllValid(array);
         });
-        expectNotThrowsException("expectAllValid_Array", () -> {
+        expectNotThrowsException("expectAllValid", () -> {
             expectAllValid(nilArray);
         });
-        expectNotThrowsException("expectAllValid_Array", () -> {
+        expectNotThrowsException("expectAllValid", () -> {
             expectAllValid(emptyArray);
         });
     }
@@ -479,7 +587,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNotValid_Array()
+    public void testExpectAllNotValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -490,21 +598,21 @@ public final class ExpectTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        expectThrowsException("expectAllNotValid_Array", () -> {
+        expectThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(toArray(validObject));
         });
-        expectThrowsException("expectAllNotValid_Array", () -> {
+        expectThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(toArray(nilObject));
         });
-        expectThrowsException("expectAllNotValid_Array", () -> {
+
+        expectNotThrowsException("expectAllNotValid", () -> {
+            expectAllNotValid(array);
+        });
+        expectNotThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(nilArray);
         });
-        expectThrowsException("expectAllNotValid_Array", () -> {
+        expectNotThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(emptyArray);
-        });
-
-        expectNotThrowsException("expectAllNotValid_Array", () -> {
-            expectAllNotValid(array);
         });
     }
 
@@ -531,7 +639,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNullOrValid_Array()
+    public void testExpectAllNullOrValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -542,23 +650,23 @@ public final class ExpectTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        expectThrowsException("expectAllNullOrValid_Array", () -> {
+        expectThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(toArray(notValidObject));
         });
-        expectThrowsException("expectAllNullOrValid_Array", () -> {
+        expectThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(toArray(validObject, notValidObject));
         });
 
-        expectNotThrowsException("expectAllNullOrValid_Array", () -> {
+        expectNotThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(toArray(validObject, nilObject));
         });
-        expectNotThrowsException("expectAllNullOrValid_Array", () -> {
+        expectNotThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(array);
         });
-        expectNotThrowsException("expectAllNullOrValid_Array", () -> {
+        expectNotThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(nilArray);
         });
-        expectNotThrowsException("expectAllNullOrValid_Array", () -> {
+        expectNotThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(emptyArray);
         });
     }
@@ -586,7 +694,7 @@ public final class ExpectTests
     }
 
     @Test
-    public void testExpectNullOrNotValid_Array()
+    public void testExpectAllNullOrNotValid()
     {
         final Validatable validObject = new ValidModel();
         final Validatable nilObject = null;
@@ -597,18 +705,18 @@ public final class ExpectTests
         final Validatable[] emptyArray = new Validatable[]{};
 
 
-        expectThrowsException("expectAllNullOrNotValid_Array", () -> {
+        expectThrowsException("expectAllNullOrNotValid", () -> {
             expectAllNullOrNotValid(toArray(validObject));
         });
-        expectThrowsException("expectAllNullOrNotValid_Array", () -> {
+
+        expectNotThrowsException("expectAllNullOrNotValid", () -> {
+            expectAllNullOrNotValid(array);
+        });
+        expectNotThrowsException("expectAllNullOrNotValid", () -> {
             expectAllNullOrNotValid(nilArray);
         });
-        expectThrowsException("expectAllNullOrNotValid_Array", () -> {
+        expectNotThrowsException("expectAllNullOrNotValid", () -> {
             expectAllNullOrNotValid(emptyArray);
-        });
-
-        expectNotThrowsException("expectAllNullOrNotValid_Array", () -> {
-            expectAllNullOrNotValid(array);
         });
     }
 

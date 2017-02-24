@@ -2,6 +2,9 @@ package com.roxiemobile.androidcommons.diagnostics;
 
 import com.roxiemobile.androidcommons.data.model.Validatable;
 
+import java.util.Collection;
+import java.util.Map;
+
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
@@ -150,6 +153,92 @@ public final class Require
 
     public static void requireAllNotEmpty(final CharSequence[] values) {
         requireAllNotEmpty(values, null);
+    }
+
+// MARK: --
+
+    /**
+     * TODO
+     */
+    public static <T> void requireEmpty(final T[] array, final String message) {
+        rethrowOnFailure(message, () -> expectEmpty(array));
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireEmpty(final T[] array) {
+        requireEmpty(array, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireEmpty(final Collection<T> collection, final String message) {
+        rethrowOnFailure(message, () -> expectEmpty(collection));
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireEmpty(final Collection<T> collection) {
+        requireEmpty(collection, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void requireEmpty(final Map<K, V> map, final String message) {
+        rethrowOnFailure(message, () -> expectEmpty(map));
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void requireEmpty(final Map<K, V> map) {
+        requireEmpty(map, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireNotEmpty(final T[] array, final String message) {
+        rethrowOnFailure(message, () -> expectNotEmpty(array));
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireNotEmpty(final T[] array) {
+        requireNotEmpty(array, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireNotEmpty(final Collection<T> collection, final String message) {
+        rethrowOnFailure(message, () -> expectNotEmpty(collection));
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void requireNotEmpty(final Collection<T> collection) {
+        requireNotEmpty(collection, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void requireNotEmpty(final Map<K, V> map, final String message) {
+        rethrowOnFailure(message, () -> expectNotEmpty(map));
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void requireNotEmpty(final Map<K, V> map) {
+        requireNotEmpty(map, null);
     }
 
 // MARK: --

@@ -297,7 +297,7 @@ public final class StringUtils
                 start++;
             }
         }
-        return value.subSequence(start, value.length() - 1);
+        return (start == 0) ? value : value.subSequence(start, value.length());
     }
 
     public static String stripStart(final String value, final String stripChars) {

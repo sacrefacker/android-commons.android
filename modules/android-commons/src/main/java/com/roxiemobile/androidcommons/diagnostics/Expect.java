@@ -2,8 +2,12 @@ package com.roxiemobile.androidcommons.diagnostics;
 
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.util.ArrayUtils;
+import com.roxiemobile.androidcommons.util.CollectionUtils;
 import com.roxiemobile.androidcommons.util.StringUtils;
 import com.roxiemobile.androidcommons.util.ValidatableUtils;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * A set of expectation methods useful for validating objects states. Only failed expectations are recorded.
@@ -284,6 +288,92 @@ public final class Expect
      */
     public static void expectAllNotEmpty(final CharSequence[] values) {
         expectAllNotEmpty(values, null);
+    }
+
+// MARK: --
+
+    /**
+     * TODO
+     */
+    public static <T> void expectEmpty(final T[] array, final String message) {
+        expectTrue(ArrayUtils.isEmpty(array), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectEmpty(final T[] array) {
+        expectEmpty(array, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectEmpty(final Collection<T> collection, final String message) {
+        expectTrue(CollectionUtils.isEmpty(collection), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectEmpty(final Collection<T> collection) {
+        expectEmpty(collection, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void expectEmpty(final Map<K, V> map, final String message) {
+        expectTrue(CollectionUtils.isEmpty(map), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void expectEmpty(final Map<K, V> map) {
+        expectEmpty(map, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectNotEmpty(final T[] array, final String message) {
+        expectTrue(ArrayUtils.isNotEmpty(array), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectNotEmpty(final T[] array) {
+        expectNotEmpty(array, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectNotEmpty(final Collection<T> collection, final String message) {
+        expectTrue(CollectionUtils.isNotEmpty(collection), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectNotEmpty(final Collection<T> collection) {
+        expectNotEmpty(collection, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void expectNotEmpty(final Map<K, V> map, final String message) {
+        expectTrue(CollectionUtils.isNotEmpty(map), message);
+    }
+
+    /**
+     * TODO
+     */
+    public static <K, V> void expectNotEmpty(final Map<K, V> map) {
+        expectNotEmpty(map, null);
     }
 
 // MARK: --
