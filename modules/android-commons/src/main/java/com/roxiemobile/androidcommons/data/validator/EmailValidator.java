@@ -1,7 +1,7 @@
 package com.roxiemobile.androidcommons.data.validator;
 
 // Commonly used regular expression patterns
-// @link http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.0.2_r1/android/util/Patterns.java
+// @link http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/util/Patterns.java#Patterns.0EMAIL_ADDRESS
 
 public class EmailValidator
 {
@@ -35,10 +35,7 @@ public class EmailValidator
                 + "[a-zA-Z0-9\\.\\_\\%\\-\\+]{1,256}"
                 + "\\@"
                 + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
-                + "("
-                + "\\."
-                + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
-                + ")+"
+                + "(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})*"
             + "$";
 
     /**
