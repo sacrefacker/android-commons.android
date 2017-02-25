@@ -9,7 +9,9 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllEmpty;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotEmpty;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotValid;
+import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNull;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrNotValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
@@ -113,12 +115,44 @@ public final class Require
         requireNull(object, null);
     }
 
+    public static <T> void requireAllNull(final T[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllNull(objects));
+    }
+
+    public static <T> void requireAllNull(final T[] objects) {
+        requireAllNull(objects, null);
+    }
+
+    public static <T> void requireAllNull(final Collection<T> collection, final String message) {
+        rethrowOnFailure(message, () -> expectAllNull(collection));
+    }
+
+    public static <T> void requireAllNull(final Collection<T> collection) {
+        requireAllNull(collection, null);
+    }
+
     public static void requireNotNull(final Object object, final String message) {
         rethrowOnFailure(message, () -> expectNotNull(object));
     }
 
     public static void requireNotNull(final Object object) {
         requireNotNull(object, null);
+    }
+
+    public static <T> void requireAllNotNull(final T[] objects, final String message) {
+        rethrowOnFailure(message, () -> expectAllNotNull(objects));
+    }
+
+    public static <T> void requireAllNotNull(final T[] objects) {
+        requireAllNotNull(objects, null);
+    }
+
+    public static <T> void requireAllNotNull(final Collection<T> collection, final String message) {
+        rethrowOnFailure(message, () -> expectAllNotNull(collection));
+    }
+
+    public static <T> void requireAllNotNull(final Collection<T> collection) {
+        requireAllNotNull(collection, null);
     }
 
 // MARK: --

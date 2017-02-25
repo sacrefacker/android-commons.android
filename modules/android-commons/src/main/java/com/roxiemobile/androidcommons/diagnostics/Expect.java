@@ -1,5 +1,6 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
+import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.util.ArrayUtils;
 import com.roxiemobile.androidcommons.util.CollectionUtils;
@@ -210,6 +211,38 @@ public final class Expect
     }
 
     /**
+     * TODO
+     */
+    public static <T> void expectAllNull(final T[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(Stream.of(objects).allMatch(object -> object == null), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNull(final T[] objects) {
+        expectAllNull(objects, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNull(final Collection<T> collection, final String message) {
+        if (CollectionUtils.isNotEmpty(collection)) {
+            expectTrue(Stream.of(collection).allMatch(object -> object == null), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNull(final Collection<T> collection) {
+        expectAllNull(collection, null);
+    }
+
+    /**
      * Expects that an object isn't null. If it is an {@link ExpectationException} is thrown with the given message.
      *
      * @param object  Object to check or <code>null</code>
@@ -226,6 +259,38 @@ public final class Expect
      */
     public static void expectNotNull(final Object object) {
         expectNotNull(object, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNotNull(final T[] objects, final String message) {
+        if (ArrayUtils.isNotEmpty(objects)) {
+            expectTrue(Stream.of(objects).allMatch(object -> object != null), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNotNull(final T[] objects) {
+        expectAllNull(objects, null);
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNotNull(final Collection<T> collection, final String message) {
+        if (CollectionUtils.isNotEmpty(collection)) {
+            expectTrue(Stream.of(collection).allMatch(object -> object != null), message);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public static <T> void expectAllNotNull(final Collection<T> collection) {
+        expectAllNull(collection, null);
     }
 
 // MARK: --
