@@ -375,7 +375,7 @@ public final class ExpectTests
 
 
         expectThrowsException("expectAllNotEmpty", () -> {
-            expectAllNotEmpty(toArray(nilString));
+            expectAllNotEmpty(toArray(string, nilString));
         });
         expectThrowsException("expectAllNotEmpty", () -> {
             expectAllNotEmpty(toArray(string, emptyString));
@@ -604,6 +604,9 @@ public final class ExpectTests
         expectThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(toArray(nilObject));
         });
+        expectThrowsException("expectAllNotValid", () -> {
+            expectAllNotValid(toArray(notValidObject, validObject));
+        });
 
         expectNotThrowsException("expectAllNotValid", () -> {
             expectAllNotValid(array);
@@ -656,10 +659,10 @@ public final class ExpectTests
         expectThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(toArray(validObject, notValidObject));
         });
-
-        expectNotThrowsException("expectAllNullOrValid", () -> {
-            expectAllNullOrValid(toArray(validObject, nilObject));
+        expectThrowsException("expectAllNullOrValid", () -> {
+            expectAllNullOrValid(toArray(nilObject, notValidObject));
         });
+
         expectNotThrowsException("expectAllNullOrValid", () -> {
             expectAllNullOrValid(array);
         });
@@ -708,6 +711,12 @@ public final class ExpectTests
         expectThrowsException("expectAllNullOrNotValid", () -> {
             expectAllNullOrNotValid(toArray(validObject));
         });
+        expectThrowsException("expectAllNullOrNotValid", () -> {
+            expectAllNullOrNotValid(toArray(nilObject, validObject));
+        });
+        expectThrowsException("expectAllNullOrNotValid", () -> {
+            expectAllNullOrNotValid(toArray(notValidObject, validObject));
+        });
 
         expectNotThrowsException("expectAllNullOrNotValid", () -> {
             expectAllNullOrNotValid(array);
@@ -723,21 +732,21 @@ public final class ExpectTests
 // MARK: - Tests
 
     @Test
-    public void testNotThrowIfValidModel() {
+    public void testIsValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
         ParkingModel parking = null;
 
         JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
-        assertNotNull(jsonObject);
+        assertNotNull("Could not parse JSON from file", jsonObject);
 
         try {
             parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
         }
         catch (JsonSyntaxException e) {
-            Assert.fail("notThrowIfValidModel: Method thrown an exception");
+            Assert.fail("isValidModel: Method thrown an exception");
         }
         catch (Throwable t) {
-            Assert.fail("notThrowIfValidModel: Unknown exception is thrown");
+            Assert.fail("isValidModel: Unknown exception is thrown");
         }
 
         assertNotNull(parking);
@@ -745,21 +754,21 @@ public final class ExpectTests
     }
 
     @Test
-    public void testThrowIfNotValidModel() {
+    public void testIsNotValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
         ParkingModel parking = null;
 
         JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");
-        assertNotNull(jsonObject);
+        assertNotNull("Could not parse JSON from file", jsonObject);
 
         try {
             parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
         }
         catch (JsonSyntaxException e) {
-            Assert.fail("throwIfNotValidModel: Method thrown an exception");
+            Assert.fail("isNotValidModel: Method thrown an exception");
         }
         catch (Throwable t) {
-            Assert.fail("throwIfNotValidModel: Unknown exception is thrown");
+            Assert.fail("isNotValidModel: Unknown exception is thrown");
         }
 
         assertNotNull(parking);
