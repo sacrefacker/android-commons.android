@@ -12,12 +12,12 @@ public class URIAdapter extends TypeAdapter<URI>
 // MARK: - Methods
 
     @Override
-    public void write(JsonWriter w, URI u) throws IOException {
-        w.value(u.toString());
+    public void write(JsonWriter writer, URI uri) throws IOException {
+        writer.value(uri.toString());
     }
 
     @Override
-    public URI read(JsonReader r) throws IOException {
-        return URI.create(r.nextString());
+    public URI read(JsonReader reader) throws IOException {
+        return URI.create(reader.nextString());
     }
 }

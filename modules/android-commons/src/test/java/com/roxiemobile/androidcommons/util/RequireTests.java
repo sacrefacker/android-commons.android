@@ -2,6 +2,8 @@ package com.roxiemobile.androidcommons.util;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.roxiemobile.androidcommons.data.model.NotValidModel;
+import com.roxiemobile.androidcommons.data.model.ValidModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.diagnostics.RequirementError;
 
@@ -365,7 +367,7 @@ public final class RequireTests
 
 
         requireThrowsError("requireAllNotEmpty", () -> {
-            requireAllNotEmpty(toArray(nilString));
+            requireAllNotEmpty(toArray(string, nilString));
         });
         requireThrowsError("requireAllNotEmpty", () -> {
             requireAllNotEmpty(toArray(string, emptyString));
@@ -596,6 +598,9 @@ public final class RequireTests
         requireThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(toArray(nilObject));
         });
+        requireThrowsError("requireAllNotValid", () -> {
+            requireAllNotValid(toArray(notValidObject, validObject));
+        });
 
         requireNotThrowsError("requireAllNotValid", () -> {
             requireAllNotValid(array);
@@ -647,6 +652,9 @@ public final class RequireTests
         });
         requireThrowsError("requireAllNullOrValid", () -> {
             requireAllNullOrValid(toArray(validObject, notValidObject));
+        });
+        requireThrowsError("requireAllNullOrValid", () -> {
+            requireAllNullOrValid(toArray(nilObject, notValidObject));
         });
 
         requireNotThrowsError("requireAllNullOrValid", () -> {
@@ -700,6 +708,12 @@ public final class RequireTests
         requireThrowsError("requireAllNullOrNotValid", () -> {
             requireAllNullOrNotValid(toArray(validObject));
         });
+        requireThrowsError("requireAllNullOrNotValid", () -> {
+            requireAllNullOrNotValid(toArray(nilObject, validObject));
+        });
+        requireThrowsError("requireAllNullOrNotValid", () -> {
+            requireAllNullOrNotValid(toArray(notValidObject, validObject));
+        });
 
         requireNotThrowsError("requireAllNullOrNotValid", () -> {
             requireAllNullOrNotValid(array);
@@ -744,22 +758,6 @@ public final class RequireTests
         }
         catch (Throwable t) {
             Assert.fail(method + ": Unknown exception is thrown");
-        }
-    }
-
-// MARK: - Inner Types
-
-    private static class ValidModel implements Validatable {
-        @Override
-        public boolean isValid() {
-            return true;
-        }
-    }
-
-    private static class NotValidModel implements Validatable {
-        @Override
-        public boolean isValid() {
-            return false;
         }
     }
 }

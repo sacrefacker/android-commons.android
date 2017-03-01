@@ -39,7 +39,7 @@ public final class CollectionUtils
         return !isEmpty(map);
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns the given collection if it is non-empty; {@code null} otherwise.
@@ -79,7 +79,7 @@ public final class CollectionUtils
         return (set != null) ? set : Collections.emptySet();
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns an unmodifiable view of the specified collection.
@@ -109,7 +109,7 @@ public final class CollectionUtils
         return Collections.unmodifiableMap(map != null ? map : Collections.emptyMap());
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns a ArrayList containing the elements of the specified array.

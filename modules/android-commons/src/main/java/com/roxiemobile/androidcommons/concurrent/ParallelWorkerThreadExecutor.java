@@ -21,12 +21,12 @@ public final class ParallelWorkerThreadExecutor extends AbstractExecutorService
 {
 // MARK: - Construction
 
-    public static class SingletonHolder {
-        public static final ParallelWorkerThreadExecutor SHARED_INSTANCE = new ParallelWorkerThreadExecutor();
-    }
-
     public static ParallelWorkerThreadExecutor shared() {
         return SingletonHolder.SHARED_INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        private static final ParallelWorkerThreadExecutor SHARED_INSTANCE = new ParallelWorkerThreadExecutor();
     }
 
     private ParallelWorkerThreadExecutor() {

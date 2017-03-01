@@ -15,12 +15,12 @@ public final class MainThreadExecutor extends AbstractExecutorService
 {
 // MARK: - Construction
 
-    public static class SingletonHolder {
-        public static final MainThreadExecutor SHARED_INSTANCE = new MainThreadExecutor();
-    }
-
     public static MainThreadExecutor shared() {
         return SingletonHolder.SHARED_INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        private static final MainThreadExecutor SHARED_INSTANCE = new MainThreadExecutor();
     }
 
     private MainThreadExecutor() {

@@ -4,12 +4,12 @@ public final class Logger
 {
 // MARK: - Construction
 
-    public static class SingletonHolder {
-        public static final Logger SHARED_INSTANCE = new Logger();
-    }
-
     public static Logger shared() {
         return Logger.SingletonHolder.SHARED_INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        private static final Logger SHARED_INSTANCE = new Logger();
     }
 
     private Logger() {

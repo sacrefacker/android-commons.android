@@ -7,12 +7,12 @@ public class EmailValidator
 {
 // MARK: - Construction
 
-    public static class SingletonHolder {
-        public static final EmailValidator SHARED_INSTANCE = new EmailValidator();
-    }
-
     public static EmailValidator shared() {
         return EmailValidator.SingletonHolder.SHARED_INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        private static final EmailValidator SHARED_INSTANCE = new EmailValidator();
     }
 
     public EmailValidator() {

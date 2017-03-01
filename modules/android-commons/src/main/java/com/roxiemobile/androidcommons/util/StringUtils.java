@@ -95,7 +95,7 @@ public final class StringUtils
         return ArrayUtils.isNotEmpty(values) && Stream.of(values).allMatch(StringUtils::isNotEmpty);
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * <p>Checks if a CharSequence is empty (""), {@code null} or whitespace only.</p>
@@ -185,7 +185,7 @@ public final class StringUtils
         return ArrayUtils.isNotEmpty(values) && Stream.of(values).allMatch(StringUtils::isNotBlank);
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * <p>Strips whitespace from the start and end of a CharSequence.</p>
@@ -355,7 +355,7 @@ public final class StringUtils
         return stripEnd((CharSequence) value, stripChars).toString();
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns the given string if it is nonempty; {@code null} otherwise.
@@ -371,10 +371,10 @@ public final class StringUtils
         return (value == null) ? "" : value;
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
-     * TODO
+     * FIXME: Rework
      */
     public static String streamToString(InputStream is) throws IOException {
         return streamToString(is, "UTF-8");

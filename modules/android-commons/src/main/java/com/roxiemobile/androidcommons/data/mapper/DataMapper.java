@@ -37,46 +37,52 @@ public final class DataMapper
 
 // MARK: - Methods: JSON to POJO
 
+    // FIXME: Rework
     public static <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
-        return GsonHolder.INSTANCE.fromJson(json, classOfT);
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
+    // FIXME: Rework
     public static <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
-        return GsonHolder.INSTANCE.fromJson(json, typeOfT);
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
+    // FIXME: Rework
     public static <T> T fromJson(JsonElement json, Class<T> classOfT) throws JsonSyntaxException {
-        return GsonHolder.INSTANCE.fromJson(json, classOfT);
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
+    // FIXME: Rework
     public static <T> T fromJson(JsonElement json, Type typeOfT) throws JsonSyntaxException {
-        return GsonHolder.INSTANCE.fromJson(json, typeOfT);
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
+    // FIXME: Rework
     public static <T> T fromJson(Reader json, Class<T> classOfT) throws JsonSyntaxException, JsonIOException {
-        return GsonHolder.INSTANCE.fromJson(json, classOfT);
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
+    // FIXME: Rework
     public static <T> T fromJson(Reader json, Type typeOfT) throws JsonIOException, JsonSyntaxException {
-        return GsonHolder.INSTANCE.fromJson(json, typeOfT);
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
 // MARK: - Methods: POJO to JSON
 
     public static String toJson(Object src, Type typeOfSrc) {
-        return GsonHolder.INSTANCE.toJson(src, typeOfSrc);
+        return GsonHolder.shared().toJson(src, typeOfSrc);
     }
 
     public static String toJson(Object src) {
-        return GsonHolder.INSTANCE.toJson(src);
+        return GsonHolder.shared().toJson(src);
     }
 
     public static JsonElement toJsonTree(Object src, Type typeOfSrc) {
-        return GsonHolder.INSTANCE.toJsonTree(src, typeOfSrc);
+        return GsonHolder.shared().toJsonTree(src, typeOfSrc);
     }
 
     public static JsonElement toJsonTree(Object src) {
-        return GsonHolder.INSTANCE.toJsonTree(src);
+        return GsonHolder.shared().toJsonTree(src);
     }
 
 // MARK: - Methods: JSON to ByteArray
@@ -108,13 +114,21 @@ public final class DataMapper
 
     @SuppressWarnings("unchecked")
     public static <T> EnumStringConverter<T> getEnumStringConverter(Class<T> enumClass) {
-        return (EnumStringConverter<T>) GsonHolder.INSTANCE.getAdapter(enumClass);
+        return (EnumStringConverter<T>) GsonHolder.shared().getAdapter(enumClass);
     }
 
 // MARK: - Inner Types
 
     private static class GsonHolder
     {
+        public static Gson shared() {
+            return GsonHolder.SingletonHolder.SHARED_INSTANCE;
+        }
+
+        private static class SingletonHolder {
+            private static final Gson SHARED_INSTANCE = newInstance();
+        }
+
         private static Gson newInstance() {
             GsonBuilder builder = new GsonBuilder();
 
@@ -136,8 +150,6 @@ public final class DataMapper
             // Done
             return builder.create();
         }
-
-        private static final Gson INSTANCE = newInstance();
     }
 
 // MARK: - Inner Types

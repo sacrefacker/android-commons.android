@@ -69,7 +69,7 @@ public final class Require
         requireFalse(condition, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireEqual(final Object expected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectEqual(expected, actual));
@@ -87,7 +87,7 @@ public final class Require
         requireNotEqual(unexpected, actual, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireSame(final Object expected, final Object actual, final String message) {
         rethrowOnFailure(message, () -> expectSame(expected, actual));
@@ -105,7 +105,7 @@ public final class Require
         requireNotSame(unexpected, actual, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireNull(final Object object, final String message) {
         rethrowOnFailure(message, () -> expectNull(object));
@@ -155,7 +155,7 @@ public final class Require
         requireAllNotNull(collection, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireEmpty(final CharSequence value, final String message) {
         rethrowOnFailure(message, () -> expectEmpty(value));
@@ -189,7 +189,7 @@ public final class Require
         requireAllNotEmpty(values, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -275,7 +275,7 @@ public final class Require
         requireNotEmpty(map, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireBlank(final CharSequence value, final String message) {
         rethrowOnFailure(message, () -> expectBlank(value));
@@ -309,7 +309,7 @@ public final class Require
         requireAllNotBlank(values, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireValid(final Validatable object, final String message) {
         rethrowOnFailure(message, () -> expectValid(object));
@@ -343,7 +343,7 @@ public final class Require
         requireAllNotValid(objects, null);
     }
 
-// MARK: --
+// MARK: -
 
     public static void requireNullOrValid(final Validatable object, final String message) {
         rethrowOnFailure(message, () -> expectNullOrValid(object));

@@ -71,7 +71,7 @@ public final class Expect
         expectFalse(condition, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * Expects that two objects are equal. If they are not, an {@link ExpectationException} is thrown with
@@ -134,7 +134,7 @@ public final class Expect
         expectNotEqual(unexpected, actual, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * Expects that two objects refer to the same object. If they are not,
@@ -187,7 +187,7 @@ public final class Expect
         expectNotSame(unexpected, actual, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * Expects that an object is null. If it is not, an {@link ExpectationException} is thrown with the given message.
@@ -293,7 +293,7 @@ public final class Expect
         expectAllNull(collection, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -355,7 +355,7 @@ public final class Expect
         expectAllNotEmpty(values, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -441,7 +441,7 @@ public final class Expect
         expectNotEmpty(map, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -503,7 +503,7 @@ public final class Expect
         expectAllNotBlank(values, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -565,7 +565,7 @@ public final class Expect
         expectAllNotValid(objects, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * TODO
@@ -627,7 +627,7 @@ public final class Expect
         expectAllNullOrNotValid(objects, null);
     }
 
-// MARK: --
+// MARK: -
 
     /**
      * This interface facilitates the use of expectThrows from Java 8. It allows method references

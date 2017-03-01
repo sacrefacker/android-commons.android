@@ -17,7 +17,7 @@ public final class ArrayUtils
 // MARK: - Methods
 
     /**
-     * <p>Checks if given array is {@code null} or has zero elements.</p>
+     * Checks if given array is {@code null} or has zero elements.
      *
      * @param array The array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -58,10 +58,10 @@ public final class ArrayUtils
         return (array == null) || (array.length < 1);
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
-     * <p>Checks if given array is non {@code null} and has elements.</p>
+     * Checks if given array is non {@code null} and has elements.
      *
      * @param array The array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -102,7 +102,7 @@ public final class ArrayUtils
         return !isEmpty(array);
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns the given array if it is non-empty; {@code null} otherwise.
@@ -143,7 +143,7 @@ public final class ArrayUtils
         return isEmpty(array) ? null : array;
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Returns the given array if it is non {@code null}; the empty array otherwise.
@@ -185,16 +185,16 @@ public final class ArrayUtils
         return (array != null) ? array : EMPTY_BOOLEAN_ARRAY;
     }
 
-// MARK: - Methods
+// MARK: -
 
     /**
      * Create a type-safe generic array.
      *
-     * <p>This method makes only sense to provide arguments of the same type so that the compiler can deduce
+     * This method makes only sense to provide arguments of the same type so that the compiler can deduce
      * the type of the array itself. While it is possible to select the type explicitly like in
      * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new Integer(42), new Double(Math.PI))</code>,
      * there is no real advantage when compared to
-     * <code>new Number[] {new Integer(42), new Double(Math.PI)}</code>.</p>
+     * <code>new Number[] {new Integer(42), new Double(Math.PI)}</code>.
      *
      * @param <T>   The array's element type
      * @param items The varargs array items, null allowed

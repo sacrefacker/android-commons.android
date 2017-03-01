@@ -6,7 +6,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.roxiemobile.androidcommons.data.mapper.DataMapper;
+import com.roxiemobile.androidcommons.data.model.NotValidModel;
 import com.roxiemobile.androidcommons.data.model.ParkingModel;
+import com.roxiemobile.androidcommons.data.model.ValidModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
 import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
 import com.roxiemobile.androidcommons.logging.Logger;
@@ -731,6 +733,7 @@ public final class ExpectTests
 
 // MARK: - Tests
 
+    // FIXME: Rework
     @Test
     public void testIsValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
@@ -753,6 +756,7 @@ public final class ExpectTests
         assertTrue(parking.isValid());
     }
 
+    // FIXME: Rework
     @Test
     public void testIsNotValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
@@ -828,21 +832,5 @@ public final class ExpectTests
             Assert.fail("Could not load file: " + filename + ".json");
         }
         return jsonObject;
-    }
-
-// MARK: - Inner Types
-
-    private static class ValidModel implements Validatable {
-        @Override
-        public boolean isValid() {
-            return true;
-        }
-    }
-
-    private static class NotValidModel implements Validatable {
-        @Override
-        public boolean isValid() {
-            return false;
-        }
     }
 }
