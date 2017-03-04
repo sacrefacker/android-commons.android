@@ -4,7 +4,7 @@ import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.io.Serializable;
 
-public abstract class SerializableObject
+public abstract class ValidatableModel
         implements Serializable, Validatable
 {
 // MARK: - Methods
@@ -34,7 +34,7 @@ public abstract class SerializableObject
     /**
      * Checks attribute values or a combination of attribute values for correctness (cross validation).
      */
-    protected void validate() {
+    public void validate() {
         // Do nothing
     }
 }

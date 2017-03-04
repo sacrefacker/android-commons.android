@@ -1,6 +1,7 @@
 package com.roxiemobile.androidcommons.util;
 
 import com.annimon.stream.Stream;
+import com.roxiemobile.androidcommons.data.Constants.Charsets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -377,7 +378,7 @@ public final class StringUtils
      * FIXME: Rework
      */
     public static String streamToString(InputStream is) throws IOException {
-        return streamToString(is, "UTF-8");
+        return streamToString(is, Charsets.UTF_8.name());
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.roxiemobile.androidcommons.util;
 
+import android.support.annotation.NonNull;
+
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.model.NotValidModel;
@@ -728,36 +730,75 @@ public final class RequireTests
 
 // MARK: - Private Methods
 
-    private void requireThrowsError(String method, Runnable task) {
-        if (task == null) {
-            throw new NullPointerException();
-        }
+    private <T> void requireThrowsError(String method, Class<T> classOfT, Runnable task) {
+        checkArgument(StringUtils.isNotEmpty(method), "method is empty");
+        checkArgument(classOfT != null, "classOfT is null");
+        checkArgument(task != null, "task is null");
 
+        Throwable cause = null;
         try {
             task.run();
-            Assert.fail(method + ": Method not thrown an exception");
-        }
-        catch (RequirementError e) {
-            // Do nothing
         }
         catch (Throwable t) {
-            Assert.fail(method + ": Unknown exception is thrown");
+            cause = t;
+        }
+
+        if (cause != null)
+        {
+            if (cause.getClass().equals(classOfT)) {
+                // Do nothing
+            }
+            else {
+                Assert.fail(method + ": Unknown error is thrown");
+            }
+        }
+        else {
+            Assert.fail(method + ": Method not thrown an error");
+        }
+    }
+
+    private void requireThrowsError(String method, Runnable task) {
+        requireThrowsError(method, RequirementError.class, task);
+    }
+
+// --
+
+    private <T> void requireNotThrowsError(@NonNull String method, @NonNull Class<T> classOfT, @NonNull Runnable task) {
+        checkArgument(StringUtils.isNotEmpty(method), "method is empty");
+        checkArgument(classOfT != null, "classOfT is null");
+        checkArgument(task != null, "task is null");
+
+        Throwable cause = null;
+        try {
+            task.run();
+        }
+        catch (Throwable t) {
+            cause = t;
+        }
+
+        if (cause != null)
+        {
+            if (cause.getClass().equals(classOfT)) {
+                Assert.fail(method + ": Method thrown an error");
+            }
+            else {
+                Assert.fail(method + ": Unknown error is thrown");
+            }
+        }
+        else {
+            // Do nothing
         }
     }
 
     private void requireNotThrowsError(String method, Runnable task) {
-        if (task == null) {
-            throw new NullPointerException();
-        }
+        requireNotThrowsError(method, RequirementError.class, task);
+    }
 
-        try {
-            task.run();
-        }
-        catch (RequirementError e) {
-            Assert.fail(method + ": Method thrown an exception");
-        }
-        catch (Throwable t) {
-            Assert.fail(method + ": Unknown exception is thrown");
+// --
+
+    private static void checkArgument(final boolean expression, final String message) {
+        if (!expression) {
+            throw new IllegalArgumentException(message);
         }
     }
 }

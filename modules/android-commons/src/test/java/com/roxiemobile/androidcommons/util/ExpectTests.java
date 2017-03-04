@@ -1,5 +1,7 @@
 package com.roxiemobile.androidcommons.util;
 
+import android.support.annotation.NonNull;
+
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.google.gson.JsonObject;
@@ -49,8 +51,8 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
 import static com.roxiemobile.androidcommons.util.ArrayUtils.toArray;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings({"CodeBlock2Expr", "ConstantConditions"})
@@ -733,93 +735,108 @@ public final class ExpectTests
 
 // MARK: - Tests
 
-    // FIXME: Rework
     @Test
     public void testIsValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
-        ParkingModel parking = null;
+        final ParkingModel[] parking = {null};
 
         JsonObject jsonObject = loadJson("test_parking_model_with_valid_vehicles_in_array");
         assertNotNull("Could not parse JSON from file", jsonObject);
 
-        try {
-            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
-        }
-        catch (JsonSyntaxException e) {
-            Assert.fail("isValidModel: Method thrown an exception");
-        }
-        catch (Throwable t) {
-            Assert.fail("isValidModel: Unknown exception is thrown");
-        }
+        expectNotThrowsException("expectValidModel", JsonSyntaxException.class, () -> {
+            parking[0] = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        });
 
-        assertNotNull(parking);
-        assertTrue(parking.isValid());
+        assertNotNull(parking[0]);
+        assertTrue(parking[0].isValid());
     }
 
-    // FIXME: Rework
     @Test
     public void testIsNotValidModel() {
         Logger.shared().logLevel(LogLevel.Suppress);
-        ParkingModel parking = null;
+        final ParkingModel[] parking = {null};
 
         JsonObject jsonObject = loadJson("test_parking_model_with_one_non_valid_vehicle_in_array");
         assertNotNull("Could not parse JSON from file", jsonObject);
 
-        try {
-            parking = DataMapper.fromJson(jsonObject, ParkingModel.class);
-        }
-        catch (JsonSyntaxException e) {
-            Assert.fail("isNotValidModel: Method thrown an exception");
-        }
-        catch (Throwable t) {
-            Assert.fail("isNotValidModel: Unknown exception is thrown");
-        }
+        expectThrowsException("expectNotValidModel", JsonSyntaxException.class, () -> {
+            parking[0] = DataMapper.fromJson(jsonObject, ParkingModel.class);
+        });
 
-        assertNotNull(parking);
-        assertFalse(parking.isValid());
+        assertNull(parking[0]);
     }
 
 // MARK: - Private Methods
 
-    private void expectThrowsException(String method, Runnable task) {
-        if (task == null) {
-            throw new NullPointerException();
-        }
+    private <T> void expectThrowsException(String method, Class<T> classOfT, Runnable task) {
+        checkArgument(StringUtils.isNotEmpty(method), "method is empty");
+        checkArgument(classOfT != null, "classOfT is null");
+        checkArgument(task != null, "task is null");
 
-        Exception cause = null;
+        Throwable cause = null;
         try {
             task.run();
         }
-        catch (ExpectationException e) {
-            cause = e;
-        }
         catch (Throwable t) {
-            Assert.fail(method + ": Unknown exception is thrown");
+            cause = t;
         }
 
-        if (cause == null) {
+        if (cause != null)
+        {
+            if (cause.getClass().equals(classOfT)) {
+                // Do nothing
+            }
+            else {
+                Assert.fail(method + ": Unknown exception is thrown");
+            }
+        }
+        else {
             Assert.fail(method + ": Method not thrown an exception");
         }
     }
 
-    private void expectNotThrowsException(String method, Runnable task) {
-        if (task == null) {
-            throw new NullPointerException();
-        }
+    private void expectThrowsException(String method, Runnable task) {
+        expectThrowsException(method, ExpectationException.class, task);
+    }
 
+// --
+
+    private <T> void expectNotThrowsException(@NonNull String method, @NonNull Class<T> classOfT, @NonNull Runnable task) {
+        checkArgument(StringUtils.isNotEmpty(method), "method is empty");
+        checkArgument(classOfT != null, "classOfT is null");
+        checkArgument(task != null, "task is null");
+
+        Throwable cause = null;
         try {
             task.run();
         }
-        catch (ExpectationException e) {
-            Assert.fail(method + ": Method thrown an exception");
-        }
         catch (Throwable t) {
-            Assert.fail(method + ": Unknown exception is thrown");
+            cause = t;
+        }
+
+        if (cause != null)
+        {
+            if (cause.getClass().equals(classOfT)) {
+                Assert.fail(method + ": Method thrown an exception");
+            }
+            else {
+                Assert.fail(method + ": Unknown exception is thrown");
+            }
+        }
+        else {
+            // Do nothing
         }
     }
 
-    private JsonObject loadJson(String filename)
-    {
+    private void expectNotThrowsException(String method, Runnable task) {
+        expectNotThrowsException(method, ExpectationException.class, task);
+    }
+
+// --
+
+    private JsonObject loadJson(@NonNull String filename) {
+        checkArgument(StringUtils.isNotEmpty(filename), "filename is empty");
+
         ClassLoader loader = this.getClass().getClassLoader();
         JsonObject jsonObject = null;
 
@@ -832,5 +849,11 @@ public final class ExpectTests
             Assert.fail("Could not load file: " + filename + ".json");
         }
         return jsonObject;
+    }
+
+    private static void checkArgument(final boolean expression, final String message) {
+        if (!expression) {
+            throw new IllegalArgumentException(message);
+        }
     }
 }

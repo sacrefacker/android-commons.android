@@ -6,7 +6,7 @@ import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
 
-public class ParkingModel extends SerializableObject
+public class ParkingModel extends ValidatableModel
 {
     @SerializedName("watcher")
     public String mWatcher;
@@ -15,7 +15,7 @@ public class ParkingModel extends SerializableObject
     public VehicleModel[] mVehicles;
 
     @Override
-    protected void validate() {
+    public void validate() {
         super.validate();
 
         // Validate instance variables

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
 import static com.roxiemobile.androidcommons.util.ArrayUtils.toArray;
 
-public class VehicleModel extends SerializableObject
+public class VehicleModel extends ValidatableModel
 {
     @SerializedName("model")
     public String mModel;
@@ -14,7 +14,7 @@ public class VehicleModel extends SerializableObject
     public String mColor;
 
     @Override
-    protected void validate() {
+    public void validate() {
         super.validate();
 
         // Validate instance variables

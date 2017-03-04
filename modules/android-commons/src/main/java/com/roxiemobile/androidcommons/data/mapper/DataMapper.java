@@ -9,11 +9,15 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
+import com.roxiemobile.androidcommons.data.Constants.Charsets;
+import com.roxiemobile.androidcommons.data.Constants.DateFormat;
 import com.roxiemobile.androidcommons.data.mapper.adapter.DateAdapter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumStringConverter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumTypeAdapterFactory;
 import com.roxiemobile.androidcommons.data.mapper.adapter.TimestampAdapter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.URIAdapter;
+import com.roxiemobile.androidcommons.data.model.ValidatableModel;
+import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
 import com.roxiemobile.androidcommons.util.IOUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -22,7 +26,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ServiceLoader;
@@ -37,34 +40,28 @@ public final class DataMapper
 
 // MARK: - Methods: JSON to POJO
 
-    // FIXME: Rework
     public static <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
-        return GsonHolder.shared().fromJson(json, classOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
     }
 
-    // FIXME: Rework
     public static <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
-        return GsonHolder.shared().fromJson(json, typeOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
     }
 
-    // FIXME: Rework
     public static <T> T fromJson(JsonElement json, Class<T> classOfT) throws JsonSyntaxException {
-        return GsonHolder.shared().fromJson(json, classOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
     }
 
-    // FIXME: Rework
     public static <T> T fromJson(JsonElement json, Type typeOfT) throws JsonSyntaxException {
-        return GsonHolder.shared().fromJson(json, typeOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
     }
 
-    // FIXME: Rework
     public static <T> T fromJson(Reader json, Class<T> classOfT) throws JsonSyntaxException, JsonIOException {
-        return GsonHolder.shared().fromJson(json, classOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
     }
 
-    // FIXME: Rework
     public static <T> T fromJson(Reader json, Type typeOfT) throws JsonIOException, JsonSyntaxException {
-        return GsonHolder.shared().fromJson(json, typeOfT);
+        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
     }
 
 // MARK: - Methods: POJO to JSON
@@ -91,7 +88,7 @@ public final class DataMapper
         byte[] result = null;
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream, CHARSET_UTF8);
+        OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream, Charsets.UTF_8);
         JsonWriter jsonWriter = new JsonWriter(streamWriter);
         try {
             jsonWriter.setLenient(true);
@@ -115,6 +112,21 @@ public final class DataMapper
     @SuppressWarnings("unchecked")
     public static <T> EnumStringConverter<T> getEnumStringConverter(Class<T> enumClass) {
         return (EnumStringConverter<T>) GsonHolder.shared().getAdapter(enumClass);
+    }
+
+// MARK: - Private Methods
+
+    private static <T> T validateObject(T object)
+    {
+        if (object instanceof ValidatableModel) {
+            try {
+                ((ValidatableModel) object).validate();
+            }
+            catch (ExpectationException e) {
+                throw new JsonSyntaxException(e);
+            }
+        }
+        return object;
     }
 
 // MARK: - Inner Types
@@ -151,17 +163,4 @@ public final class DataMapper
             return builder.create();
         }
     }
-
-// MARK: - Inner Types
-
-    public interface DateFormat
-    {
-        String DATE = "yyyy-MM-dd";
-        String TIMESTAMP_ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-    }
-
-// MARK: - Constants
-
-    @Deprecated
-    public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 }

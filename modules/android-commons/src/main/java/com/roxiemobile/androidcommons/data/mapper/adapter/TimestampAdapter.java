@@ -5,7 +5,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.roxiemobile.androidcommons.data.mapper.DataMapper.DateFormat;
+import com.roxiemobile.androidcommons.data.Constants.DateFormat;
 
 import java.io.IOException;
 import java.sql.Timestamp;
