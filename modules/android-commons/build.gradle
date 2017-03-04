@@ -44,8 +44,9 @@ dependencies {
     final STREAM_VERSION = rootProject.ext.STREAM_VERSION
     compile "com.annimon:stream:$STREAM_VERSION"
 
-    // Test dependencies
-    testCompile 'junit:junit:4.12'
+    // JUnit
+    final JUNIT_VERSION = rootProject.ext.JUNIT_VERSION
+    testCompile "junit:junit:$JUNIT_VERSION"
 }
 
 // Deploy to Bintray
