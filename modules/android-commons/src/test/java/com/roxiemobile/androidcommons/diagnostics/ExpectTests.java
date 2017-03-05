@@ -1,4 +1,4 @@
-package com.roxiemobile.androidcommons.util;
+package com.roxiemobile.androidcommons.diagnostics;
 
 import android.support.annotation.NonNull;
 
@@ -12,9 +12,9 @@ import com.roxiemobile.androidcommons.data.model.NotValidModel;
 import com.roxiemobile.androidcommons.data.model.ParkingModel;
 import com.roxiemobile.androidcommons.data.model.ValidModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
-import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
 import com.roxiemobile.androidcommons.logging.Logger;
 import com.roxiemobile.androidcommons.logging.Logger.LogLevel;
+import com.roxiemobile.androidcommons.util.StringUtils;
 
 import org.junit.Assert;
 import org.junit.Test;

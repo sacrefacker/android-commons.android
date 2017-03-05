@@ -1,11 +1,17 @@
 package com.roxiemobile.androidcommons.util;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.Constants.Charsets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+
+import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class StringUtils
 {
@@ -18,7 +24,7 @@ public final class StringUtils
 // MARK: - Methods
 
     /**
-     * <p>Checks if a CharSequence is empty ("") or {@code null}.</p>
+     * Checks if a CharSequence is empty ("") or {@code null}.
      *
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -31,12 +37,12 @@ public final class StringUtils
      * @param value The CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
      */
-    public static boolean isEmpty(final CharSequence value) {
+    public static boolean isEmpty(final @Nullable CharSequence value) {
         return (value == null) || (value.length() < 1);
     }
 
     /**
-     * <p>Checks if all of the CharSequences are empty ("") or {@code null}.</p>
+     * Checks if all of the CharSequences are empty ("") or {@code null}.
      *
      * <pre>
      * StringUtils.isAllEmpty(null)             = true
@@ -53,12 +59,12 @@ public final class StringUtils
      * @param values The CharSequences to check, may be null or empty
      * @return {@code true} if all of the CharSequences are empty or null
      */
-    public static boolean isAllEmpty(final CharSequence... values) {
+    public static boolean isAllEmpty(final @Nullable CharSequence... values) {
         return ArrayUtils.isEmpty(values) || Stream.of(values).allMatch(StringUtils::isEmpty);
     }
 
     /**
-     * <p>Checks if a CharSequence is not empty ("") and not {@code null}.</p>
+     * Checks if a CharSequence is not empty ("") and not {@code null}.
      *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
@@ -71,12 +77,12 @@ public final class StringUtils
      * @param value The CharSequence to check, may be null
      * @return {@code true} if the CharSequence is not empty and not null
      */
-    public static boolean isNotEmpty(final CharSequence value) {
+    public static boolean isNotEmpty(final @Nullable CharSequence value) {
         return !isEmpty(value);
     }
 
     /**
-     * <p>Checks if none of the CharSequences are not empty ("") and not {@code null}.</p>
+     * Checks if none of the CharSequences are not empty ("") and not {@code null}.
      *
      * <pre>
      * StringUtils.isAllNotEmpty(null)             = false
@@ -92,16 +98,16 @@ public final class StringUtils
      * @param values The CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are empty or null
      */
-    public static boolean isAllNotEmpty(final CharSequence... values) {
+    public static boolean isAllNotEmpty(final @Nullable CharSequence... values) {
         return ArrayUtils.isNotEmpty(values) && Stream.of(values).allMatch(StringUtils::isNotEmpty);
     }
 
 // MARK: -
 
     /**
-     * <p>Checks if a CharSequence is empty (""), {@code null} or whitespace only.</p>
+     * Checks if a CharSequence is empty (""), {@code null} or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -114,14 +120,15 @@ public final class StringUtils
      * @param value The CharSequence to check, may be null
      * @return {@code true} if the CharSequence is null, empty or whitespace only
      */
-    public static boolean isBlank(final CharSequence value) {
-        return (value == null) || (strip(value).length() < 1);
+    public static boolean isBlank(final @Nullable CharSequence value) {
+        //noinspection ConstantConditions
+        return (value == null) || (strip(value.toString()).length() < 1);
     }
 
     /**
-     * <p>Checks if all of the CharSequences are empty (""), {@code null} or whitespace only.</p>
+     * Checks if all of the CharSequences are empty (""), {@code null} or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isAllBlank(null)             = true
@@ -138,14 +145,14 @@ public final class StringUtils
      * @param values The CharSequences to check, may be null or empty
      * @return {@code true} if all of the CharSequences are empty or null or whitespace only
      */
-    public static boolean isAllBlank(final CharSequence... values) {
+    public static boolean isAllBlank(final @Nullable CharSequence... values) {
         return ArrayUtils.isEmpty(values) || Stream.of(values).allMatch(StringUtils::isBlank);
     }
 
     /**
-     * <p>Checks if a CharSequence is not empty (""), not {@code null} and not whitespace only.</p>
+     * Checks if a CharSequence is not empty (""), not {@code null} and not whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -158,14 +165,14 @@ public final class StringUtils
      * @param value The CharSequence to check, may be null
      * @return {@code true} if the CharSequence is not empty and not null and not whitespace only
      */
-    public static boolean isNotBlank(final CharSequence value) {
+    public static boolean isNotBlank(final @Nullable CharSequence value) {
         return !isBlank(value);
     }
 
     /**
-     * <p>Checks if none of the CharSequences are empty (""), {@code null} or whitespace only.</p>
+     * Checks if none of the CharSequences are empty (""), {@code null} or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isAllNotBlank(null)             = false
@@ -182,53 +189,22 @@ public final class StringUtils
      * @param values The CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are empty or null or whitespace only
      */
-    public static boolean isAllNotBlank(final CharSequence... values) {
+    public static boolean isAllNotBlank(final @Nullable CharSequence... values) {
         return ArrayUtils.isNotEmpty(values) && Stream.of(values).allMatch(StringUtils::isNotBlank);
     }
 
 // MARK: -
 
     /**
-     * <p>Strips whitespace from the start and end of a CharSequence.</p>
-     *
-     * <p>This is similar to {@link String#trim()} but removes whitespace.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     *
-     * <p>A {@code null} input CharSequence returns {@code null}.</p>
-     *
-     * <pre>
-     * StringUtils.strip(null)     = null
-     * StringUtils.strip("")       = ""
-     * StringUtils.strip("   ")    = ""
-     * StringUtils.strip("abc")    = "abc"
-     * StringUtils.strip("  abc")  = "abc"
-     * StringUtils.strip("abc  ")  = "abc"
-     * StringUtils.strip(" abc ")  = "abc"
-     * StringUtils.strip(" ab c ") = "ab c"
-     * </pre>
-     *
-     * @param value The CharSequence to remove whitespace from, may be null
-     * @return the stripped CharSequence, {@code null} if null CharSequence input
-     */
-    public static CharSequence strip(final CharSequence value) {
-        return strip(value, null);
-    }
-
-    public static String strip(final String value) {
-        return strip((CharSequence) value).toString();
-    }
-
-    /**
-     * <p>Strips any of a set of characters from the start and end of a CharSequence.
+     * Strips any of a set of characters from the start and end of a String.
      * This is similar to {@link String#trim()} but allows the characters
-     * to be stripped to be controlled.</p>
+     * to be stripped to be controlled.
      *
-     * <p>A {@code null} input CharSequence returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input
+     * returns the empty string.
      *
-     * <p>If the stripChars String is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.
-     * Alternatively use {@link #strip(CharSequence)}.</p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined
+     * by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.strip(null, *)          = null
@@ -240,29 +216,26 @@ public final class StringUtils
      * StringUtils.strip("  abcyx", "xyz") = "  abc"
      * </pre>
      *
-     * @param value      The CharSequence to remove characters from, may be null
+     * @param value      The String to remove characters from, may be null
      * @param stripChars The characters to remove, null treated as whitespace
-     * @return the stripped CharSequence, {@code null} if null CharSequence input
+     * @return the stripped String, {@code null} if null String input
      */
-    public static CharSequence strip(final CharSequence value, final String stripChars) {
-        if (isEmpty(value)) {
-            return value;
-        }
-        return stripEnd(stripStart(value, stripChars), stripChars);
+    public static @Nullable String strip(final @Nullable String value, final @Nullable String stripChars) {
+        return isEmpty(value) ? value : stripEnd(stripStart(value, stripChars), stripChars);
     }
 
-    public static String strip(final String value, final String stripChars) {
-        return strip((CharSequence) value, stripChars).toString();
+    public static @Nullable String strip(final @Nullable String value) {
+        return strip(value, null);
     }
 
     /**
-     * <p>Strips any of a set of characters from the start of a CharSequence.</p>
+     * Strips any of a set of characters from the start of a String.
      *
-     * <p>A {@code null} input CharSequence returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input
+     * returns the empty string.
      *
-     * <p>If the stripChars String is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.</p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined
+     * by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.stripStart(null, *)          = null
@@ -275,11 +248,11 @@ public final class StringUtils
      * StringUtils.stripStart("yxabc  ", "xyz") = "abc  "
      * </pre>
      *
-     * @param value      The CharSequence to remove characters from, may be null
+     * @param value      The String to remove characters from, may be null
      * @param stripChars The characters to remove, null treated as whitespace
-     * @return the stripped CharSequence, {@code null} if null CharSequence input
+     * @return the stripped String, {@code null} if null String input
      */
-    public static CharSequence stripStart(final CharSequence value, final String stripChars) {
+    public static @Nullable String stripStart(final @Nullable String value, final @Nullable String stripChars) {
         int strLen;
         if (value == null || (strLen = value.length()) == 0) {
             return value;
@@ -298,21 +271,21 @@ public final class StringUtils
                 start++;
             }
         }
-        return (start == 0) ? value : value.subSequence(start, value.length());
+        return (start == 0) ? value : value.substring(start);
     }
 
-    public static String stripStart(final String value, final String stripChars) {
-        return stripStart((CharSequence) value, stripChars).toString();
+    public static @Nullable String stripStart(final @Nullable String value) {
+        return stripStart(value, null);
     }
 
     /**
-     * <p>Strips any of a set of characters from the end of a CharSequence.</p>
+     * Strips any of a set of characters from the end of a String.
      *
-     * <p>A {@code null} input CharSequence returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input
+     * returns the empty string.
      *
-     * <p>If the stripChars CharSequence is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.</p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined
+     * by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.stripEnd(null, *)          = null
@@ -326,11 +299,11 @@ public final class StringUtils
      * StringUtils.stripEnd("120.00", ".0")   = "12"
      * </pre>
      *
-     * @param value      The CharSequence to remove characters from, may be null
+     * @param value      The String to remove characters from, may be null
      * @param stripChars The set of characters to remove, null treated as whitespace
-     * @return the stripped CharSequence, {@code null} if null CharSequence input
+     * @return the stripped String, {@code null} if null String input
      */
-    public static CharSequence stripEnd(final CharSequence value, final String stripChars) {
+    public static @Nullable String stripEnd(final @Nullable String value, final @Nullable String stripChars) {
         int end;
         if (value == null || (end = value.length()) == 0) {
             return value;
@@ -349,11 +322,11 @@ public final class StringUtils
                 end--;
             }
         }
-        return value.subSequence(0, end);
+        return value.substring(0, end);
     }
 
-    public static String stripEnd(final String value, final String stripChars) {
-        return stripEnd((CharSequence) value, stripChars).toString();
+    public static @Nullable String stripEnd(final @Nullable String value) {
+        return stripEnd(value, null);
     }
 
 // MARK: -
@@ -361,47 +334,52 @@ public final class StringUtils
     /**
      * Returns the given string if it is nonempty; {@code null} otherwise.
      */
-    public static String emptyToNull(String value) {
+    public static @Nullable String emptyToNull(final @Nullable String value) {
         return isEmpty(value) ? null : value;
     }
 
     /**
      * Returns the given string if it is non {@code null}; the empty string otherwise.
      */
-    public static String nullToEmpty(String value) {
+    public static @NonNull String nullToEmpty(final @Nullable String value) {
         return (value == null) ? "" : value;
     }
 
 // MARK: -
 
     /**
-     * FIXME: Rework
+     * TODO
      */
-    public static String streamToString(InputStream is) throws IOException {
-        return streamToString(is, Charsets.UTF_8.name());
+    public static @NonNull String streamToString(final @NonNull InputStream input) throws IOException {
+        return streamToString(input, Charsets.UTF_8);
     }
 
     /**
      * TODO
      */
-    public static String streamToString(InputStream is, String encoding) throws IOException {
+    public static @NonNull String streamToString(
+            final @NonNull InputStream input, final @NonNull Charset charset) throws IOException {
+
+        requireNotNull(input, "input is null");
+        requireNotNull(charset, "charset is null");
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
         byte[] buffer = new byte[1024];
-        int length;
+        int bytesRead;
 
-        while ((length = is.read(buffer)) != -1) {
-            baos.write(buffer, 0, length);
+        while ((bytesRead = input.read(buffer)) != EOF) {
+            baos.write(buffer, 0, bytesRead);
         }
 
         // Done
-        return new String(baos.toByteArray(), encoding);
+        return new String(baos.toByteArray(), charset);
     }
 
 // MARK: - Constants
 
-    /**
-     * Represents a failed index search.
-     */
+    // Represents a failed index search.
     public static final int INDEX_NOT_FOUND = -1;
+
+    // Represents a end of stream.
+    public static final int EOF = -1;
 }

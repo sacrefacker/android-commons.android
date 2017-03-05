@@ -31,7 +31,7 @@ ext {
     ANDROID_SUPPORT_VERSION = '25.2.0'
     GSON_VERSION = '2.8.0'
     JUNIT_VERSION = '4.12'
-    STREAM_VERSION = '1.1.5'
+    STREAM_VERSION = '1.1.6'
 }
 
 task clean(type: Delete) {

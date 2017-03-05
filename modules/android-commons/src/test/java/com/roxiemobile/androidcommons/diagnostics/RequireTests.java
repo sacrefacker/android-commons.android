@@ -1,4 +1,4 @@
-package com.roxiemobile.androidcommons.util;
+package com.roxiemobile.androidcommons.diagnostics;
 
 import android.support.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.model.NotValidModel;
 import com.roxiemobile.androidcommons.data.model.ValidModel;
 import com.roxiemobile.androidcommons.data.model.Validatable;
-import com.roxiemobile.androidcommons.diagnostics.RequirementError;
+import com.roxiemobile.androidcommons.util.StringUtils;
 
 import org.junit.Assert;
 import org.junit.Test;
