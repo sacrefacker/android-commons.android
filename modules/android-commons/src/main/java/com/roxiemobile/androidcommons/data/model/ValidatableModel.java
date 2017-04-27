@@ -5,13 +5,14 @@ import com.roxiemobile.androidcommons.logging.Logger;
 import java.io.Serializable;
 
 public abstract class ValidatableModel
-        implements Serializable, Validatable
+        implements Serializable, Validatable, PostValidatable
 {
 // MARK: - Methods
 
     /**
-     * TODO
+     * Tests the current state of the object.
      */
+    @Override
     public boolean isValid() {
         boolean result = true;
 
@@ -32,8 +33,17 @@ public abstract class ValidatableModel
     }
 
     /**
+     * Checks if object should be validated after construction.
+     */
+    @Override
+    public boolean isShouldPostValidate() {
+        return true;
+    }
+
+    /**
      * Checks attribute values or a combination of attribute values for correctness (cross validation).
      */
+    @Override
     public void validate() {
         // Do nothing
     }

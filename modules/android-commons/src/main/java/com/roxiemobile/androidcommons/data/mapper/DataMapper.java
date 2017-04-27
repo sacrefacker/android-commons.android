@@ -14,10 +14,9 @@ import com.roxiemobile.androidcommons.data.Constants.DateFormat;
 import com.roxiemobile.androidcommons.data.mapper.adapter.DateAdapter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumStringConverter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.EnumTypeAdapterFactory;
+import com.roxiemobile.androidcommons.data.mapper.adapter.PostValidatableObjectTypeAdapterFactory;
 import com.roxiemobile.androidcommons.data.mapper.adapter.TimestampAdapter;
 import com.roxiemobile.androidcommons.data.mapper.adapter.URIAdapter;
-import com.roxiemobile.androidcommons.data.model.ValidatableModel;
-import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
 import com.roxiemobile.androidcommons.util.IOUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -41,27 +40,27 @@ public final class DataMapper
 // MARK: - Methods: JSON to POJO
 
     public static <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
-        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
     public static <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
-        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
     public static <T> T fromJson(JsonElement json, Class<T> classOfT) throws JsonSyntaxException {
-        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
     public static <T> T fromJson(JsonElement json, Type typeOfT) throws JsonSyntaxException {
-        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
     public static <T> T fromJson(Reader json, Class<T> classOfT) throws JsonSyntaxException, JsonIOException {
-        return validateObject(GsonHolder.shared().fromJson(json, classOfT));
+        return GsonHolder.shared().fromJson(json, classOfT);
     }
 
     public static <T> T fromJson(Reader json, Type typeOfT) throws JsonIOException, JsonSyntaxException {
-        return validateObject(GsonHolder.shared().fromJson(json, typeOfT));
+        return GsonHolder.shared().fromJson(json, typeOfT);
     }
 
 // MARK: - Methods: POJO to JSON
@@ -114,21 +113,6 @@ public final class DataMapper
         return (EnumStringConverter<T>) GsonHolder.shared().getAdapter(enumClass);
     }
 
-// MARK: - Private Methods
-
-    private static <T> T validateObject(T object)
-    {
-        if (object instanceof ValidatableModel) {
-            try {
-                ((ValidatableModel) object).validate();
-            }
-            catch (ExpectationException e) {
-                throw new JsonSyntaxException(e);
-            }
-        }
-        return object;
-    }
-
 // MARK: - Inner Types
 
     private static class GsonHolder
@@ -154,7 +138,9 @@ public final class DataMapper
                 builder.registerTypeAdapterFactory(factory);
             }
 
+            builder.registerTypeAdapterFactory(new PostValidatableObjectTypeAdapterFactory());
             builder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
+
             builder.registerTypeAdapter(URI.class, new URIAdapter());
             builder.registerTypeAdapter(Date.class, new DateAdapter());
             builder.registerTypeAdapter(Timestamp.class, new TimestampAdapter());

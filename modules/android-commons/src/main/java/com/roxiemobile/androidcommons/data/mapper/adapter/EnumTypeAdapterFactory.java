@@ -2,6 +2,8 @@ package com.roxiemobile.androidcommons.data.mapper.adapter;
 
 import android.support.annotation.NonNull;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
@@ -13,8 +15,8 @@ import com.google.gson.stream.JsonWriter;
 import com.roxiemobile.androidcommons.data.CommonKeys;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,13 +103,8 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory
 
         @Override
         public List<T> getValuesForKeys(Collection<String> keys) {
-            List<T> results = new ArrayList<>(keys.size());
-
-            //noinspection Convert2streamapi
-            for (String key : keys) {
-                results.add(getValueForKey(key));
-            }
-            return results;
+            return Collections.unmodifiableList(
+                    Stream.of(keys).map(this::getValueForKey).collect(Collectors.toList()));
         }
 
         @Override
@@ -117,13 +114,8 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory
 
         @Override
         public List<String> getKeysForValues(Collection<T> values) {
-            List<String> results = new ArrayList<>(values.size());
-
-            //noinspection Convert2streamapi
-            for (T value : values) {
-                results.add(getKeyForValue(value));
-            }
-            return results;
+            return Collections.unmodifiableList(
+                    Stream.of(values).map(this::getKeyForValue).collect(Collectors.toList()));
         }
 
         private final Map<String, T> mNameToConstant = new HashMap<>();
