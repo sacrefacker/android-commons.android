@@ -30,15 +30,27 @@ import java.util.List;
  * This class is a Singleton; you can retrieve the instance via the {@link #getInstance()} method.
  * </p>
  *
- * @version $Revision: 1650785 $
+ * @version $Revision$
  * @since Validator 1.4
  */
 public class InetAddressValidator implements Serializable {
+
+    private static final int IPV4_MAX_OCTET_VALUE = 255;
+
+    private static final int MAX_UNSIGNED_SHORT = 0xffff;
+
+    private static final int BASE_16 = 16;
 
     private static final long serialVersionUID = -919201640201914789L;
 
     private static final String IPV4_REGEX =
             "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
+
+    // Max number of hex groups (separated by :) in an IPV6 address
+    private static final int IPV6_MAX_HEX_GROUPS = 8;
+
+    // Max hex digits in each IPv6 group
+    private static final int IPV6_MAX_HEX_DIGITS_PER_GROUP = 4;
 
     /**
      * Singleton instance of this class.
@@ -79,8 +91,7 @@ public class InetAddressValidator implements Serializable {
         }
 
         // verify that address subgroups are legal
-        for (int i = 0; i <= 3; i++) {
-            String ipSegment = groups[i];
+        for (String ipSegment : groups) {
             if (ipSegment == null || ipSegment.length() == 0) {
                 return false;
             }
@@ -93,7 +104,7 @@ public class InetAddressValidator implements Serializable {
                 return false;
             }
 
-            if (iIpSegment > 255) {
+            if (iIpSegment > IPV4_MAX_OCTET_VALUE) {
                 return false;
             }
 
@@ -114,7 +125,7 @@ public class InetAddressValidator implements Serializable {
      * @since 1.4.1
      */
     public boolean isValidInet6Address(String inet6Address) {
-        boolean containsCompressedZeroes = inet6Address.indexOf("::") > -1; // contains is Java 1.5
+        boolean containsCompressedZeroes = inet6Address.contains("::");
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
         }
@@ -122,24 +133,24 @@ public class InetAddressValidator implements Serializable {
                 || (inet6Address.endsWith(":") && !inet6Address.endsWith("::"))) {
             return false;
         }
-        Object[] octets = inet6Address.split(":");
+        String[] octets = inet6Address.split(":");
         if (containsCompressedZeroes) {
-            List octetList = new ArrayList(Arrays.asList(octets));
+            List<String> octetList = new ArrayList<String>(Arrays.asList(octets));
             if (inet6Address.endsWith("::")) {
                 // String.split() drops ending empty segments
                 octetList.add("");
             } else if (inet6Address.startsWith("::") && !octetList.isEmpty()) {
                 octetList.remove(0);
             }
-            octets = octetList.toArray();
+            octets = octetList.toArray(new String[octetList.size()]);
         }
-        if (octets.length > 8) {
+        if (octets.length > IPV6_MAX_HEX_GROUPS) {
             return false;
         }
         int validOctets = 0;
-        int emptyOctets = 0;
+        int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
-            String octet = (String) octets[index];
+            String octet = octets[index];
             if (octet.length() == 0) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
@@ -147,36 +158,30 @@ public class InetAddressValidator implements Serializable {
                 }
             } else {
                 emptyOctets = 0;
-                if (octet.indexOf(".") > -1) { // contains is Java 1.5+
-                    if (!inet6Address.endsWith(octet)) {
-                        return false;
-                    }
-                    if (index > octets.length - 1 || index > 6) {
-                        // IPV4 occupies last two octets
-                        return false;
-                    }
+                // Is last chunk an IPv4 address?
+                if (index == octets.length - 1 && octet.contains(".")) {
                     if (!isValidInet4Address(octet)) {
                         return false;
                     }
                     validOctets += 2;
                     continue;
                 }
-                if (octet.length() > 4) {
+                if (octet.length() > IPV6_MAX_HEX_DIGITS_PER_GROUP) {
                     return false;
                 }
                 int octetInt = 0;
                 try {
-                    octetInt = Integer.valueOf(octet, 16).intValue();
+                    octetInt = Integer.parseInt(octet, BASE_16);
                 } catch (NumberFormatException e) {
                     return false;
                 }
-                if (octetInt < 0 || octetInt > 0xffff) {
+                if (octetInt < 0 || octetInt > MAX_UNSIGNED_SHORT) {
                     return false;
                 }
             }
             validOctets++;
         }
-        if (validOctets < 8 && !containsCompressedZeroes) {
+        if (validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes)) {
             return false;
         }
         return true;

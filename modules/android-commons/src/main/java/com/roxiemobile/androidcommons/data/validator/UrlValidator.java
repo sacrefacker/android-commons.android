@@ -17,6 +17,8 @@
 package com.roxiemobile.androidcommons.data.validator;
 
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
@@ -69,12 +71,14 @@ import java.util.regex.Pattern;
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
- * @version $Revision: 1649932 $
+ * @version $Revision$
  * @since Validator 1.4
  */
 public class UrlValidator implements Serializable {
 
     private static final long serialVersionUID = 7557161713937335013L;
+
+    private static final int MAX_UNSIGNED_16_BIT_INT = 0xFFFF; // port max
 
     /**
      * Allows all validly formatted schemes to pass validation instead of
@@ -98,7 +102,7 @@ public class UrlValidator implements Serializable {
      *  validation requirements you should create your validator with
      *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})
      */
-    public static final long ALLOW_LOCAL_URLS = 1 << 3;
+    public static final long ALLOW_LOCAL_URLS = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).
@@ -131,32 +135,41 @@ public class UrlValidator implements Serializable {
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
     // Drop numeric, and  "+-." for now
-    // TODO does not allow for optional userinfo.
+    // TODO does not allow for optional userinfo. 
     // Validation of character set is done by isValidAuthority
-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
+    private static final String IPV6_REGEX = "[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
 
+    // userinfo    = *( unreserved / pct-encoded / sub-delims / ":" )
+    // unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+    // sub-delims    = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
+    // We assume that password has the same valid chars as user info
+    private static final String USERINFO_CHARS_REGEX = "[a-zA-Z0-9%-._~!$&'()*+,;=]";
+    // since neither ':' nor '@' are allowed chars, we don't need to use non-greedy matching
+    private static final String USERINFO_FIELD_REGEX =
+            USERINFO_CHARS_REGEX + "+" + // At least one character for the name
+            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
     private static final String AUTHORITY_REGEX =
-            "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";
-    //        1                                 2       3
+            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
+    //             1                          e.g. user:pass@          2                                         3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
-    private static final int PARSE_AUTHORITY_HOST_IP = 1;
+    private static final int PARSE_AUTHORITY_IPV6 = 1;
 
-    private static final int PARSE_AUTHORITY_PORT = 2;
+    private static final int PARSE_AUTHORITY_HOST_IP = 2; // excludes userinfo, if present
+
+    private static final int PARSE_AUTHORITY_PORT = 3; // excludes leading colon
 
     /**
      * Should always be empty. The code currently allows spaces.
      */
-    private static final int PARSE_AUTHORITY_EXTRA = 3;
+    private static final int PARSE_AUTHORITY_EXTRA = 4;
 
     private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
     private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
 
-    private static final String QUERY_REGEX = "^(.*)$";
+    private static final String QUERY_REGEX = "^(\\S*)$";
     private static final Pattern QUERY_PATTERN = Pattern.compile(QUERY_REGEX);
-
-    private static final String PORT_REGEX = "^:(\\d{1,5})$";
-    private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
     /**
      * Holds the set of current validation options.
@@ -166,7 +179,7 @@ public class UrlValidator implements Serializable {
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-    private final Set allowedSchemes; // Must be lower-case
+    private final Set<String> allowedSchemes; // Must be lower-case
 
     /**
      * Regular expressions used to manually validate authorities if IANA
@@ -258,12 +271,12 @@ public class UrlValidator implements Serializable {
         this.options = options;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
-            allowedSchemes = Collections.EMPTY_SET;
+            allowedSchemes = Collections.emptySet();
         } else {
             if (schemes == null) {
                 schemes = DEFAULT_SCHEMES;
             }
-            allowedSchemes = new HashSet(schemes.length);
+            allowedSchemes = new HashSet<String>(schemes.length);
             for(int i=0; i < schemes.length; i++) {
                 allowedSchemes.add(schemes[i].toLowerCase(Locale.ENGLISH));
             }
@@ -299,9 +312,14 @@ public class UrlValidator implements Serializable {
         }
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
-        if ("file".equals(scheme) && "".equals(authority)) {
-            // Special case - file: allows an empty authority
-        } else {
+        if ("file".equals(scheme)) {// Special case - file: allows an empty authority
+            if (authority != null) {
+                if (authority.contains(":")) { // but cannot allow trailing :
+                    return false;
+                }
+            }
+            // drop through to continue validation
+        } else { // not file:
             // Validate the authority
             if (!isValidAuthority(authority)) {
                 return false;
@@ -376,23 +394,37 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
-        // check if authority is hostname or IP address:
-        // try a hostname first since that's much more likely
-        DomainValidator domainValidator = DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS));
-        if (!domainValidator.isValid(hostLocation)) {
-            // try an IP address
-            InetAddressValidator inetAddressValidator =
-                InetAddressValidator.getInstance();
-            if (!inetAddressValidator.isValid(hostLocation)) {
-                // isn't either one, so the URL is invalid
-                return false;
+        // We have to process IPV6 separately because that is parsed in a different group
+        String ipv6 = authorityMatcher.group(PARSE_AUTHORITY_IPV6);
+        if (ipv6 != null) {
+            InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
+                if (!inetAddressValidator.isValidInet6Address(ipv6)) {
+                    return false;
+                }
+        } else {
+            String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+            // check if authority is hostname or IP address:
+            // try a hostname first since that's much more likely
+            DomainValidator domainValidator = DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS));
+            if (!domainValidator.isValid(hostLocation)) {
+                // try an IPv4 address
+                InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
+                if (!inetAddressValidator.isValidInet4Address(hostLocation)) {
+                    // isn't IPv4, so the URL is invalid
+                    return false;
+                }
             }
-        }
-
-        String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-        if (port != null && !PORT_PATTERN.matcher(port).matches()) {
-            return false;
+            String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+            if (port != null && port.length() > 0) {
+                try {
+                    int iPort = Integer.parseInt(port);
+                    if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
+                        return false;
+                    }
+                } catch (NumberFormatException nfe) {
+                    return false; // this can happen for big numbers
+                }
+            }
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
@@ -417,14 +449,19 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        int slash2Count = countToken("//", path);
-        if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        try {
+            URI uri = new URI(null,null,path,null);
+            String norm = uri.normalize().getPath();
+            if (norm.startsWith("/../") // Trying to go via the parent dir 
+             || norm.equals("/..")) {   // Trying to go to the parent dir
+                return false;
+            }
+        } catch (URISyntaxException e) {
             return false;
         }
-
-        int slashCount = countToken("/", path);
-        int dot2Count = countToken("..", path);
-        if (dot2Count > 0 && (slashCount - slash2Count - 1) <= dot2Count) {
+        
+        int slash2Count = countToken("//", path);
+        if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
             return false;
         }
 
@@ -498,5 +535,10 @@ public class UrlValidator implements Serializable {
      */
     private boolean isOff(long flag) {
         return (options & flag) == 0;
+    }
+
+    // Unit test access to pattern matcher
+    Matcher matchURL(String value) {
+        return URL_PATTERN.matcher(value);
     }
 }
