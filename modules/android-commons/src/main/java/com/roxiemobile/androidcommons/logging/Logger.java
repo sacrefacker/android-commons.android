@@ -19,27 +19,27 @@ public final class Logger
 // MARK: - Properties
 
     public Logger logger(Logger.Contract logger) {
-        synchronized (mInnerLock) {
+        synchronized (mSyncLock) {
             mLogger = logger;
         }
         return this;
     }
 
     private Logger.Contract logger() {
-        synchronized (mInnerLock) {
+        synchronized (mSyncLock) {
             return mLogger;
         }
     }
 
     public Logger logLevel(LogLevel level) {
-        synchronized (mInnerLock) {
+        synchronized (mSyncLock) {
             mLogLevel = level;
         }
         return this;
     }
 
     public LogLevel logLevel() {
-        synchronized (mInnerLock) {
+        synchronized (mSyncLock) {
             return mLogLevel;
         }
     }
@@ -161,5 +161,5 @@ public final class Logger
 
     private LogLevel mLogLevel = LogLevel.Info;
 
-    private final Object mInnerLock = new Object();
+    private final Object mSyncLock = new Object();
 }
