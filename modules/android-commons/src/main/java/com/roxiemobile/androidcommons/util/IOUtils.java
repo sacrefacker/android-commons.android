@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
+import com.roxiemobile.androidcommons.diagnostics.Guard;
 import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.io.ByteArrayInputStream;
@@ -16,9 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
-
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class IOUtils
 {
@@ -34,8 +32,8 @@ public final class IOUtils
      * TODO
      */
     public static byte[] loadAsset(@NonNull Context context, @NonNull String path) {
-        requireNotNull(context, "context is null");
-        requireNotEmpty(path, "path is empty");
+        Guard.notNull(context, "context is null");
+        Guard.notEmpty(path, "path is empty");
 
         InputStream stream = null;
         byte[] content = null;
@@ -85,8 +83,8 @@ public final class IOUtils
      * Copy bytes from a {@code InputStream} to an {@code OutputStream}.
      */
     public static long copy(InputStream input, OutputStream output) throws IOException {
-        requireNotNull(input, "input is null");
-        requireNotNull(output, "output is null");
+        Guard.notNull(input, "input is null");
+        Guard.notNull(output, "output is null");
 
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         long totalCount = 0;
@@ -122,7 +120,7 @@ public final class IOUtils
      * Write the object to a Base64 string.
      */
     public static String encodeObject(@NonNull Serializable object, String defaultValue) {
-        requireNotNull(object, "object is null");
+        Guard.notNull(object, "object is null");
 
         ObjectOutputStream oos = null;
         String str = defaultValue;
@@ -149,7 +147,7 @@ public final class IOUtils
      * Read the object from Base64 string.
      */
     public static Object decodeObject(@NonNull String string, Object defaultObject) {
-        requireNotEmpty(string, "string is empty");
+        Guard.notEmpty(string, "string is empty");
 
         ObjectInputStream ois = null;
         Object obj = defaultObject;

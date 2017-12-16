@@ -1,10 +1,9 @@
 package com.google.gson;
 
+import com.roxiemobile.androidcommons.diagnostics.Guard;
 import com.roxiemobile.androidcommons.util.ParseUtils;
 
 import java.util.NoSuchElementException;
-
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class GsonUtils
 {
@@ -441,7 +440,7 @@ public final class GsonUtils
 
     @SuppressWarnings("unchecked")
     public static <T extends JsonElement> T deepCopy(T object) {
-        requireNotNull(object, "object is null");
+        Guard.notNull(object, "object is null");
         return (T) object.deepCopy();
     }
 

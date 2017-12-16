@@ -3,6 +3,7 @@ package com.roxiemobile.androidcommons.util;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.roxiemobile.androidcommons.diagnostics.Guard;
 import com.roxiemobile.androidcommons.logging.Logger;
 
 import java.io.Serializable;
@@ -10,8 +11,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public final class BundleUtils
 {
@@ -99,7 +98,7 @@ public final class BundleUtils
      * any existing value for the given key.  Value may be {@code null}.
      */
     public static <T extends Serializable> void putSerializableList(@NonNull Bundle bundle, String key, T[] value) {
-        requireNotNull(bundle, "bundle is null");
+        Guard.notNull(bundle, "bundle is null");
 
         if (value != null) {
             putSerializableArrayList(bundle, key, Arrays.asList(value));
@@ -150,7 +149,7 @@ public final class BundleUtils
      * any existing value for the given key.  Key may be null.
      */
     public static <T extends Serializable> void putSerializableArrayList(@NonNull Bundle bundle, String key, List<T> value) {
-        requireNotNull(bundle, "bundle is null");
+        Guard.notNull(bundle, "bundle is null");
 
         if (value != null) {
             bundle.putSerializable(key, new ArrayList<>(value));

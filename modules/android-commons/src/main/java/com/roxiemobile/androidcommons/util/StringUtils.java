@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
-
 public final class StringUtils
 {
 // MARK: - Construction

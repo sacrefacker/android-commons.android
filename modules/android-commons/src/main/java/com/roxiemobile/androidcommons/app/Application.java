@@ -6,16 +6,15 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.roxiemobile.androidcommons.diagnostics.Guard;
 import com.roxiemobile.androidcommons.logging.Logger;
-
-import static com.roxiemobile.androidcommons.diagnostics.Require.requireNotNull;
 
 public class Application extends android.app.Application
 {
 // MARK: - Methods
 
     public static @Nullable PackageInfo getPackageInfo(@NonNull Context context) {
-        requireNotNull(context, "context is null");
+        Guard.notNull(context, "context is null");
 
         PackageInfo packageInfo = null;
         try {
@@ -28,14 +27,14 @@ public class Application extends android.app.Application
     }
 
     public static @Nullable String getVersionName(@NonNull Context context) {
-        requireNotNull(context, "context is null");
+        Guard.notNull(context, "context is null");
 
         PackageInfo packageInfo = getPackageInfo(context);
         return (packageInfo == null) ? null : packageInfo.versionName;
     }
 
     public static @Nullable Integer getVersionCode(@NonNull Context context) {
-        requireNotNull(context, "context is null");
+        Guard.notNull(context, "context is null");
 
         PackageInfo packageInfo = getPackageInfo(context);
         return (packageInfo == null) ? null : packageInfo.versionCode;
