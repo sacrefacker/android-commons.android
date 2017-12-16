@@ -1,10 +1,10 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
 /**
- * Thrown to indicate that an requirement has failed.
+ * Thrown to indicate that an validation has failed.
  *
  * <p>The seven one-argument public constructors provided by this
- * class ensure that the requirement error returned by the invocation:
+ * class ensure that the assertion error returned by the invocation:
  * <pre>
  *     new GuardError(<i>expression</i>)
  * </pre>
@@ -14,7 +14,7 @@ package com.roxiemobile.androidcommons.diagnostics;
  * regardless of the type of <i>expression</i>.
  */
 public class GuardError extends Error {
-    private static final long serialVersionUID = 5067049024027853849L;
+    private static final long serialVersionUID = 7853849902402506704L;
 
     /**
      * Constructs an GuardError with no detail message.
@@ -39,7 +39,7 @@ public class GuardError extends Error {
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * If the specified object is an instance of {@code Throwable}, it
-     * becomes the <i>cause</i> of the newly constructed requirement error.
+     * becomes the <i>cause</i> of the newly constructed assertion error.
      *
      * @param detailMessage Value to be used in constructing detail message
      * @see Throwable#getCause()

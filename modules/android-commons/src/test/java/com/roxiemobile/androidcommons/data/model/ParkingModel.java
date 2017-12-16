@@ -1,10 +1,7 @@
 package com.roxiemobile.androidcommons.data.model;
 
 import com.google.gson.annotations.SerializedName;
-
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
+import com.roxiemobile.androidcommons.diagnostics.Check;
 
 public class ParkingModel extends ValidatableModel
 {
@@ -19,8 +16,8 @@ public class ParkingModel extends ValidatableModel
         super.validate();
 
         // Validate instance variables
-        expectNotBlank(mWatcher);
-        expectNotEmpty(mVehicles);
-        expectAllValid(mVehicles);
+        Check.notBlank(mWatcher);
+        Check.notEmpty(mVehicles);
+        Check.allValid(mVehicles);
     }
 }

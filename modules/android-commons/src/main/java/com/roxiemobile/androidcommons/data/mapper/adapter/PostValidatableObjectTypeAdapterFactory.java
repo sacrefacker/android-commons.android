@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.roxiemobile.androidcommons.data.model.PostValidatable;
-import com.roxiemobile.androidcommons.diagnostics.ExpectationException;
+import com.roxiemobile.androidcommons.diagnostics.CheckException;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ public class PostValidatableObjectTypeAdapterFactory implements TypeAdapterFacto
                         try {
                             instance.validate();
                         }
-                        catch (ExpectationException e) {
+                        catch (CheckException e) {
                             throw new JsonSyntaxException(e.getMessage(), e);
                         }
                     }

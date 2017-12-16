@@ -1,11 +1,11 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
 /**
- * Thrown when an {@link Expect#expectEqual(Object, Object) expectEqual(String, String)} fails.
+ * Thrown when an {@link Check#equal(Object, Object) equal(String, String)} fails.
  * Create and throw a <code>ComparisonFailure</code> manually if you want to show users
  * the difference between two complex strings.
  */
-public class ComparisonFailure extends ExpectationException
+public class ComparisonFailure extends CheckException
 {
 // MARK: - Construction
 
@@ -84,13 +84,13 @@ public class ComparisonFailure extends ExpectationException
 
         public String compact(String message) {
             if (mExpected == null || mActual == null || mExpected.equals(mActual)) {
-                return Expect.format(message, mExpected, mActual);
+                return Check.format(message, mExpected, mActual);
             }
             else {
                 DiffExtractor extractor = new DiffExtractor();
                 String compactedPrefix = extractor.compactPrefix();
                 String compactedSuffix = extractor.compactSuffix();
-                return Expect.format(message,
+                return Check.format(message,
                         compactedPrefix + extractor.expectedDiff() + compactedSuffix,
                         compactedPrefix + extractor.actualDiff() + compactedSuffix);
             }

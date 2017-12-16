@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.annimon.stream.Stream;
 import com.roxiemobile.androidcommons.data.Constants.Charsets;
+import com.roxiemobile.androidcommons.diagnostics.Guard;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -358,8 +359,8 @@ public final class StringUtils
     public static @NonNull String streamToString(
             final @NonNull InputStream input, final @NonNull Charset charset) throws IOException {
 
-        requireNotNull(input, "input is null");
-        requireNotNull(charset, "charset is null");
+        Guard.notNull(input, "input is null");
+        Guard.notNull(charset, "charset is null");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

@@ -5,33 +5,6 @@ import com.roxiemobile.androidcommons.data.model.Validatable;
 import java.util.Collection;
 import java.util.Map;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotNull;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNull;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectEqual;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectFalse;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotBlank;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEmpty;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotEqual;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotNull;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotSame;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNull;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrNotValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectNullOrValid;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectSame;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectTrue;
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectValid;
-
 /**
  * A set of methods useful for validating objects states. Only failed checks are throws errors.
  * These methods can be used directly: <code>Guard.isTrue(...)</code>.
@@ -47,7 +20,7 @@ public final class Guard
 // MARK: - Methods
 
     public static void isTrue(final boolean condition, final String message) {
-        rethrowOnFailure(message, () -> expectTrue(condition));
+        rethrowOnFailure(message, () -> Check.isTrue(condition));
     }
 
     public static void isTrue(final boolean condition) {
@@ -55,7 +28,7 @@ public final class Guard
     }
 
     public static void isFalse(final boolean condition, final String message) {
-        rethrowOnFailure(message, () -> expectFalse(condition));
+        rethrowOnFailure(message, () -> Check.isFalse(condition));
     }
 
     public static void isFalse(final boolean condition) {
@@ -65,7 +38,7 @@ public final class Guard
 // MARK: -
 
     public static void equal(final Object expected, final Object actual, final String message) {
-        rethrowOnFailure(message, () -> expectEqual(expected, actual));
+        rethrowOnFailure(message, () -> Check.equal(expected, actual));
     }
 
     public static void equal(final Object expected, final Object actual) {
@@ -73,7 +46,7 @@ public final class Guard
     }
 
     public static void notEqual(final Object unexpected, final Object actual, final String message) {
-        rethrowOnFailure(message, () -> expectNotEqual(unexpected, actual));
+        rethrowOnFailure(message, () -> Check.notEqual(unexpected, actual));
     }
 
     public static void notEqual(final Object unexpected, final Object actual) {
@@ -83,7 +56,7 @@ public final class Guard
 // MARK: -
 
     public static void same(final Object expected, final Object actual, final String message) {
-        rethrowOnFailure(message, () -> expectSame(expected, actual));
+        rethrowOnFailure(message, () -> Check.same(expected, actual));
     }
 
     public static void same(final Object expected, final Object actual) {
@@ -91,7 +64,7 @@ public final class Guard
     }
 
     public static void notSame(final Object unexpected, final Object actual, final String message) {
-        rethrowOnFailure(message, () -> expectNotSame(unexpected, actual));
+        rethrowOnFailure(message, () -> Check.notSame(unexpected, actual));
     }
 
     public static void notSame(final Object unexpected, final Object actual) {
@@ -101,7 +74,7 @@ public final class Guard
 // MARK: -
 
     public static void isNull(final Object object, final String message) {
-        rethrowOnFailure(message, () -> expectNull(object));
+        rethrowOnFailure(message, () -> Check.isNull(object));
     }
 
     public static void isNull(final Object object) {
@@ -109,7 +82,7 @@ public final class Guard
     }
 
     public static <T> void allNull(final T[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllNull(objects));
+        rethrowOnFailure(message, () -> Check.allNull(objects));
     }
 
     public static <T> void allNull(final T[] objects) {
@@ -117,7 +90,7 @@ public final class Guard
     }
 
     public static <T> void allNull(final Collection<T> collection, final String message) {
-        rethrowOnFailure(message, () -> expectAllNull(collection));
+        rethrowOnFailure(message, () -> Check.allNull(collection));
     }
 
     public static <T> void allNull(final Collection<T> collection) {
@@ -125,7 +98,7 @@ public final class Guard
     }
 
     public static void notNull(final Object object, final String message) {
-        rethrowOnFailure(message, () -> expectNotNull(object));
+        rethrowOnFailure(message, () -> Check.notNull(object));
     }
 
     public static void notNull(final Object object) {
@@ -133,7 +106,7 @@ public final class Guard
     }
 
     public static <T> void allNotNull(final T[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllNotNull(objects));
+        rethrowOnFailure(message, () -> Check.allNotNull(objects));
     }
 
     public static <T> void allNotNull(final T[] objects) {
@@ -141,7 +114,7 @@ public final class Guard
     }
 
     public static <T> void allNotNull(final Collection<T> collection, final String message) {
-        rethrowOnFailure(message, () -> expectAllNotNull(collection));
+        rethrowOnFailure(message, () -> Check.allNotNull(collection));
     }
 
     public static <T> void allNotNull(final Collection<T> collection) {
@@ -151,7 +124,7 @@ public final class Guard
 // MARK: -
 
     public static void empty(final CharSequence value, final String message) {
-        rethrowOnFailure(message, () -> expectEmpty(value));
+        rethrowOnFailure(message, () -> Check.empty(value));
     }
 
     public static void empty(final CharSequence value) {
@@ -159,7 +132,7 @@ public final class Guard
     }
 
     public static void allEmpty(final CharSequence[] values, final String message) {
-        rethrowOnFailure(message, () -> expectAllEmpty(values));
+        rethrowOnFailure(message, () -> Check.allEmpty(values));
     }
 
     public static void allEmpty(final CharSequence[] values) {
@@ -167,7 +140,7 @@ public final class Guard
     }
 
     public static void notEmpty(final CharSequence value, final String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(value));
+        rethrowOnFailure(message, () -> Check.notEmpty(value));
     }
 
     public static void notEmpty(final CharSequence value) {
@@ -175,7 +148,7 @@ public final class Guard
     }
 
     public static void allNotEmpty(final CharSequence[] values, final String message) {
-        rethrowOnFailure(message, () -> expectAllNotEmpty(values));
+        rethrowOnFailure(message, () -> Check.allNotEmpty(values));
     }
 
     public static void allNotEmpty(final CharSequence[] values) {
@@ -188,7 +161,7 @@ public final class Guard
      * TODO
      */
     public static <T> void empty(final T[] array, final String message) {
-        rethrowOnFailure(message, () -> expectEmpty(array));
+        rethrowOnFailure(message, () -> Check.empty(array));
     }
 
     /**
@@ -202,7 +175,7 @@ public final class Guard
      * TODO
      */
     public static <T> void empty(final Collection<T> collection, final String message) {
-        rethrowOnFailure(message, () -> expectEmpty(collection));
+        rethrowOnFailure(message, () -> Check.empty(collection));
     }
 
     /**
@@ -216,7 +189,7 @@ public final class Guard
      * TODO
      */
     public static <K, V> void empty(final Map<K, V> map, final String message) {
-        rethrowOnFailure(message, () -> expectEmpty(map));
+        rethrowOnFailure(message, () -> Check.empty(map));
     }
 
     /**
@@ -230,7 +203,7 @@ public final class Guard
      * TODO
      */
     public static <T> void notEmpty(final T[] array, final String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(array));
+        rethrowOnFailure(message, () -> Check.notEmpty(array));
     }
 
     /**
@@ -244,7 +217,7 @@ public final class Guard
      * TODO
      */
     public static <T> void notEmpty(final Collection<T> collection, final String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(collection));
+        rethrowOnFailure(message, () -> Check.notEmpty(collection));
     }
 
     /**
@@ -258,7 +231,7 @@ public final class Guard
      * TODO
      */
     public static <K, V> void notEmpty(final Map<K, V> map, final String message) {
-        rethrowOnFailure(message, () -> expectNotEmpty(map));
+        rethrowOnFailure(message, () -> Check.notEmpty(map));
     }
 
     /**
@@ -271,7 +244,7 @@ public final class Guard
 // MARK: -
 
     public static void blank(final CharSequence value, final String message) {
-        rethrowOnFailure(message, () -> expectBlank(value));
+        rethrowOnFailure(message, () -> Check.blank(value));
     }
 
     public static void blank(final CharSequence value) {
@@ -279,7 +252,7 @@ public final class Guard
     }
 
     public static void allBlank(final CharSequence[] values, final String message) {
-        rethrowOnFailure(message, () -> expectAllBlank(values));
+        rethrowOnFailure(message, () -> Check.allBlank(values));
     }
 
     public static void allBlank(final CharSequence[] values) {
@@ -287,7 +260,7 @@ public final class Guard
     }
 
     public static void notBlank(final CharSequence value, final String message) {
-        rethrowOnFailure(message, () -> expectNotBlank(value));
+        rethrowOnFailure(message, () -> Check.notBlank(value));
     }
 
     public static void notBlank(final CharSequence value) {
@@ -295,7 +268,7 @@ public final class Guard
     }
 
     public static void allNotBlank(final CharSequence[] values, final String message) {
-        rethrowOnFailure(message, () -> expectAllNotBlank(values));
+        rethrowOnFailure(message, () -> Check.allNotBlank(values));
     }
 
     public static void allNotBlank(final CharSequence[] values) {
@@ -305,7 +278,7 @@ public final class Guard
 // MARK: -
 
     public static void valid(final Validatable object, final String message) {
-        rethrowOnFailure(message, () -> expectValid(object));
+        rethrowOnFailure(message, () -> Check.valid(object));
     }
 
     public static void valid(final Validatable object) {
@@ -313,7 +286,7 @@ public final class Guard
     }
 
     public static void allValid(final Validatable[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllValid(objects));
+        rethrowOnFailure(message, () -> Check.allValid(objects));
     }
 
     public static void allValid(final Validatable[] objects) {
@@ -321,7 +294,7 @@ public final class Guard
     }
 
     public static void notValid(final Validatable object, final String message) {
-        rethrowOnFailure(message, () -> expectNotValid(object));
+        rethrowOnFailure(message, () -> Check.notValid(object));
     }
 
     public static void notValid(final Validatable object) {
@@ -329,7 +302,7 @@ public final class Guard
     }
 
     public static void allNotValid(final Validatable[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllNotValid(objects));
+        rethrowOnFailure(message, () -> Check.allNotValid(objects));
     }
 
     public static void allNotValid(final Validatable[] objects) {
@@ -339,7 +312,7 @@ public final class Guard
 // MARK: -
 
     public static void nullOrValid(final Validatable object, final String message) {
-        rethrowOnFailure(message, () -> expectNullOrValid(object));
+        rethrowOnFailure(message, () -> Check.nullOrValid(object));
     }
 
     public static void nullOrValid(final Validatable object) {
@@ -347,7 +320,7 @@ public final class Guard
     }
 
     public static void allNullOrValid(final Validatable[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllNullOrValid(objects));
+        rethrowOnFailure(message, () -> Check.allNullOrValid(objects));
     }
 
     public static void allNullOrValid(final Validatable[] objects) {
@@ -355,7 +328,7 @@ public final class Guard
     }
 
     public static void nullOrNotValid(final Validatable object, final String message) {
-        rethrowOnFailure(message, () -> expectNullOrNotValid(object));
+        rethrowOnFailure(message, () -> Check.nullOrNotValid(object));
     }
 
     public static void nullOrNotValid(final Validatable object) {
@@ -363,7 +336,7 @@ public final class Guard
     }
 
     public static void allNullOrNotValid(final Validatable[] objects, final String message) {
-        rethrowOnFailure(message, () -> expectAllNullOrNotValid(objects));
+        rethrowOnFailure(message, () -> Check.allNullOrNotValid(objects));
     }
 
     public static void allNullOrNotValid(final Validatable[] objects) {
@@ -380,7 +353,7 @@ public final class Guard
         try {
             task.run();
         }
-        catch (ExpectationException e) {
+        catch (CheckException e) {
             throwError(message, e);
         }
     }

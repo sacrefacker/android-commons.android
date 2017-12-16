@@ -1,25 +1,25 @@
 package com.roxiemobile.androidcommons.diagnostics;
 
 /**
- * Thrown to indicate that an expectation has failed.
+ * Thrown to indicate that an validation has failed.
  *
  * <p>The seven one-argument public constructors provided by this
- * class ensure that the expectation error returned by the invocation:
+ * class ensure that the assertion error returned by the invocation:
  * <pre>
- *     new ExpectationException(<i>expression</i>)
+ *     new CheckException(<i>expression</i>)
  * </pre>
  * has as its detail message the <i>string conversion</i> of
  * <i>expression</i> (as defined in section 15.18.1.1 of
  * <cite>The Java&trade; Language Specification</cite>),
  * regardless of the type of <i>expression</i>.
  */
-public class ExpectationException extends RuntimeException {
-    private static final long serialVersionUID = 8404902409506727853L;
+public class CheckException extends RuntimeException {
+    private static final long serialVersionUID = 6727853240950840490L;
 
     /**
-     * Constructs an ExpectationException with no detail message.
+     * Constructs an CheckException with no detail message.
      */
-    public ExpectationException() {
+    public CheckException() {
         // Do nothing
     }
 
@@ -28,23 +28,23 @@ public class ExpectationException extends RuntimeException {
      * even if it is a null reference.  The public constructors will
      * never call this constructor with a null argument.
      */
-    private ExpectationException(String detailMessage) {
+    private CheckException(String detailMessage) {
         super(detailMessage);
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified object, which is converted to a string as
      * defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      * <p>
      * If the specified object is an instance of {@code Throwable}, it
-     * becomes the <i>cause</i> of the newly constructed expectation error.
+     * becomes the <i>cause</i> of the newly constructed assertion error.
      *
      * @param detailMessage Value to be used in constructing detail message
      * @see Throwable#getCause()
      */
-    public ExpectationException(Object detailMessage) {
+    public CheckException(Object detailMessage) {
         this(String.valueOf(detailMessage));
 
         if (detailMessage instanceof Throwable) {
@@ -53,79 +53,79 @@ public class ExpectationException extends RuntimeException {
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>boolean</code>, which is converted to
      * a string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(boolean detailMessage) {
+    public CheckException(boolean detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>char</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(char detailMessage) {
+    public CheckException(char detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>int</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(int detailMessage) {
+    public CheckException(int detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>long</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(long detailMessage) {
+    public CheckException(long detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>float</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(float detailMessage) {
+    public CheckException(float detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs an ExpectationException with its detail message derived
+     * Constructs an CheckException with its detail message derived
      * from the specified <code>double</code>, which is converted to a
      * string as defined in section 15.18.1.1 of
      * <cite>The Java&trade; Language Specification</cite>.
      *
      * @param detailMessage Value to be used in constructing detail message
      */
-    public ExpectationException(double detailMessage) {
+    public CheckException(double detailMessage) {
         this(String.valueOf(detailMessage));
     }
 
     /**
-     * Constructs a new {@code ExpectationException} with the specified
+     * Constructs a new {@code CheckException} with the specified
      * detail message and cause.
      *
      * <p>Note that the detail message associated with
@@ -135,7 +135,7 @@ public class ExpectationException extends RuntimeException {
      * @param message The detail message, may be {@code null}
      * @param cause   The cause, may be {@code null}
      */
-    public ExpectationException(String message, Throwable cause) {
+    public CheckException(String message, Throwable cause) {
         super(message, cause);
     }
 }

@@ -1,8 +1,8 @@
 package com.roxiemobile.androidcommons.data.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.roxiemobile.androidcommons.diagnostics.Check;
 
-import static com.roxiemobile.androidcommons.diagnostics.Expect.expectAllNotBlank;
 import static com.roxiemobile.androidcommons.util.ArrayUtils.toArray;
 
 public class VehicleModel extends ValidatableModel
@@ -18,6 +18,6 @@ public class VehicleModel extends ValidatableModel
         super.validate();
 
         // Validate instance variables
-        expectAllNotBlank(toArray(mModel, mColor));
+        Check.allNotBlank(toArray(mModel, mColor));
     }
 }
