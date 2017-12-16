@@ -41,7 +41,7 @@ public abstract class ValidatableModel
     }
 
     /**
-     * Checks attribute values or a combination of attribute values for correctness (cross validation).
+     * Checks the current state of the object for correctness.
      */
     @Override
     public void validate() {
